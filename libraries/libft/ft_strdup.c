@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/15 16:01:28 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/15 16:56:48 by okrahl           ###   ########.fr       */
+/*   Created: 2023/05/12 13:56:26 by okrahl            #+#    #+#             */
+/*   Updated: 2023/05/12 14:18:41 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/cubed3D.h"
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "libft.h"
 
-
-int	main(void)
+char	*ft_strdup(const char *s)
 {
-	t_data	*data;
+	char	*p;
+	int		i;
 
-	data = initialize_data();
-	print_map(data);
-	printf("Map height: %d\n", data->map_height);
-	printf("Map width: %d\n", data->map_width);
-	return (1);
+	i = 0;
+	p = malloc ((ft_strlen((char *)s) + 1) * sizeof (char));
+	if (!p)
+		return (NULL);
+	while (*s != 0)
+	{
+		p[i] = *s;
+		s++;
+		i++;
+	}
+	p[i] = '\0';
+	return (p);
 }

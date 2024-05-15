@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
+/*   By: okrahl <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/15 16:01:28 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/15 16:56:48 by okrahl           ###   ########.fr       */
+/*   Created: 2023/05/03 12:59:23 by okrahl            #+#    #+#             */
+/*   Updated: 2023/05/03 12:59:26 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include <unistd.h>
+#include <stdio.h>
 
-#include "../incl/cubed3D.h"
-
-
-int	main(void)
+int	ft_isalpha(int c)
 {
-	t_data	*data;
-
-	data = initialize_data();
-	print_map(data);
-	printf("Map height: %d\n", data->map_height);
-	printf("Map width: %d\n", data->map_width);
-	return (1);
+	if (((c >= 65) && (c <= 90)) || ((c >= 97) && (c <= 122)))
+		return (1);
+	else
+		return (0);
 }
+
+/*
+int main(void)
+{
+	char c;
+
+	c = 10;
+	printf("%d", ft_isalpha(c));
+}
+*/

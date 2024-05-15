@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/15 16:01:28 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/15 16:56:48 by okrahl           ###   ########.fr       */
+/*   Created: 2023/05/08 17:44:20 by okrahl            #+#    #+#             */
+/*   Updated: 2023/05/08 17:46:17 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/cubed3D.h"
+#include <unistd.h>
+#include <stdio.h>
 
-
-int	main(void)
+int	ft_tolower(int c)
 {
-	t_data	*data;
-
-	data = initialize_data();
-	print_map(data);
-	printf("Map height: %d\n", data->map_height);
-	printf("Map width: %d\n", data->map_width);
-	return (1);
+	if (c >= 65 && c <= 90)
+		c = c + 32;
+	return (c);
 }
+/*
+int main (void)
+{
+int c;
+
+c = 69;
+printf("%d", ft_tolower(c));
+}
+*/

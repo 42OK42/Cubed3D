@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/15 16:01:28 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/15 16:56:48 by okrahl           ###   ########.fr       */
+/*   Created: 2023/05/08 14:25:47 by okrahl            #+#    #+#             */
+/*   Updated: 2023/05/09 15:29:18 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include <unistd.h>
+#include <stdio.h>
 
-#include "../incl/cubed3D.h"
-
-
-int	main(void)
+void	*ft_memchr(const void *s, int c, unsigned int n)
 {
-	t_data	*data;
+	unsigned int	i;
 
-	data = initialize_data();
-	print_map(data);
-	printf("Map height: %d\n", data->map_height);
-	printf("Map width: %d\n", data->map_width);
-	return (1);
+	i = 0;
+	while (i < n)
+	{
+		if (*(unsigned char *) s == (unsigned char) c)
+			return ((void *)s);
+		s++;
+		i++;
+	}
+	return (0);
 }
+/*
+int main (void)
+{
+    char s [50] = "hallo";
+    write(1, ft_memchr(&s, 'a', 3), 5);
+    return(0);
+}
+*/

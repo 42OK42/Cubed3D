@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
+/*   By: okrahl <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/15 16:01:28 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/15 16:56:48 by okrahl           ###   ########.fr       */
+/*   Created: 2023/06/13 17:05:42 by okrahl            #+#    #+#             */
+/*   Updated: 2023/06/13 17:05:46 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "libft.h"
 
-#include "../incl/cubed3D.h"
-
-
-int	main(void)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_data	*data;
+	t_list	*p;
 
-	data = initialize_data();
-	print_map(data);
-	printf("Map height: %d\n", data->map_height);
-	printf("Map width: %d\n", data->map_width);
-	return (1);
+	if (*lst == NULL)
+		*lst = new;
+	else
+	{
+		p = ft_lstlast(*lst);
+		p -> next = new;
+	}
 }

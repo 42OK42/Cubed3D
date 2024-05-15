@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/15 16:01:28 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/15 16:56:48 by okrahl           ###   ########.fr       */
+/*   Created: 2023/05/08 17:59:28 by okrahl            #+#    #+#             */
+/*   Updated: 2023/05/08 18:59:22 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include <unistd.h>
+#include <stdio.h>
+#include "libft.h"
 
-#include "../incl/cubed3D.h"
-
-
-int	main(void)
+char	*ft_strchr(const char *s, int c)
 {
-	t_data	*data;
-
-	data = initialize_data();
-	print_map(data);
-	printf("Map height: %d\n", data->map_height);
-	printf("Map width: %d\n", data->map_width);
-	return (1);
+	while (*s != 0)
+	{
+		if (*s == (char) c)
+			return ((char *)s);
+		s++;
+	}
+	if ((char) c == 0)
+		return ((char *)s);
+	return (0);
 }
+
+/*
+int main (void)
+{
+    char *s = "hallo";
+    write(1, ft_strchr(s, 'a'), 5);
+    return(0);
+}
+*/

@@ -1,40 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cubed3D.h                                          :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/15 16:52:48 by okrahl           ###   ########.fr       */
+/*   Created: 2023/08/01 14:36:33 by okrahl            #+#    #+#             */
+/*   Updated: 2023/08/16 13:22:22 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUBED3D_H
-# define CUBED3D_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-# include <mlx.h>
 # include <unistd.h>
 # include <stdio.h>
-# include <string.h>
 # include <stdlib.h>
-# include <fcntl.h>
-# include "libft.h"
 
-typedef struct s_data
-{
-	char	*filename;
-	char	**map;
-	int		map_height;
-	int		map_width;
-}			t_data;
-
-// initialize_game.c
-char	**map_read(t_data *data);
-void	*open_window(void	*mlx, t_data *data);
-t_data	*initialize_data(void);
-
-//helpers.c
-void	print_map(t_data *data);
-
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 5
 # endif
+
+char	*ft_strchr(const char *s, int c);
+char	*ft_strjoin(char *s1, char *s2);
+char	*allocate_memory2(size_t total_length);
+void	*ft_calloc(size_t nmemb, size_t size);
+size_t	ft_strlen(const char *s);
+char	*get_next_line(int fd);
+char	*ft_line(char	*read);
+char	*ft_next(char	*read);
+char	*ft_read(int fd, char *result);
+char	*ft_free(char *read, char *buffer);
+
+#endif

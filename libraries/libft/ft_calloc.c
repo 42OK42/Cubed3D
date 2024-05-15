@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/15 16:01:28 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/15 16:56:48 by okrahl           ###   ########.fr       */
+/*   Created: 2023/05/11 17:09:20 by okrahl            #+#    #+#             */
+/*   Updated: 2023/05/12 14:13:22 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/cubed3D.h"
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "libft.h"
 
-
-int	main(void)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	t_data	*data;
+	char	*p;
+	int		i;
 
-	data = initialize_data();
-	print_map(data);
-	printf("Map height: %d\n", data->map_height);
-	printf("Map width: %d\n", data->map_width);
-	return (1);
+	p = malloc((int)nmemb * size);
+	i = 0;
+	if (p == NULL)
+		return (NULL);
+	while (i < (int)(size * nmemb))
+	{
+		p[i] = 0;
+		i++;
+	}
+	return (p);
 }

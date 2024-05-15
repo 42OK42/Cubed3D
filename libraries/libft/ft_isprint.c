@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
+/*   By: okrahl <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/15 16:01:28 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/15 16:56:48 by okrahl           ###   ########.fr       */
+/*   Created: 2023/05/03 14:27:49 by okrahl            #+#    #+#             */
+/*   Updated: 2023/05/03 14:27:51 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/cubed3D.h"
+#include <stdio.h>
 
-
-int	main(void)
+int	ft_isprint(int c)
 {
-	t_data	*data;
-
-	data = initialize_data();
-	print_map(data);
-	printf("Map height: %d\n", data->map_height);
-	printf("Map width: %d\n", data->map_width);
-	return (1);
+	if (c >= 32 && c < 127)
+		return (1);
+	return (0);
 }
+/*
+int main(void)
+{
+	char *c;
+
+	c = "10";
+	printf("%d", ft_isprint(c));
+}
+*/

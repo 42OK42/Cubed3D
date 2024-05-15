@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
+/*   By: okrahl <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/15 16:01:28 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/15 16:56:48 by okrahl           ###   ########.fr       */
+/*   Created: 2023/05/03 13:02:15 by okrahl            #+#    #+#             */
+/*   Updated: 2023/05/03 13:02:18 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include <unistd.h>
+#include <stdio.h>
+#include "libft.h"
 
-#include "../incl/cubed3D.h"
-
-
-int	main(void)
+int	ft_isalnum(int c)
 {
-	t_data	*data;
-
-	data = initialize_data();
-	print_map(data);
-	printf("Map height: %d\n", data->map_height);
-	printf("Map width: %d\n", data->map_width);
-	return (1);
+	if ((ft_isalpha(c) == 1) || (ft_isdigit(c) == 1))
+		return (1);
+	else
+		return (0);
 }
+/*
+int main(void)
+{
+	char c;
+
+	c = 10;
+	printf("%d", ft_isalnum(c));
+}
+*/
