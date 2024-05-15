@@ -27,6 +27,7 @@ NAME = cubed3D
 SRCS = 	main.c \
 		initialize_game.c \
 		helper.c \
+		close_game.c \
 
 # OBJECT FILES
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
@@ -35,7 +36,7 @@ OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 CC = gcc
 
 # COMPILATION FLAGS
-CFLAGS = -Wall -Wextra -Werror -I$(INCL_DIR) -Imlx_linux -I$(LIBFT_DIR)
+CFLAGS = -Wall -Wextra -Werror -I$(INCL_DIR) -Imlx_linux -I$(LIBFT_DIR) -g
 
 # LINKER FLAGS
 LDFLAGS = -Lmlx_linux -lmlx -L/usr/lib -lXext -lX11 -lm -L$(LIBFT_DIR) -lft

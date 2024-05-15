@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   helper.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/15 17:07:19 by okrahl            #+#    #+#             */
+/*   Updated: 2024/05/15 18:45:37 by okrahl           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cubed3D.h"
 
 void	print_map(t_data *data)
@@ -62,6 +74,7 @@ int	find_map_height_before_map(t_data *data)
 	return (map_height);
 }
 
+
 t_data	*initialize_data(void)
 {
 	t_data	*data;
@@ -73,6 +86,5 @@ t_data	*initialize_data(void)
 	data->map_height = find_map_height_before_map(data);
 	data->map = map_read(data);
 	data->map_width = find_map_width(data);
-	data->map_height = find_map_height(data);
 	return (data);
 }

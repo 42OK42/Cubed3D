@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/15 16:52:48 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/15 18:44:54 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,16 @@
 # include <fcntl.h>
 # include "libft.h"
 
+
+typedef struct s_window
+{
+	void			*mlx;
+	void			*mlx_win;
+}					t_window;
+
 typedef struct s_data
 {
+	t_window	*window;
 	char	*filename;
 	char	**map;
 	int		map_height;
@@ -30,11 +38,15 @@ typedef struct s_data
 }			t_data;
 
 // initialize_game.c
+t_window	*initialize_window(t_data *data);
 char	**map_read(t_data *data);
-void	*open_window(void	*mlx, t_data *data);
-t_data	*initialize_data(void);
 
 //helpers.c
+t_data	*initialize_data(void);
 void	print_map(t_data *data);
+
+// close_game.c
+int		close_window(void *param);
+void	free_map(t_data *data);
 
 # endif
