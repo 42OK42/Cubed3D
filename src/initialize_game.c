@@ -7,36 +7,81 @@ t_window	*initialize_window(t_data *data)
 	window = (t_window *) malloc (sizeof(t_window));
 	window->mlx = NULL;
 	window->mlx = mlx_init();
-	window->mlx_win = mlx_new_window(window->mlx, (data->map_width * 100), ((data->map_height + 1) * 100), "Hello world!");
+	window->mlx_win = mlx_new_window(window->mlx, (data->map_width * data->settings->tile_size), ((data->map_height) * data->settings->tile_size), "Hello world!");
 	printf("Window created\n");
 	printf("window->mlx_win: %p\n", window->mlx_win);
-	//draw_map(data);
+	draw_background(data, window);
+	draw_walls(data, window);
 	return (window);
 }
-/* 
-void	draw_map(t_data *data)
+
+void	draw_walls(t_data *data, t_window *window)
 {
+	int	x;
+	int	y;
 	int	i;
 	int	j;
 
-	i = 0;
-	while (data->map[i])
+	y = 0;
+	x = 0;
+	printf("draw_map\n");
+	printf("data->map_height: %d\n", data->map_height);
+	printf("data->map_width: %d\n", data->map_width);
+	while (y < data->map_height)
 	{
-		j = 0;
-		while (data->map[i][j])
+		x = 0;
+		printf("data->map[%i][%i]: %c\n", y, x, data->map[y][x]);
+		while (x < data->map_width)
 		{
-			if (data->map[i][j] == '1')
-				draw_wall(data, i, j);
-			else if (data->map[i][j] == '0')
-				draw_floor(data, i, j);
-			else if (data->map[i][j] == 'N' || data->map[i][j] == 'S' || \
-			data->map[i][j] == 'E' || data->map[i][j] == 'W')
-				draw_player(data, i, j);
-			j++;
+			i = 0;
+			while (i < data->settings->tile_size && data->map[y][x] == '1')
+			{
+				j = 0;
+				while (j < data->settings->tile_size)
+				{
+					mlx_pixel_put(window->mlx, window->mlx_win, x * data->settings->tile_size + i, y * data->settings->tile_size + j, data->settings->wall_color);
+					j++;
+				}
+				i++;
+			}
+			x++;
 		}
-		i++;
+		y++;
 	}
-} */
+}
+
+void	draw_background(t_data *data, t_window *window)
+{
+	int	x;
+	int	y;
+	int	i;
+	int	j;
+
+	y = 0;
+	x = 0;
+	printf("draw_map\n");
+	while (y < data->map_height)
+	{
+		x = 0;
+		printf("data->map[%i][%i]: %c\n", y, x, data->map[y][x]);
+		while (x < data->map_width)
+		{
+			i = 0;
+			while (i < data->settings->tile_size && data->map[y][x] == '0')
+			{
+				j = 0;
+				while (j < data->settings->tile_size)
+				{
+					mlx_pixel_put(window->mlx, window->mlx_win, x * data->settings->tile_size + i, y * data->settings->tile_size + j, data->settings->background_color);
+					j++;
+				}
+				i++;
+			}
+			x++;
+		}
+		y++;
+	}
+}
 
 char	**map_read(t_data *data)
 {

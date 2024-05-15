@@ -28,6 +28,8 @@ SRCS = 	main.c \
 		initialize_game.c \
 		helper.c \
 		close_game.c \
+		initialize_data.c \
+		update_game.c \
 
 # OBJECT FILES
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
