@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/15 20:25:05 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/23 11:46:12 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@ int	find_map_height_before_map(t_data *data);
 // initialize_game.c
 t_window	*initialize_window(t_data *data);
 char	**map_read(t_data *data);
-void	draw_background(t_data *data, t_window *window);
-void	draw_walls(t_data *data, t_window *window);
+void	draw_element(t_data *data, t_window *window, char c, int c_color);
 
 // main.c
 int	main(void);
