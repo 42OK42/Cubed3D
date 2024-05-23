@@ -30,6 +30,7 @@ SRCS = 	main.c \
 		close_game.c \
 		initialize_data.c \
 		initialize_player.c \
+		draw_level.c \
 		update_game.c \
 
 # OBJECT FILES

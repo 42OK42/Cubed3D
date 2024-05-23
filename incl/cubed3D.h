@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/23 12:58:06 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/23 18:49:22 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,16 @@
 # include <string.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <math.h>
 # include "libft.h"
 
+# define M_PI 3.14159265358979323846
 
 typedef struct s_window
 {
 	void			*mlx;
 	void			*mlx_win;
+	int				needs_redraw;
 }					t_window;
 
 typedef struct s_settings
@@ -33,7 +36,11 @@ typedef struct s_settings
 	int	background_color;
 	int	wall_color;
 	int	player_color;
+	int	ray_color;
 	int	tile_size;
+	int	move_step;
+	int	rotation_step;
+	int	direction_line_length;
 }					t_settings;
 
 typedef struct s_player
@@ -42,11 +49,26 @@ typedef struct s_player
 	int	player_direction;
 }					t_player;
 
+typedef struct s_temp
+{
+	int		center_x;
+	int		center_y;
+	int		end_x;
+	int		end_y;
+	int		dx;
+	int		dy;
+	int		sx;
+	int		sy;
+	int		err;
+	double	angle_rad;
+}					t_temp;
+
 typedef struct s_data
 {
 	t_window	*window;
 	t_settings	*settings;
 	t_player	*player;
+	t_temp		*temp;
 	char		*filename;
 	char		**map;
 	int			map_height;
@@ -54,39 +76,48 @@ typedef struct s_data
 }			t_data;
 
 // close_game.c
-int		close_window(void *param);
-void	free_map(t_data *data);
+int			close_window(void *param);
+void		free_map(t_data *data);
 
 //helper.c
-void	print_map(t_data *data);
+void		print_map(t_data *data);
 
 //initialize_data.c
-t_data	*initialize_data(void);
+t_data		*initialize_data(void);
 t_settings	*initialize_settings(t_data *data);
 t_player	*initialize_player(t_data *data);
-int	find_map_width(t_data *data);
-int	find_map_height_before_map(t_data *data);
+t_temp		*initialize_temp();
+int			find_map_width(t_data *data);
+int			find_map_height_before_map(t_data *data);
 
 //initialize_player.c
-int	**initialize_player_position(t_data *data);
-int	initialize_player_direction(t_data	*data, int	**player_position);
+int			**initialize_player_position(t_data *data);
+int			initialize_player_direction(t_data	*data, int	**player_position);
 
 // initialize_game.c
 t_window	*initialize_window(t_data *data);
-char	**map_read(t_data *data);
-void	draw_element(t_data *data, t_window *window, char c, int c_color);
-void	draw_tile(t_window *window, int tile_size, int tile_x, int tile_y, int color);
-void	draw_player(t_data *data, t_window *window);
+char		**map_read(t_data *data);
+
+// draw_level.c
+void		draw_element(t_data *data, t_window *window, char c, int c_color);
+void		draw_tile(t_window *window, int tile_size, int tile_x, int tile_y, int color);
+void		draw_player(t_data *data, t_window *window);
+void		draw_player_direction(t_data *data, t_window *window);
+void		draw_level(t_data *data, t_window *window);
+void		bresenham_algorithm(t_data *data, t_window *window);
+void		calculate_end_point(t_data *data, int length);
 
 // main.c
-int	main(void);
+int			main(void);
 
 //update_game.c
-int	on_press(int keycode, t_data *data);
-int	game_loop(t_data *data);
-int	on_press(int keycode, t_data *data);
-
-
+int			on_press(int keycode, t_data *data);
+int			game_loop(t_data *data);
+int			on_press(int keycode, t_data *data);
+void		update_player_position(t_data *data, char direction);
+void		update_player_direction(t_data *data, char direction);
+int			update_frame(t_data *data);
+int			is_position_walkable(t_data *data, int x, int y);
 
 
 # endif
