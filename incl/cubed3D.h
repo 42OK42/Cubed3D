@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/23 12:29:05 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/23 12:58:06 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,21 @@ typedef struct s_settings
 	int	tile_size;
 }					t_settings;
 
+typedef struct s_player
+{
+	int	**player_position;
+	int	player_direction;
+}					t_player;
+
 typedef struct s_data
 {
 	t_window	*window;
 	t_settings	*settings;
-	char	*filename;
-	char	**map;
-	int		map_height;
-	int		map_width;
-	int		**player_position;
+	t_player	*player;
+	char		*filename;
+	char		**map;
+	int			map_height;
+	int			map_width;
 }			t_data;
 
 // close_game.c
@@ -57,9 +63,13 @@ void	print_map(t_data *data);
 //initialize_data.c
 t_data	*initialize_data(void);
 t_settings	*initialize_settings(t_data *data);
+t_player	*initialize_player(t_data *data);
 int	find_map_width(t_data *data);
 int	find_map_height_before_map(t_data *data);
+
+//initialize_player.c
 int	**initialize_player_position(t_data *data);
+int	initialize_player_direction(t_data	*data, int	**player_position);
 
 // initialize_game.c
 t_window	*initialize_window(t_data *data);

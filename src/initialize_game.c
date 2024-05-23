@@ -25,8 +25,8 @@ void	draw_player(t_data *data, t_window *window)
 	int	i;
 	int	j;
 
-	px = data->player_position[0][0];
-	py = data->player_position[0][1];
+	px = data->player->player_position[0][0];
+	py = data->player->player_position[0][1];
 	offset = 5;
 	i = px - offset;
 	while (i <= px + offset)

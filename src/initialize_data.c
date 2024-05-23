@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:07:19 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/23 12:48:09 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/23 13:06:36 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,32 +64,17 @@ t_settings	*initialize_settings(t_data *data)
 	return (settings);
 }
 
-int	**initialize_player_position(t_data *data)
+t_player	*initialize_player(t_data *data)
 {
-	int	**player_position;
-	int	y;
-	int	x;
+	t_player	*player;
 
-	y = 0;
-	x = 0;
-	player_position = malloc(sizeof(int *) * 2);
-	if (!player_position)
+	player = malloc(sizeof(t_player));
+	if (!player)
 		return (0);
-	player_position[0] = malloc(sizeof(int) * 2);
-	if (!player_position[0])
-		return (0);
-	while (data->map[y][x] && data->map[y][x] != 'N' && data->map[y][x] != 'E' && data->map[y][x] != 'W' && data->map[y][x] != 'S')
-	{
-		while (data->map[y][x] && data->map[y][x] != 'N' && data->map[y][x] != 'E' && data->map[y][x] != 'W' && data->map[y][x] != 'S')
-			x++;
-		if (data->map[y][x] == 'N' || data->map[y][x] == 'E' || data->map[y][x] == 'W' || data->map[y][x] == 'S')
-			break ;
-		y++;
-		x = 0;
-	}
-	player_position[0][0] = x * data->settings->tile_size + data->settings->tile_size / 2;
-	player_position[0][1] = y * data->settings->tile_size + data->settings->tile_size / 2;
-	return (player_position);
+	player->player_position = initialize_player_position(data);
+	player->player_direction = initialize_player_direction(data, player->player_position);
+	printf("player_direction: %d\n", player->player_direction);
+	return (player);
 }
 
 t_data	*initialize_data(void)
@@ -104,7 +89,7 @@ t_data	*initialize_data(void)
 	data->map = map_read(data);
 	data->map_width = find_map_width(data);
 	data->settings = initialize_settings(data);
-	data->player_position = initialize_player_position(data);
+	data->player = initialize_player(data);
 	data->window = initialize_window(data);
 	return (data);
 }
