@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/23 11:46:12 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/23 12:29:05 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_settings
 {
 	int	background_color;
 	int	wall_color;
+	int	player_color;
 	int	tile_size;
 }					t_settings;
 
@@ -43,6 +44,7 @@ typedef struct s_data
 	char	**map;
 	int		map_height;
 	int		map_width;
+	int		**player_position;
 }			t_data;
 
 // close_game.c
@@ -57,11 +59,14 @@ t_data	*initialize_data(void);
 t_settings	*initialize_settings(t_data *data);
 int	find_map_width(t_data *data);
 int	find_map_height_before_map(t_data *data);
+int	**initialize_player_position(t_data *data);
 
 // initialize_game.c
 t_window	*initialize_window(t_data *data);
 char	**map_read(t_data *data);
 void	draw_element(t_data *data, t_window *window, char c, int c_color);
+void	draw_tile(t_window *window, int tile_size, int tile_x, int tile_y, int color);
+void	draw_player(t_data *data, t_window *window);
 
 // main.c
 int	main(void);
