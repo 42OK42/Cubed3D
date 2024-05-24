@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:16:50 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/23 18:51:01 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/24 15:37:25 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,23 @@ int	game_loop(t_data *data)
 
 int	update_frame(t_data *data)
 {
+	int	i;
+
 	if (data->window->needs_redraw)
 	{
 		//mlx_clear_window(data->window->mlx, data->window->mlx_win);
 		draw_level(data, data->window);
+		raycaster(data);
+		i = 0;
+		if (data->settings->show_rays)
+		{
+			while (i < data->settings->num_rays)
+			{
+				printf("Ray %d: angle %d, length %f\n", i, data->rays[i]->angle, data->rays[i]->length);
+				draw_ray(data, data->window, data->rays[i]->length, data->rays[i]->angle);
+				i++;
+			}
+		}
 		data->window->needs_redraw = 0;
 	}
 	return (1);

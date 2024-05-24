@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/23 18:49:22 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/24 15:31:44 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,29 @@ typedef struct s_window
 
 typedef struct s_settings
 {
-	int	background_color;
-	int	wall_color;
-	int	player_color;
-	int	ray_color;
-	int	tile_size;
-	int	move_step;
-	int	rotation_step;
-	int	direction_line_length;
+	int		background_color;
+	int		wall_color;
+	int		player_color;
+	int		ray_color;
+	int		tile_size;
+	int		show_rays;
+	int		move_step;
+	int		rotation_step;
+	float	direction_line_length;
+	float	ray_step_size;
+	int		num_rays;
+	int		fov;
 }					t_settings;
 
 typedef struct s_player
 {
-	int	**player_position;
-	int	player_direction;
+	int		**player_position;
+	int		player_direction;
 }					t_player;
 
 typedef struct s_temp
 {
+	// draw_level
 	int		center_x;
 	int		center_y;
 	int		end_x;
@@ -61,7 +66,25 @@ typedef struct s_temp
 	int		sy;
 	int		err;
 	double	angle_rad;
+	// raycaster
+	float	current_x;
+	float	current_y;
+	int		next_x;
+	int		next_y;
+	float	step_x;
+	float	step_y;
+	float	ray_angle_rad;
+	float	ray_distance;
+	int		hit_wall;
 }					t_temp;
+
+typedef struct s_rays
+{
+	float		length;
+	int			angle;
+	int			hit_x;
+	int			hit_y;
+}			t_rays;
 
 typedef struct s_data
 {
@@ -69,6 +92,7 @@ typedef struct s_data
 	t_settings	*settings;
 	t_player	*player;
 	t_temp		*temp;
+	t_rays		**rays;
 	char		*filename;
 	char		**map;
 	int			map_height;
@@ -89,6 +113,7 @@ t_player	*initialize_player(t_data *data);
 t_temp		*initialize_temp();
 int			find_map_width(t_data *data);
 int			find_map_height_before_map(t_data *data);
+t_rays		**initialize_rays(t_data *data);
 
 //initialize_player.c
 int			**initialize_player_position(t_data *data);
@@ -100,12 +125,14 @@ char		**map_read(t_data *data);
 
 // draw_level.c
 void		draw_element(t_data *data, t_window *window, char c, int c_color);
-void		draw_tile(t_window *window, int tile_size, int tile_x, int tile_y, int color);
 void		draw_player(t_data *data, t_window *window);
-void		draw_player_direction(t_data *data, t_window *window);
+void		draw_ray(t_data *data, t_window *window, float length, int angle);
 void		draw_level(t_data *data, t_window *window);
+
+// helper_drawlevel.c
 void		bresenham_algorithm(t_data *data, t_window *window);
 void		calculate_end_point(t_data *data, int length);
+void		draw_tile(t_window *window, int tile_size, int tile_x, int tile_y, int color);
 
 // main.c
 int			main(void);
@@ -119,5 +146,8 @@ void		update_player_direction(t_data *data, char direction);
 int			update_frame(t_data *data);
 int			is_position_walkable(t_data *data, int x, int y);
 
+// raycaster.c
+void		raycaster(t_data *data);
+void		calculate_distance_to_wall(t_data *data, int ray_angle, int i);
 
 # endif

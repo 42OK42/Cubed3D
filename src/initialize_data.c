@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:07:19 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/23 17:57:27 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/24 15:40:31 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,16 @@ t_settings	*initialize_settings(t_data *data)
 		return (NULL);
 	settings->move_step = 5;
 	settings->rotation_step = 5;
-	settings->direction_line_length = 20;
+	settings->direction_line_length = 20.0;
 	settings->background_color = 0xFFFFFF;
 	settings->wall_color = 0x467836;
 	settings->player_color = 0x0000FF;
 	settings->ray_color = 0xFF0000;
 	settings->tile_size = 100;
+	settings->fov = 20;
+	settings->num_rays = 20;
+	settings->show_rays = 1;
+	settings->ray_step_size = 1.0;
 	return (settings);
 }
 
@@ -88,6 +92,7 @@ t_temp	*initialize_temp(void)
 	temp = malloc(sizeof(t_temp));
 	if (!temp)
 		return (0);
+	// draw_level
 	temp->center_x = 0;
 	temp->center_y = 0;
 	temp->end_x = 0;
@@ -98,7 +103,45 @@ t_temp	*initialize_temp(void)
 	temp->sy = 0;
 	temp->err = 0;
 	temp->angle_rad = 0;
+	// raycaster
+	temp->current_x = 0.0f;
+	temp->current_y = 0.0f;
+	temp->next_x = 0.0f;
+	temp->next_y = 0.0f;
+	temp->step_x = 0.0f;
+	temp->step_y = 0.0f;
+	temp->ray_angle_rad = 0.0f;
+	temp->ray_distance = 0.0f;
+	temp->hit_wall = 0;
 	return (temp);
+}
+
+t_rays	**initialize_rays(t_data *data)
+{
+	int		i;
+	t_rays	**rays;
+
+	rays = (t_rays **)malloc(sizeof(t_rays *) * data->settings->num_rays);
+	if (!rays)
+	{
+		perror("Failed to allocate memory for rays");
+		exit(EXIT_FAILURE);
+	}
+
+	i = 0;
+	while (i < data->settings->num_rays)
+	{
+		rays[i] = (t_rays *)malloc(sizeof(t_rays));
+		if (!rays[i])
+		{
+			perror("Failed to allocate memory for a ray");
+			exit(EXIT_FAILURE);
+		}
+		rays[i]->length = 0.0;
+		rays[i]->angle = 0;
+		i++;
+	}
+	return (rays);
 }
 
 t_data	*initialize_data(void)
@@ -115,6 +158,7 @@ t_data	*initialize_data(void)
 	data->settings = initialize_settings(data);
 	data->player = initialize_player(data);
 	data->temp = initialize_temp();
+	data->rays = initialize_rays(data);
 	data->window = initialize_window(data);
 	return (data);
 }

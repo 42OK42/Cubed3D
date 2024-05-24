@@ -31,6 +31,8 @@ SRCS = 	main.c \
 		initialize_data.c \
 		initialize_player.c \
 		draw_level.c \
+		helper_drawlevel.c \
+		raycaster.c \
 		update_game.c \
 
 # OBJECT FILES
