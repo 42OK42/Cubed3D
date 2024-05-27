@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 11:47:37 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/24 15:39:38 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/27 17:32:53 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,44 +14,96 @@
 
 void	raycaster(t_data *data)
 {
-	int	i;
-	int	fov;
+	int		i;
+	float	fov;
+	float	angle;
 
-	fov = data->settings->fov;
 	i = 0;
+	fov = data->settings->fov;
+	data->temp->hit_wall = 0;
 	while (i < data->settings->num_rays)
 	{
-		data->rays[i]->angle = data->player->player_direction - (fov / 2) + (fov * i / data->settings->num_rays);
-		calculate_distance_to_wall(data, data->rays[i]->angle, i);
+		angle = data->player->player_direction - (fov / 2.0) + (fov * i / (float)data->settings->num_rays);
+		data->rays[i]->angle = angle;
+		cast_ray(data, angle, i);
 		i++;
 	}
 }
 
-void	calculate_distance_to_wall(t_data *data, int ray_angle, int i)
+void	init_ray_values(t_data *data, float ray_angle)
 {
 	data->temp->current_x = data->player->player_position[0][0];
 	data->temp->current_y = data->player->player_position[0][1];
-	data->temp->hit_wall = 0;
-	data->temp->ray_angle_rad = ray_angle * M_PI / 180.0;
-	data->temp->step_x = data->settings->ray_step_size * sin(data->temp->ray_angle_rad);
-	data->temp->step_y = data->settings->ray_step_size * cos(data->temp->ray_angle_rad);
 
+	if (ray_angle != 0)
+	{
+		data->temp->step_x = cos((ray_angle - 90) * M_PI / 180.0) * data->settings->ray_step_size;
+		data->temp->step_y = sin((ray_angle - 90) * M_PI / 180.0) * data->settings->ray_step_size;
+	}
+	else
+	{
+		data->temp->step_x = 0;
+		data->temp->step_y = -data->settings->ray_step_size;
+	}
+}
+
+
+void	update_ray_position(t_data *data)
+{
+	data->temp->current_x += data->temp->step_x;
+	data->temp->current_y += data->temp->step_y;
+}
+
+int	check_wall_hit(t_data *data)
+{
+	int	cell_x;
+	int	cell_y;
+
+	cell_x = (int)(data->temp->current_x / data->settings->tile_size);
+	cell_y = (int)(data->temp->current_y / data->settings->tile_size);
+
+	if (data->map[cell_y][cell_x] == '1')
+	{
+		data->temp->hit_wall = 1;
+		return (1);
+	}
+	return (0);
+}
+
+void	cast_ray(t_data *data, float ray_angle, int i)
+{
+	int		j;
+	float	start_x;
+	float	start_y;
+	float	distance;
+
+	j = 0;
+	start_x = data->player->player_position[0][0];
+	//printf("start_x: %f\n", start_x);
+	start_y = data->player->player_position[0][1];
+	//printf("start_y: %f\n", start_y);
+	init_ray_values(data, ray_angle);
+	//printf("ray_angle: %f\n", ray_angle);
+	//printf("player_direction: %d\n", data->player->player_direction);
 	while (!data->temp->hit_wall)
 	{
-		data->temp->next_x = round(data->temp->current_x + data->temp->step_x);
-		data->temp->next_y = round(data->temp->current_y + data->temp->step_y);
-		if (data->map[data->temp->next_y / data->settings->tile_size][data->temp->next_x / data->settings->tile_size] == '1')
+		//printf("current_x_before_update: %f\n", data->temp->current_x);
+		//printf("current_y_before_update: %f\n", data->temp->current_y);
+		update_ray_position(data);
+		//printf("current_x: %f\n", data->temp->current_x);
+		//printf("current_y: %f\n", data->temp->current_y);
+		if (check_wall_hit(data))
 		{
-			data->temp->hit_wall = 1;
-			data->rays[i]->length = sqrt(pow(data->temp->next_x - data->temp->current_x, 2) + pow(data->temp->next_y - data->temp->current_y, 2));
-			printf("length: %f\n", data->rays[i]->length);
-			data->rays[i]->hit_x = (int)data->temp->next_x;
-			data->rays[i]->hit_y = (int)data->temp->next_y;
+			//printf("angle: %f\n", ray_angle);
+			//printf("step_x: %f\n", data->temp->step_x);
+			//printf("step_y: %f\n", data->temp->step_y);
+			//printf("hit_x: %d\n", (int)data->temp->current_x);
+			//printf("hit_y: %d\n", (int)data->temp->current_y);
+			distance = sqrt(pow(data->temp->current_x - start_x, 2) + pow(data->temp->current_y - start_y, 2));
+			data->rays[i]->length = distance;
+			data->rays[i]->hit_x = (int)data->temp->current_x;
+			data->rays[i]->hit_y = (int)data->temp->current_y;
 		}
-		else
-		{
-			data->temp->current_x = data->temp->next_x;
-			data->temp->current_y = data->temp->next_y;
-		}
+		j++;
 	}
 }

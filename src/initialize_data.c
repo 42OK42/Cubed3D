@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:07:19 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/24 15:40:31 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/27 17:28:06 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ t_player	*initialize_player(t_data *data)
 	//printf("player_direction: %d\n", player->player_direction);
 	return (player);
 }
+
 
 t_temp	*initialize_temp(void)
 {

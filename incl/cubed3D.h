@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/24 15:31:44 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/27 17:30:54 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,9 @@ int			is_position_walkable(t_data *data, int x, int y);
 
 // raycaster.c
 void		raycaster(t_data *data);
-void		calculate_distance_to_wall(t_data *data, int ray_angle, int i);
+void		init_ray_values(t_data *data, float ray_angle);
+void		update_ray_position(t_data *data);
+int			check_wall_hit(t_data *data);
+void		cast_ray(t_data *data, float ray_angle, int i);
 
 # endif

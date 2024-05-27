@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:16:50 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/24 15:37:25 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/27 17:32:05 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ int	update_frame(t_data *data)
 		{
 			while (i < data->settings->num_rays)
 			{
-				printf("Ray %d: angle %d, length %f\n", i, data->rays[i]->angle, data->rays[i]->length);
 				draw_ray(data, data->window, data->rays[i]->length, data->rays[i]->angle);
+				printf("ray drawn{%d}\n", i);
+				printf("ray_length{%f}\n", data->rays[i]->length);
 				i++;
 			}
 		}
