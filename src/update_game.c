@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:16:50 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/28 17:19:49 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/28 18:05:18 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,15 @@ int	update_frame(t_data *data)
 	if (data->mlx->needs_redraw)
 	{
 		//mlx_clear_window(data->mlx->mlx, data->mlx->mlx_win_minimap);
-		draw_minimap(data, data->mlx);
 		raycaster(data);
-		if (data->settings->show_rays)
-			draw_rays(data, data->mlx);
+		if (data->settings->open_minimap)
+		{
+			draw_minimap(data, data->mlx);
+			if (data->settings->show_rays)
+				draw_rays(data, data->mlx);
+		}
+		mlx_clear_window(data->mlx->mlx, data->mlx->mlx_win);
+		draw_3d_view(data);
 		data->mlx->needs_redraw = 0;
 	}
 	return (1);

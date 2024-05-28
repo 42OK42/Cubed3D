@@ -34,6 +34,7 @@ SRCS = 	main.c \
 		helper_drawlevel.c \
 		raycaster.c \
 		update_game.c \
+		3D_visualizer.c \
 
 # OBJECT FILES
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)

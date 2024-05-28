@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/28 17:18:47 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/28 19:55:23 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct s_settings
 	float	ray_step_size;
 	int		num_rays;
 	int		fov;
+	float	dist_to_proj_plane;
+	float 	max_distance;
 }					t_settings;
 
 typedef struct s_player
@@ -86,8 +88,8 @@ typedef struct s_rays
 {
 	float		length;
 	int			angle;
-	int			hit_x;
-	int			hit_y;
+	float		hit_x;
+	float		hit_y;
 }			t_rays;
 
 typedef struct s_data
@@ -102,6 +104,11 @@ typedef struct s_data
 	int					map_height;
 	int					map_width;
 }			t_data;
+
+// 3D_visualizer.c
+void		draw_3d_view(t_data *data);
+void		draw_wall_slice(t_data *data, int x, int wall_height, int color);
+void		fill_wall_between_rays(t_data *data, int x0, int x1, int wall_height, int color);
 
 // close_game.c
 int			close_window(void *param);

@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 11:47:37 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/28 16:26:25 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/28 18:21:12 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ void	cast_ray(t_data *data, float ray_angle, int i)
 			distance = sqrt(pow(data->temp->current_x - start_x, 2) + pow(data->temp->current_y - start_y, 2));
 			//printf("distance: %f\n", distance);
 			data->rays[i]->length = distance;
-			data->rays[i]->hit_x = (int)data->temp->current_x;
-			data->rays[i]->hit_y = (int)data->temp->current_y;
+			data->rays[i]->hit_x = data->temp->current_x;
+			data->rays[i]->hit_y = data->temp->current_y;
 		}
 		j++;
 	}
