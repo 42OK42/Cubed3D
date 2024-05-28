@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 12:55:52 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/24 12:56:46 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/28 16:36:50 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	calculate_end_point(t_data *data, int length)
 	data->temp->end_y = data->temp->center_y + (int)(length * sin(data->temp->angle_rad));
 }
 
-void	bresenham_algorithm(t_data *data, t_window *window)
+void	bresenham_algorithm(t_data *data, t_mlx *mlx)
 {
 	int	e2;
 
@@ -36,7 +36,7 @@ void	bresenham_algorithm(t_data *data, t_window *window)
 
 	while (1)
 	{
-		mlx_pixel_put(window->mlx, window->mlx_win, data->temp->center_x, data->temp->center_y, data->settings->player_color);
+		mlx_pixel_put(mlx->mlx, mlx->mlx_win_minimap, data->temp->center_x, data->temp->center_y, data->settings->player_color);
 		if (data->temp->center_x == data->temp->end_x && data->temp->center_y == data->temp->end_y)
 			break ;
 		e2 = 2 * data->temp->err;
@@ -53,7 +53,7 @@ void	bresenham_algorithm(t_data *data, t_window *window)
 	}
 }
 
-void	draw_tile(t_window *window, int tile_size, int tile_x, int tile_y, int color)
+void	draw_tile(t_mlx *mlx, int tile_size, int tile_x, int tile_y, int color)
 {
 	int	i;
 	int	j;
@@ -64,7 +64,7 @@ void	draw_tile(t_window *window, int tile_size, int tile_x, int tile_y, int colo
 		j = 0;
 		while (j < tile_size)
 		{
-			mlx_pixel_put(window->mlx, window->mlx_win, tile_x + i, tile_y + j, color);
+			mlx_pixel_put(mlx->mlx, mlx->mlx_win_minimap, tile_x + i, tile_y + j, color);
 			j++;
 		}
 		i++;

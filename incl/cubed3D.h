@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/28 15:57:03 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/28 17:18:47 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,19 @@
 
 # define M_PI 3.14159265358979323846
 
-typedef struct s_window
+typedef struct s_mlx
 {
 	void			*mlx;
+	void			*mlx_win_minimap;
 	void			*mlx_win;
 	int				needs_redraw;
-}					t_window;
+}					t_mlx;
 
 typedef struct s_settings
 {
+	int		window_width;
+	int		window_height;
+	int		open_minimap;
 	int		background_color;
 	int		wall_color;
 	int		player_color;
@@ -55,7 +59,7 @@ typedef struct s_player
 
 typedef struct s_temp
 {
-	// draw_level
+	// draw_minimap
 	int		center_x;
 	int		center_y;
 	int		end_x;
@@ -88,15 +92,15 @@ typedef struct s_rays
 
 typedef struct s_data
 {
-	t_window	*window;
-	t_settings	*settings;
-	t_player	*player;
-	t_temp		*temp;
-	t_rays		**rays;
-	char		*filename;
-	char		**map;
-	int			map_height;
-	int			map_width;
+	t_mlx				*mlx;
+	t_settings			*settings;
+	t_player			*player;
+	t_temp				*temp;
+	t_rays				**rays;
+	char				*filename;
+	char				**map;
+	int					map_height;
+	int					map_width;
 }			t_data;
 
 // close_game.c
@@ -120,19 +124,20 @@ float		**initialize_player_position(t_data *data);
 int			initialize_player_direction(t_data	*data, float	**player_position);
 
 // initialize_game.c
-t_window	*initialize_window(t_data *data);
+t_mlx		*initialize_mlx(t_data *data);
 char		**map_read(t_data *data);
 
-// draw_level.c
-void		draw_element(t_data *data, t_window *window, char c, int c_color);
-void		draw_player(t_data *data, t_window *window);
-void		draw_ray(t_data *data, t_window *window, float length, int angle);
-void		draw_level(t_data *data, t_window *window);
+// draw_minimap.c
+void		draw_element(t_data *data, t_mlx *mlx, char c, int c_color);
+void		draw_player(t_data *data, t_mlx *mlx);
+void		draw_rays(t_data *data, t_mlx *mlx);
+void		draw_ray(t_data *data, t_mlx *mlx, float length, int angle);
+void		draw_minimap(t_data *data, t_mlx *mlx);
 
 // helper_drawlevel.c
-void		bresenham_algorithm(t_data *data, t_window *window);
+void		bresenham_algorithm(t_data *data, t_mlx *mlx);
 void		calculate_end_point(t_data *data, int length);
-void		draw_tile(t_window *window, int tile_size, int tile_x, int tile_y, int color);
+void		draw_tile(t_mlx *mlx, int tile_size, int tile_x, int tile_y, int color);
 
 // main.c
 int			main(void);

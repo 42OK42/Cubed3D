@@ -30,7 +30,7 @@ SRCS = 	main.c \
 		close_game.c \
 		initialize_data.c \
 		initialize_player.c \
-		draw_level.c \
+		draw_minimap.c \
 		helper_drawlevel.c \
 		raycaster.c \
 		update_game.c \

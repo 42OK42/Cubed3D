@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:16:50 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/28 15:59:58 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/28 17:19:49 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,34 @@
 
 int	event_hooks(t_data *data)
 {
-	mlx_hook(data->window->mlx_win, 2, 1L << 0, on_press, data);
-	mlx_hook(data->window->mlx_win, 17, 0, close_window, data);
+	if (data->settings->open_minimap)
+	{
+		mlx_hook(data->mlx->mlx_win_minimap, 2, 1L << 0, on_press, data);
+		mlx_hook(data->mlx->mlx_win_minimap, 17, 0, close_window, data);
+	}
+	mlx_hook(data->mlx->mlx_win, 2, 1L << 0, on_press, data);
+	mlx_hook(data->mlx->mlx_win, 17, 0, close_window, data);
 	return (1);
 }
 
 int	game_loop(t_data *data)
 {
 	event_hooks(data);
-	mlx_loop_hook(data->window->mlx, update_frame, data);
-	mlx_loop(data->window->mlx);
+	mlx_loop_hook(data->mlx->mlx, update_frame, data);
+	mlx_loop(data->mlx->mlx);
 	return (1);
 }
 
 int	update_frame(t_data *data)
 {
-	int	i;
-
-	if (data->window->needs_redraw)
+	if (data->mlx->needs_redraw)
 	{
-		//mlx_clear_window(data->window->mlx, data->window->mlx_win);
-		draw_level(data, data->window);
+		//mlx_clear_window(data->mlx->mlx, data->mlx->mlx_win_minimap);
+		draw_minimap(data, data->mlx);
 		raycaster(data);
-		i = 0;
 		if (data->settings->show_rays)
-		{
-			while (i < data->settings->num_rays)
-			{
-				draw_ray(data, data->window, data->rays[i]->length, data->rays[i]->angle);
-				i++;
-			}
-		}
-		data->window->needs_redraw = 0;
+			draw_rays(data, data->mlx);
+		data->mlx->needs_redraw = 0;
 	}
 	return (1);
 }
@@ -68,7 +64,7 @@ int	on_press(int keycode, t_data *data)
 		else if (keycode == 13 || keycode == 119)
 			update_player_position(data, 'u');
 
-		data->window->needs_redraw = 1;
+		data->mlx->needs_redraw = 1;
 		return (1);
 	}
 	return (0);

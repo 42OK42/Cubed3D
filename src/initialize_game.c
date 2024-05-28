@@ -1,18 +1,20 @@
 #include "../incl/cubed3D.h"
 
-t_window	*initialize_window(t_data *data)
+t_mlx	*initialize_mlx(t_data *data)
 {
-	t_window	*window;
+	t_mlx	*mlx;
 
-	window = (t_window *) malloc (sizeof(t_window));
-	window->needs_redraw = 0;
-	window->mlx = NULL;
-	window->mlx = mlx_init();
-	window->mlx_win = mlx_new_window(window->mlx, (data->map_width * data->settings->tile_size), ((data->map_height) * data->settings->tile_size), "Hello world!");
+	mlx = (t_mlx *) malloc (sizeof(t_mlx));
+	mlx->needs_redraw = 0;
+	mlx->mlx = NULL;
+	mlx->mlx = mlx_init();
+	if (data->settings->open_minimap)
+		mlx->mlx_win_minimap = mlx_new_window(mlx->mlx, (data->map_width * data->settings->tile_size), ((data->map_height) * data->settings->tile_size), "Minimap");
+	mlx->mlx_win = mlx_new_window(mlx->mlx, data->settings->window_width, data->settings->window_height, "Cub3D");
 	//printf("Window created\n");
-	//printf("window->mlx_win: %p\n", window->mlx_win);
-	draw_level(data, window);
-	return (window);
+	//printf("mlx->mlx_win_minimap: %p\n", mlx->mlx_win_minimap);
+	draw_minimap(data, mlx);
+	return (mlx);
 }
 
 char	**map_read(t_data *data)

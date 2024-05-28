@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 11:47:37 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/28 15:45:30 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/28 16:26:25 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,12 @@ void	cast_ray(t_data *data, float ray_angle, int i)
 		//printf("current_x_before_update: %f\n", data->temp->current_x);
 		//printf("current_y_before_update: %f\n", data->temp->current_y);
 		update_ray_position(data);
-		printf("current_x: %f\n", data->temp->current_x);
-		printf("current_y: %f\n", data->temp->current_y);
+		//printf("current_x: %f\n", data->temp->current_x);
+		//printf("current_y: %f\n", data->temp->current_y);
 		if (check_wall_hit(data))
 		{
-			printf("hit_x: %d\n", (int)data->temp->current_x);
-			printf("hit_y: %d\n", (int)data->temp->current_y);
+			//printf("hit_x: %d\n", (int)data->temp->current_x);
+			//printf("hit_y: %d\n", (int)data->temp->current_y);
 			//printf("player_x: %d\n", data->player->player_position[0][0]);
 			//printf("player_y: %d\n", data->player->player_position[0][1]);
 			//printf("angle: %f\n", ray_angle);

@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:07:19 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/27 18:50:17 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/28 17:16:17 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ t_settings	*initialize_settings(t_data *data)
 	settings = malloc(sizeof(t_settings));
 	if (!settings)
 		return (NULL);
+	settings->open_minimap = 1;
 	settings->move_step = 5;
 	settings->rotation_step = 1;
 	settings->direction_line_length = 20.0;
@@ -64,11 +65,13 @@ t_settings	*initialize_settings(t_data *data)
 	settings->wall_color = 0x467836;
 	settings->player_color = 0x0000FF;
 	settings->ray_color = 0xFF0000;
-	settings->tile_size = 100;
-	settings->fov = 0;
-	settings->num_rays = 1;
+	settings->tile_size = 30;
+	settings->fov = 30;
+	settings->num_rays = 30;
 	settings->show_rays = 1;
 	settings->ray_step_size = 1.0;
+	settings->window_width = 1000;
+	settings->window_height = 1000;
 	return (settings);
 }
 
@@ -93,7 +96,7 @@ t_temp	*initialize_temp(void)
 	temp = malloc(sizeof(t_temp));
 	if (!temp)
 		return (0);
-	// draw_level
+	// draw_minimap
 	temp->center_x = 0;
 	temp->center_y = 0;
 	temp->end_x = 0;
@@ -160,6 +163,7 @@ t_data	*initialize_data(void)
 	data->player = initialize_player(data);
 	data->temp = initialize_temp();
 	data->rays = initialize_rays(data);
-	data->window = initialize_window(data);
+	raycaster(data);
+	data->mlx = initialize_mlx(data);
 	return (data);
 }
