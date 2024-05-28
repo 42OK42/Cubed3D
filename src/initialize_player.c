@@ -6,16 +6,16 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:52:48 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/23 16:02:32 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/28 15:58:02 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cubed3D.h"
 
 
-int	**initialize_player_position(t_data *data)
+float	**initialize_player_position(t_data *data)
 {
-	int	**player_position;
+	float	**player_position;
 	int	y;
 	int	x;
 
@@ -36,19 +36,19 @@ int	**initialize_player_position(t_data *data)
 		y++;
 		x = 0;
 	}
-	player_position[0][0] = x * data->settings->tile_size + data->settings->tile_size / 2;
-	player_position[0][1] = y * data->settings->tile_size + data->settings->tile_size / 2;
+	player_position[0][0] = (float)(x * data->settings->tile_size + data->settings->tile_size / 2);
+	player_position[0][1] = (float)(y * data->settings->tile_size + data->settings->tile_size / 2);
 	return (player_position);
 }
 
-int	initialize_player_direction(t_data *data, int **player_position)
+int	initialize_player_direction(t_data *data, float **player_position)
 {
 	int		tile_x;
 	int		tile_y;
 	char	direction_char;
 
-	tile_x = player_position[0][0] / data->settings->tile_size;
-	tile_y = player_position[0][1] / data->settings->tile_size;
+	tile_x = (int)(player_position[0][0]) / data->settings->tile_size;
+	tile_y = (int)(player_position[0][1]) / data->settings->tile_size;
 	direction_char = data->map[tile_y][tile_x];
 	if (direction_char == 'N')
 		return (0);

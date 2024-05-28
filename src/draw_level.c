@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 16:49:22 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/24 13:11:24 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/28 16:00:54 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ void	draw_level(t_data *data, t_window *window)
 	draw_element(data, window, '1', data->settings->wall_color);
 	draw_element(data, window, '0', data->settings->background_color);
 	draw_element(data, window, 'N', data->settings->background_color);
+	draw_element(data, window, 'S', data->settings->background_color);
+	draw_element(data, window, 'E', data->settings->background_color);
+	draw_element(data, window, 'W', data->settings->background_color);
 	draw_player(data, window);
-	draw_ray(data, window, data->settings->direction_line_length, data->player->player_direction); // Player direction
+	//draw_ray(data, window, data->settings->direction_line_length, data->player->player_direction); // Player direction
 }
 
 void	draw_ray(t_data *data, t_window *window, float length, int angle)
@@ -26,7 +29,7 @@ void	draw_ray(t_data *data, t_window *window, float length, int angle)
 	data->temp->angle_rad = (angle - 90) * M_PI / 180.0;
 	data->temp->center_x = data->player->player_position[0][0];
 	data->temp->center_y = data->player->player_position[0][1];
-	calculate_end_point(data, length);
+	calculate_end_point(data, round(length));
 	bresenham_algorithm(data, window);
 }
 
@@ -38,8 +41,8 @@ void	draw_player(t_data *data, t_window *window)
 	int	i;
 	int	j;
 
-	px = data->player->player_position[0][0];
-	py = data->player->player_position[0][1];
+	px = (int)(data->player->player_position[0][0]);
+	py = (int)(data->player->player_position[0][1]);
 	offset = 5;
 	i = px - offset;
 	while (i <= px + offset)

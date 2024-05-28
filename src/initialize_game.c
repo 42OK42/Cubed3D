@@ -24,10 +24,10 @@ char	**map_read(t_data *data)
 
 	fd = open(data->filename, O_RDONLY);
 	if (fd == -1)
-		return (printf("Error:\n File not found\n"), NULL);
+		return (ft_printf("Error:\n File not found\n"), NULL);
 	i = 0;
 	if (data->map_height < 1)
-		return (printf("Error:\n No Map!\n"), NULL);
+		return (ft_printf("Error:\n No Map!\n"), NULL);
 	map_array = (char **)malloc((data->map_height + 1) * sizeof(char *));
 	if (!map_array)
 		return (0);

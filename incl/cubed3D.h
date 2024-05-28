@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/27 17:30:54 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/28 15:57:03 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_settings
 
 typedef struct s_player
 {
-	int		**player_position;
+	float	**player_position;
 	int		player_direction;
 }					t_player;
 
@@ -116,8 +116,8 @@ int			find_map_height_before_map(t_data *data);
 t_rays		**initialize_rays(t_data *data);
 
 //initialize_player.c
-int			**initialize_player_position(t_data *data);
-int			initialize_player_direction(t_data	*data, int	**player_position);
+float		**initialize_player_position(t_data *data);
+int			initialize_player_direction(t_data	*data, float	**player_position);
 
 // initialize_game.c
 t_window	*initialize_window(t_data *data);

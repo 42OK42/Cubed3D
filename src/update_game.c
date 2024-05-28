@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:16:50 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/27 17:32:05 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/28 15:59:58 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ int	update_frame(t_data *data)
 			while (i < data->settings->num_rays)
 			{
 				draw_ray(data, data->window, data->rays[i]->length, data->rays[i]->angle);
-				printf("ray drawn{%d}\n", i);
-				printf("ray_length{%f}\n", data->rays[i]->length);
 				i++;
 			}
 		}
@@ -90,21 +88,21 @@ void	update_player_position(t_data *data, char direction)
 {
 	int		move_step;
 	double	angle_rad;
-	int		new_x;
-	int		new_y;
+	float	new_x;
+	float	new_y;
 
 	move_step = data->settings->move_step;
 	angle_rad = (data->player->player_direction - 90) * M_PI / 180.0;
 
 	if (direction == 'u')
 	{
-		new_x = data->player->player_position[0][0] + (int)(move_step * cos(angle_rad));
-		new_y = data->player->player_position[0][1] + (int)(move_step * sin(angle_rad));
+		new_x = data->player->player_position[0][0] + (move_step * cos(angle_rad));
+		new_y = data->player->player_position[0][1] + (move_step * sin(angle_rad));
 	}
 	else if (direction == 'd')
 	{
-		new_x = data->player->player_position[0][0] - (int)(move_step * cos(angle_rad));
-		new_y = data->player->player_position[0][1] - (int)(move_step * sin(angle_rad));
+		new_x = data->player->player_position[0][0] - (move_step * cos(angle_rad));
+		new_y = data->player->player_position[0][1] - (move_step * sin(angle_rad));
 	}
 	else
 		return ;

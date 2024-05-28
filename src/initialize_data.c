@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:07:19 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/27 17:28:06 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/27 18:50:17 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,15 @@ t_settings	*initialize_settings(t_data *data)
 	if (!settings)
 		return (NULL);
 	settings->move_step = 5;
-	settings->rotation_step = 5;
+	settings->rotation_step = 1;
 	settings->direction_line_length = 20.0;
 	settings->background_color = 0xFFFFFF;
 	settings->wall_color = 0x467836;
 	settings->player_color = 0x0000FF;
 	settings->ray_color = 0xFF0000;
 	settings->tile_size = 100;
-	settings->fov = 20;
-	settings->num_rays = 20;
+	settings->fov = 0;
+	settings->num_rays = 1;
 	settings->show_rays = 1;
 	settings->ray_step_size = 1.0;
 	return (settings);
