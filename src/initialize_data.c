@@ -12,19 +12,37 @@
 
 #include "../incl/cubed3D.h"
 
+// int	find_map_width(t_data *data)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	if (!data->map)
+// 		return (0);
+// 	while (data->map[0][i] != '\n' && data->map[0][i] != '\0')
+// 		i++;
+// 	return (i);
+// }
+
 int	find_map_width(t_data *data)
 {
-	int	i;
+    int max_length = 0;
+    int current_length;
+    int i = 0;
 
-	i = 0;
-	if (!data->map)
-		return (0);
-	while (data->map[0][i] != '\n' && data->map[0][i] != '\0')
-		i++;
-	return (i);
+    // Iterate through each line using a while loop
+    while (data->map[i] != NULL) {
+        current_length = ft_strlen(data->map[i]);
+        if (current_length > max_length) {
+            max_length = current_length;
+        }
+        i++; // Move to the next line
+    }
+	max_length--;
+    return (max_length);
 }
 
-int	find_map_height_before_map(t_data *data)
+int	find_map_height_before_map(t_data *data) //needs to be done on a string, not a file
 {
 	int		fd;
 	int		map_height;
@@ -63,9 +81,10 @@ t_settings	*initialize_settings(t_data *data)
 	settings->direction_line_length = 20.0;
 	settings->background_color = 0xFFFFFF;
 	settings->wall_color = 0x467836;
+	settings->space_color = 0x808080;
 	settings->player_color = 0x0000FF;
 	settings->ray_color = 0xFF0000;
-	settings->tile_size = 100;
+	settings->tile_size = 24;
 	settings->fov = 30;
 	settings->num_rays = 30;
 	settings->show_rays = 1;
@@ -150,16 +169,18 @@ t_rays	**initialize_rays(t_data *data)
 	return (rays);
 }
 
-t_data	*initialize_data(void)
+t_data	*initialize_data(char *filename)
 {
 	t_data	*data;
 
 	data = (t_data *)malloc(sizeof(t_data));
 	if (!data)
 		return (0);
-	data->filename = "map.cub";
+	data->filename = filename;
 	data->map_height = find_map_height_before_map(data);
+	write(2, "test444", 8);
 	data->map = map_read(data);
+	write(2, "test234", 8);
 	data->map_width = find_map_width(data);
 	data->settings = initialize_settings(data);
 	data->player = initialize_player(data);

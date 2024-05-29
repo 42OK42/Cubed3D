@@ -39,6 +39,7 @@ typedef struct s_settings
 	int		open_minimap;
 	int		background_color;
 	int		wall_color;
+	int		space_color;
 	int		player_color;
 	int		ray_color;
 	int		tile_size;
@@ -118,7 +119,7 @@ void		free_map(t_data *data);
 void		print_map(t_data *data);
 
 //initialize_data.c
-t_data		*initialize_data(void);
+t_data		*initialize_data(char *filename);
 t_settings	*initialize_settings(t_data *data);
 t_player	*initialize_player(t_data *data);
 t_temp		*initialize_temp();
@@ -147,7 +148,7 @@ void		calculate_end_point(t_data *data, int length);
 void		draw_tile(t_mlx *mlx, int tile_size, int tile_x, int tile_y, int color);
 
 // main.c
-int			main(void);
+int			main(int argc, char **argv);
 
 //update_game.c
 int			on_press(int keycode, t_data *data);
@@ -165,4 +166,8 @@ void		update_ray_position(t_data *data);
 int			check_wall_hit(t_data *data);
 void		cast_ray(t_data *data, float ray_angle, int i);
 
+int			args_check(int argc, char **argv);
+
+void		perror_exit(char *msg);
+void		error_exit(char *msg);
 # endif

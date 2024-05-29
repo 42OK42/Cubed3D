@@ -12,11 +12,13 @@
 
 #include "../incl/cubed3D.h"
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_data	*data;
 
-	data = initialize_data();
+	data = NULL;
+	args_check(argc, argv);
+	data = initialize_data(argv[1]);
 	draw_3d_view(data);
 	//print_map(data);
 	game_loop(data);

@@ -15,6 +15,7 @@
 void	draw_minimap(t_data *data, t_mlx *mlx)
 {
 	draw_element(data, mlx, '1', data->settings->wall_color);
+	draw_element(data, mlx, ' ', data->settings->space_color);
 	draw_element(data, mlx, '0', data->settings->background_color);
 	draw_element(data, mlx, 'N', data->settings->background_color);
 	draw_element(data, mlx, 'S', data->settings->background_color);
