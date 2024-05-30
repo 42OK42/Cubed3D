@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:07:19 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/28 19:20:54 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/30 18:37:50 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,20 @@
 
 int	find_map_width(t_data *data)
 {
-    int max_length = 0;
-    int current_length;
-    int i = 0;
+	int max_length = 0;
+	int current_length;
+	int i = 0;
 
-    // Iterate through each line using a while loop
-    while (data->map[i] != NULL) {
-        current_length = ft_strlen(data->map[i]);
-        if (current_length > max_length) {
-            max_length = current_length;
-        }
-        i++; // Move to the next line
-    }
+	// Iterate through each line using a while loop
+	while (data->map[i] != NULL) {
+		current_length = ft_strlen(data->map[i]);
+		if (current_length > max_length) {
+			max_length = current_length;
+		}
+		i++; // Move to the next line
+	}
 	max_length--;
-    return (max_length);
+	return (max_length);
 }
 
 int	find_map_height_before_map(t_data *data) //needs to be done on a string, not a file
@@ -138,6 +138,11 @@ t_temp	*initialize_temp(void)
 	temp->ray_angle_rad = 0.0f;
 	temp->ray_distance = 0.0f;
 	temp->hit_wall = 0;
+	// load_assets
+	temp->width = 0;
+	temp->height = 0;
+	temp->num_colors = 0;
+	temp->chars_per_pixel = 0;
 	return (temp);
 }
 
@@ -186,6 +191,7 @@ t_data	*initialize_data(char *filename)
 	data->player = initialize_player(data);
 	data->temp = initialize_temp();
 	data->rays = initialize_rays(data);
+	data->assets = initialize_assets(data);
 	raycaster(data);
 	data->mlx = initialize_mlx(data);
 	return (data);

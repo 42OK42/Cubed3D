@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/28 19:55:23 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/30 20:33:30 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,14 @@ typedef struct s_player
 	int		player_direction;
 }					t_player;
 
+typedef struct s_temp_assets
+{
+	int		num_colors;
+	int		chars_per_pixel;
+	int		width;
+	int		height;
+}					t_temp_assets;
+
 typedef struct s_temp
 {
 	// draw_minimap
@@ -83,7 +91,29 @@ typedef struct s_temp
 	float	ray_angle_rad;
 	float	ray_distance;
 	int		hit_wall;
+	//load_assets
+	int		width;
+	int		height;
+	int		num_colors;
+	int		chars_per_pixel;
+	char	*header;
+	char	*color_line;
+	char	*pixel_line;
 }					t_temp;
+
+typedef struct s_assets
+{
+	char	*floor_color;
+	char	*ceiling_color;
+	char	*wall_south_path;
+	char	*wall_north_path;
+	char	*wall_east_path;
+	char	*wall_west_path;
+	char	***wall_south;
+	char	***wall_north;
+	char	***wall_east;
+	char	***wall_west;
+}					t_assets;
 
 typedef struct s_rays
 {
@@ -100,6 +130,7 @@ typedef struct s_data
 	t_player			*player;
 	t_temp				*temp;
 	t_rays				**rays;
+	t_assets			*assets;
 	char				*filename;
 	char				**map;
 	int					map_height;
@@ -116,7 +147,10 @@ int			close_window(void *param);
 void		free_map(t_data *data);
 
 //helper.c
-void		print_map(t_data *data);
+void		print_map(char **map);
+void		print_colors(char ***colors, int num_colors);
+char		*ft_strncpy(char *dest, const char *src, size_t n);
+void		print_colored_map(char ***colored_map, t_temp_assets *temp);
 
 //initialize_data.c
 t_data		*initialize_data(char *filename);
@@ -159,12 +193,22 @@ void		update_player_direction(t_data *data, char direction);
 int			update_frame(t_data *data);
 int			is_position_walkable(t_data *data, int x, int y);
 
+// assets.c
+char		**read_xpm(char *PATH);
+char		***load_xpm(char *PATH, t_data *data);
+t_assets	*initialize_assets(t_data *data);
+
 // raycaster.c
 void		raycaster(t_data *data);
 void		init_ray_values(t_data *data, float ray_angle);
 void		update_ray_position(t_data *data);
 int			check_wall_hit(t_data *data);
 void		cast_ray(t_data *data, float ray_angle, int i);
+
+//free.c
+void		free_colors(char **colors, int index, t_data *data);
+void		free_pixels(char **pixels, int index, t_data *data);
+void		free_data_3d(t_data *data);
 
 int			args_check(int argc, char **argv);
 
