@@ -21,6 +21,7 @@
 # include <fcntl.h>
 # include <math.h>
 # include "libft.h"
+// ../libraries/libft/
 
 # define M_PI 3.14159265358979323846
 
@@ -119,7 +120,7 @@ void		free_map(t_data *data);
 void		print_map(t_data *data);
 
 //initialize_data.c
-t_data		*initialize_data(char *filename);
+t_data		*initialize_data(char *filename, t_data *data);
 t_settings	*initialize_settings(t_data *data);
 t_player	*initialize_player(t_data *data);
 t_temp		*initialize_temp();
@@ -168,6 +169,13 @@ void		cast_ray(t_data *data, float ray_angle, int i);
 
 int			args_check(int argc, char **argv);
 
+void		cubfile_check(char *mapfile, t_data *data);
+
 void		perror_exit(char *msg);
 void		error_exit(char *msg);
+void		print_string_array(char **str_array);
+
+int			starts_and_ends_with_wall(char **strarr);
+int			no_grey_before_or_after_white(char **strarr);
+int			ft_arrlen(char **strarr);
 # endif

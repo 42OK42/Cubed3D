@@ -58,21 +58,21 @@ int	check_wall_hit(t_data *data)
 {
 	int	cell_x;
 	int	cell_y;
-	int	cell_x2;
-	int	cell_y2;
+	// int	cell_x2;
+	// int	cell_y2;
 
 	cell_y = (int)((data->temp->current_y) / data->settings->tile_size);
 	cell_x = (int)(data->temp->current_x / data->settings->tile_size);
-	if ((int)data->temp->current_x % data->settings->tile_size < 1 && (int)data->temp->current_y % data->settings->tile_size < 1)
-	{
-		cell_x2 = cell_x - 1;
-		cell_y2 = cell_y;
-		if (data->map[cell_y2][cell_x2] == '1')
-		{
-			data->temp->hit_wall = 1;
-			return (1);
-		}
-	}
+	// if ((int)data->temp->current_x % data->settings->tile_size < 1 && (int)data->temp->current_y % data->settings->tile_size < 1)
+	// {
+	// 	cell_x2 = cell_x - 1;
+	// 	cell_y2 = cell_y;
+	// 	if (data->map[cell_y2][cell_x2] == '1')
+	// 	{
+	// 		data->temp->hit_wall = 1;
+	// 		return (1);
+	// 	}
+	// }
 	if (data->map[cell_y][cell_x] == '1')
 	{
 		data->temp->hit_wall = 1;
