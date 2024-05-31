@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 14:06:17 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/31 16:18:30 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/31 16:21:42 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ char	***create_colored_map(char ***colors, int num_colors, char **pixel_map, t_t
 	return (map);
 }
 
-char	***load_xpm(char *PATH, t_data *data)
+char	***load_xpm(char *PATH)
 {
 	char			***image_result;
 	char			**xpm_lines;
@@ -141,7 +141,6 @@ char	***load_xpm(char *PATH, t_data *data)
 	char			**pixel_map;
 	char			***colors;
 
-	printf("data->filename: %s\n", data->filename);
 	xpm_lines = read_xpm(PATH);
 	temp = parse_header(xpm_lines);
 	colors = get_colors(xpm_lines, temp->num_colors);
@@ -150,25 +149,23 @@ char	***load_xpm(char *PATH, t_data *data)
 	return (image_result);
 }
 
-t_assets	*initialize_assets(t_data *data)
+t_assets	*initialize_assets(void)
 {
 	t_assets	*assets;
 
 	assets = (t_assets *)malloc(sizeof(t_assets));
 	if (!assets)
 		return (NULL);
-	write(1, "Initializing assets\n", 21);
 	assets->ceiling_color = 0x000000;
 	assets->floor_color = 0x000000;
 	assets->wall_south_path = "images/wall_south.xpm";
 	assets->wall_north_path = "images/wall_north.xpm";
 	assets->wall_east_path = "images/wall_east.xpm";
 	assets->wall_west_path = "images/wall_west.xpm";
-	assets->wall_south = load_xpm(assets->wall_south_path, data);
-	assets->wall_north = load_xpm(assets->wall_north_path, data);
-	assets->wall_east = load_xpm(assets->wall_east_path, data);
-	assets->wall_west = load_xpm(assets->wall_west_path, data);
-
+	assets->wall_south = load_xpm(assets->wall_south_path);
+	assets->wall_north = load_xpm(assets->wall_north_path);
+	assets->wall_east = load_xpm(assets->wall_east_path);
+	assets->wall_west = load_xpm(assets->wall_west_path);
 	return (assets);
 }
 

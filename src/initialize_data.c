@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:07:19 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/30 18:37:50 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/31 16:21:06 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,15 +183,13 @@ t_data	*initialize_data(char *filename)
 		return (0);
 	data->filename = filename;
 	data->map_height = find_map_height_before_map(data);
-	write(2, "test444", 8);
 	data->map = map_read(data);
-	write(2, "test234", 8);
 	data->map_width = find_map_width(data);
 	data->settings = initialize_settings(data);
 	data->player = initialize_player(data);
 	data->temp = initialize_temp();
 	data->rays = initialize_rays(data);
-	data->assets = initialize_assets(data);
+	data->assets = initialize_assets();
 	raycaster(data);
 	data->mlx = initialize_mlx(data);
 	return (data);

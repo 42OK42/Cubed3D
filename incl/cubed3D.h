@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/31 16:16:05 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/31 16:20:36 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,9 +199,9 @@ char			*find_color(char ***colors, int num_colors, char pixel);
 char			***get_colors(char **xpm_lines, int num_colors);
 char			**get_pixel_map(char **xpm_lines, t_temp_assets *temp);
 char			***create_colored_map(char ***colors, int num_colors, char **pixel_map, t_temp_assets *temp);
-char			***load_xpm(char *PATH, t_data *data);
+char			***load_xpm(char *PATH);
 t_temp_assets	*parse_header(char **xpm_lines);
-t_assets		*initialize_assets(t_data *data);
+t_assets		*initialize_assets(void);
 
 // raycaster.c
 void			raycaster(t_data *data);

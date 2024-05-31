@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:01:28 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/30 18:39:27 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/31 16:21:22 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,5 @@ int	main(int argc, char **argv)
 	draw_3d_view(data);
 	//print_map(data);
 	game_loop(data);
-	data->assets = initialize_assets(data);
 	return (1);
 }
