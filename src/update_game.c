@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:16:50 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/28 18:05:18 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/31 16:26:35 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ void	update_player_position(t_data *data, char direction)
 
 	move_step = data->settings->move_step;
 	angle_rad = (data->player->player_direction - 90) * M_PI / 180.0;
-
 	if (direction == 'u')
 	{
 		new_x = data->player->player_position[0][0] + (move_step * cos(angle_rad));

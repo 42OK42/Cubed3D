@@ -31,7 +31,7 @@ SRCS = 	main.c \
 		initialize_data.c \
 		initialize_player.c \
 		draw_minimap.c \
-		helper_drawlevel.c \
+		helper_draw_minimap.c \
 		raycaster.c \
 		update_game.c \
 		3D_visualizer.c \

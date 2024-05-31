@@ -13,9 +13,7 @@ t_mlx	*initialize_mlx(t_data *data)
 		mlx->mlx_win_minimap = mlx_new_window(mlx->mlx, (data->map_width * data->settings->tile_size), ((data->map_height) * data->settings->tile_size), "Minimap");
 		draw_minimap(data, mlx);
 	}
-	mlx->mlx_win = mlx_new_window(mlx->mlx, data->settings->window_width, data->settings->window_height, "Cub3D");
-	//printf("Window created\n");
-	//printf("mlx->mlx_win_minimap: %p\n", mlx->mlx_win_minimap);
+	mlx->mlx_win = mlx_new_window(mlx->mlx, data->settings->window_width, data->settings->window_height, "Cubed3D");
 	return (mlx);
 }
 

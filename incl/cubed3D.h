@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/31 16:20:36 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/31 17:25:26 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ typedef struct s_data
 void			draw_3d_view(t_data *data);
 void			draw_wall_slice(t_data *data, int x, int wall_height, int color);
 void			fill_wall_between_rays(t_data *data, int x0, int x1, int wall_height, int color);
+char			***get_right_image(t_data *data, int i);
 
 // close_game.c
 int				close_window(void *param);
