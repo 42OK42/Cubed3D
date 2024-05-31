@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/30 20:33:30 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/31 16:16:05 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,80 +138,92 @@ typedef struct s_data
 }			t_data;
 
 // 3D_visualizer.c
-void		draw_3d_view(t_data *data);
-void		draw_wall_slice(t_data *data, int x, int wall_height, int color);
-void		fill_wall_between_rays(t_data *data, int x0, int x1, int wall_height, int color);
+void			draw_3d_view(t_data *data);
+void			draw_wall_slice(t_data *data, int x, int wall_height, int color);
+void			fill_wall_between_rays(t_data *data, int x0, int x1, int wall_height, int color);
 
 // close_game.c
-int			close_window(void *param);
-void		free_map(t_data *data);
+int				close_window(void *param);
+void			free_map(t_data *data);
 
 //helper.c
-void		print_map(char **map);
-void		print_colors(char ***colors, int num_colors);
-char		*ft_strncpy(char *dest, const char *src, size_t n);
-void		print_colored_map(char ***colored_map, t_temp_assets *temp);
+void			print_map(char **map);
+void			print_colors(char ***colors, int num_colors);
+char			*ft_strncpy(char *dest, const char *src, size_t n);
+void			print_colored_map(char ***colored_map, t_temp_assets *temp);
 
 //initialize_data.c
-t_data		*initialize_data(char *filename);
-t_settings	*initialize_settings(t_data *data);
-t_player	*initialize_player(t_data *data);
-t_temp		*initialize_temp();
-int			find_map_width(t_data *data);
-int			find_map_height_before_map(t_data *data);
-t_rays		**initialize_rays(t_data *data);
+t_data			*initialize_data(char *filename);
+t_settings		*initialize_settings(t_data *data);
+t_player		*initialize_player(t_data *data);
+t_temp			*initialize_temp();
+int				find_map_width(t_data *data);
+int				find_map_height_before_map(t_data *data);
+t_rays			**initialize_rays(t_data *data);
 
 //initialize_player.c
-float		**initialize_player_position(t_data *data);
-int			initialize_player_direction(t_data	*data, float	**player_position);
+float			**initialize_player_position(t_data *data);
+int				initialize_player_direction(t_data	*data, float	**player_position);
 
 // initialize_game.c
-t_mlx		*initialize_mlx(t_data *data);
-char		**map_read(t_data *data);
+t_mlx			*initialize_mlx(t_data *data);
+char			**map_read(t_data *data);
 
 // draw_minimap.c
-void		draw_element(t_data *data, t_mlx *mlx, char c, int c_color);
-void		draw_player(t_data *data, t_mlx *mlx);
-void		draw_rays(t_data *data, t_mlx *mlx);
-void		draw_ray(t_data *data, t_mlx *mlx, float length, int angle);
-void		draw_minimap(t_data *data, t_mlx *mlx);
+void			draw_element(t_data *data, t_mlx *mlx, char c, int c_color);
+void			draw_player(t_data *data, t_mlx *mlx);
+void			draw_rays(t_data *data, t_mlx *mlx);
+void			draw_ray(t_data *data, t_mlx *mlx, float length, int angle);
+void			draw_minimap(t_data *data, t_mlx *mlx);
 
 // helper_drawlevel.c
-void		bresenham_algorithm(t_data *data, t_mlx *mlx);
-void		calculate_end_point(t_data *data, int length);
-void		draw_tile(t_mlx *mlx, int tile_size, int tile_x, int tile_y, int color);
+void			bresenham_algorithm(t_data *data, t_mlx *mlx);
+void			calculate_end_point(t_data *data, int length);
+void			draw_tile(t_mlx *mlx, int tile_size, int tile_x, int tile_y, int color);
 
 // main.c
-int			main(int argc, char **argv);
+int				main(int argc, char **argv);
 
 //update_game.c
-int			on_press(int keycode, t_data *data);
-int			game_loop(t_data *data);
-int			on_press(int keycode, t_data *data);
-void		update_player_position(t_data *data, char direction);
-void		update_player_direction(t_data *data, char direction);
-int			update_frame(t_data *data);
-int			is_position_walkable(t_data *data, int x, int y);
+int				on_press(int keycode, t_data *data);
+int				game_loop(t_data *data);
+int				on_press(int keycode, t_data *data);
+void			update_player_position(t_data *data, char direction);
+void			update_player_direction(t_data *data, char direction);
+int				update_frame(t_data *data);
+int				is_position_walkable(t_data *data, int x, int y);
 
 // assets.c
-char		**read_xpm(char *PATH);
-char		***load_xpm(char *PATH, t_data *data);
-t_assets	*initialize_assets(t_data *data);
+char			**read_xpm(char *PATH);
+char			*find_color(char ***colors, int num_colors, char pixel);
+char			***get_colors(char **xpm_lines, int num_colors);
+char			**get_pixel_map(char **xpm_lines, t_temp_assets *temp);
+char			***create_colored_map(char ***colors, int num_colors, char **pixel_map, t_temp_assets *temp);
+char			***load_xpm(char *PATH, t_data *data);
+t_temp_assets	*parse_header(char **xpm_lines);
+t_assets		*initialize_assets(t_data *data);
 
 // raycaster.c
-void		raycaster(t_data *data);
-void		init_ray_values(t_data *data, float ray_angle);
-void		update_ray_position(t_data *data);
-int			check_wall_hit(t_data *data);
-void		cast_ray(t_data *data, float ray_angle, int i);
+void			raycaster(t_data *data);
+void			init_ray_values(t_data *data, float ray_angle);
+void			update_ray_position(t_data *data);
+int				check_wall_hit(t_data *data);
+void			cast_ray(t_data *data, float ray_angle, int i);
 
 //free.c
-void		free_colors(char **colors, int index, t_data *data);
-void		free_pixels(char **pixels, int index, t_data *data);
-void		free_data_3d(t_data *data);
+void			free_three_d_array(char ***colors);
+void			free_two_d_array(char **pixel_map);
+void			free_image(char ***map, int height, int width);
+void			free_data_3d(t_data *data);
 
-int			args_check(int argc, char **argv);
+//alloc_memory.c
+char			**malloc_pixel_map(int height, int width);
+char			***malloc_color_map(int height, int width);
+char			***malloc_color_entries(int num_colors);
 
-void		perror_exit(char *msg);
-void		error_exit(char *msg);
+int				args_check(int argc, char **argv);
+
+void			perror_exit(char *msg);
+void			error_exit(char *msg);
+
 # endif

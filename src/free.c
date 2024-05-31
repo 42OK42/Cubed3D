@@ -6,27 +6,65 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 14:28:44 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/30 16:14:11 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/31 15:45:21 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../incl/cubed3D.h"
 
-void	free_colors(char **colors, int index, t_data *data)
+void	free_two_d_array(char **pixel_map)
 {
-	if (index >= data->temp->num_colors)
-		return ;
-	free(colors[index]);
-	free_colors(colors, index + 1, data);
+	int	i;
+
+	i = 0;
+	while (pixel_map[i])
+	{
+		free(pixel_map[i]);
+		i++;
+	}
+	free(pixel_map);
 }
 
-void	free_pixels(char **pixels, int index, t_data *data)
+void	free_three_d_array(char ***array)
 {
-	if (index >= data->temp->height)
+	int	i;
+
+	i = 0;
+	if (!array)
 		return ;
-	free(pixels[index]);
-	free_pixels(pixels, index + 1, data);
+	while (array[i])
+	{
+		if (array[i][0])
+			free(array[i][0]);
+		if (array[i][1])
+			free(array[i][1]);
+		free(array[i]);
+		i++;
+	}
+	free(array);
 }
+
+void	free_image(char ***map, int height, int width)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < height)
+	{
+		j = 0;
+		while (j < width)
+		{
+			if (map[i][j])
+				free(map[i][j]);
+			j++;
+		}
+		free(map[i]);
+		i++;
+	}
+	free(map);
+}
+
 
 /* void	free_data_3d(t_data *data)
 {
