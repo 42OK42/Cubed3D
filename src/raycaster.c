@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 11:47:37 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/31 17:33:45 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/06/03 16:48:16 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	check_wall_hit(t_data *data)
 
 	cell_y = (int)((data->temp->current_y) / data->settings->tile_size);
 	cell_x = (int)(data->temp->current_x / data->settings->tile_size);
-	if ((int)data->temp->current_x % data->settings->tile_size == 0 && (int)data->temp->current_y % data->settings->tile_size == 0)
+	if ((int)data->temp->current_x % data->settings->tile_size < data->settings->ray_step_size && (int)data->temp->current_y % data->settings->tile_size < data->settings->ray_step_size)
 	{
 		cell_x2 = cell_x - 1;
 		cell_y2 = cell_y;

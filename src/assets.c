@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 14:06:17 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/31 16:21:42 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/31 22:09:55 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ char	***load_xpm(char *PATH)
 	colors = get_colors(xpm_lines, temp->num_colors);
 	pixel_map = get_pixel_map(xpm_lines, temp);
 	image_result = create_colored_map(colors, temp->num_colors, pixel_map, temp);
+	print_colored_map(image_result, temp);
 	return (image_result);
 }
 
