@@ -84,6 +84,8 @@ typedef struct s_temp
 	// raycaster
 	float	current_x;
 	float	current_y;
+	float	previous_x;
+	float	previous_y;
 	int		next_x;
 	int		next_y;
 	float	step_x;

@@ -40,37 +40,34 @@ char ***get_right_image(t_data *data, int i)
 	float player_x = data->player->player_position[0][0];
 	float player_y = data->player->player_position[0][1];
 
-	printf("hit_x_int %i hit_y_int %i\n", hit_x_int, hit_y_int);
-	printf("player_x %f player_y %f\n", player_x, player_y);
 	if ((hit_x_int % tile_size) == 0)
 	{
 		if (hit_y_int % tile_size == 0)
 		{
 			if (player_y < hit_y_int && player_x < hit_x_int)
-				return (printf("ray[%i] ray_hitx %f hit y %f hit wall_north\n", i, data->rays[i]->hit_x, data->rays[i]->hit_y), data->assets->wall_north);
+				return ( data->assets->wall_north);
 			if (player_y < hit_y_int && player_x > hit_x_int)
-				return (printf("ray[%i] ray_hitx %f hit y %f hit wall_east\n", i, data->rays[i]->hit_x, data->rays[i]->hit_y), data->assets->wall_east);
+				return ( data->assets->wall_east);
 			if (player_y > hit_y_int && player_x < hit_x_int)
-				return (printf("ray[%i] ray_hitx %f hit y %f hit wall_west\n", i, data->rays[i]->hit_x, data->rays[i]->hit_y), data->assets->wall_west);
+				return ( data->assets->wall_west);
 			if (player_y > hit_y_int && player_x > hit_x_int)
-				return (printf("ray[%i] ray_hitx %f hit y %f hit wall_south\n", i, data->rays[i]->hit_x, data->rays[i]->hit_y), data->assets->wall_south);
+				return ( data->assets->wall_south);
 		}
 		else
 		{
 			if (player_x < hit_x_int)
-				return (printf("ray[%i] ray_hitx %f hit y %f hit wall_west\n", i, data->rays[i]->hit_x, data->rays[i]->hit_y), data->assets->wall_west);
+				return ( data->assets->wall_west);
 			if (player_x > hit_x_int)
-				return (printf("ray[%i] ray_hitx %f hit y %f hit wall_east\n", i, data->rays[i]->hit_x, data->rays[i]->hit_y), data->assets->wall_east);
+				return ( data->assets->wall_east);
 		}
 	}
 	if ((hit_y_int % tile_size) == 0)
 	{
 		if (player_y < hit_y_int)
-			return (printf("ray[%i] ray_hitx %f hit y %f hit wall_north\n", i, data->rays[i]->hit_x, data->rays[i]->hit_y), data->assets->wall_north);
+			return (data->assets->wall_north);
 		if (player_y > hit_y_int)
-			return (printf("ray[%i] ray_hitx %f hit y %f hit wall_south\n", i, data->rays[i]->hit_x, data->rays[i]->hit_y), data->assets->wall_south);
+			return ( data->assets->wall_south);
 	}
-	ft_printf("no wall\n");
 	return (NULL);
 }
 

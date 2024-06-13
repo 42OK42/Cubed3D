@@ -77,7 +77,7 @@ t_settings	*initialize_settings(t_data *data)
 		return (NULL);
 	settings->open_minimap = 1;
 	settings->move_step = 5;
-	settings->rotation_step = 1;
+	settings->rotation_step = 3;
 	settings->direction_line_length = 20.0;
 	settings->background_color = 0xFFFFFF;
 	settings->wall_color = 0x467836;
