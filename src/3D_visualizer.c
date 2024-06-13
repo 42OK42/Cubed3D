@@ -218,6 +218,7 @@ void	draw_3d_view(t_data *data)
 		draw_wall_slice(data, screen_x, wall_height, color);
 		if (i > 0)
 		{
+			;
 			prev_screen_x = (data->settings->window_width / data->settings->num_rays) * (i - 1);
 			fill_wall_between_rays(data, prev_screen_x, screen_x, wall_height, color);
 		}

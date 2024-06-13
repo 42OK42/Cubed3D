@@ -21,6 +21,7 @@
 # include <fcntl.h>
 # include <math.h>
 # include "libft.h"
+// ../libraries/libft/
 
 # define M_PI 3.14159265358979323846
 
@@ -156,13 +157,13 @@ char			*ft_strncpy(char *dest, const char *src, size_t n);
 void			print_colored_map(char ***colored_map, t_temp_assets *temp);
 
 //initialize_data.c
-t_data			*initialize_data(char *filename);
-t_settings		*initialize_settings(t_data *data);
-t_player		*initialize_player(t_data *data);
-t_temp			*initialize_temp();
-int				find_map_width(t_data *data);
-int				find_map_height_before_map(t_data *data);
-t_rays			**initialize_rays(t_data *data);
+t_data		*initialize_data(char *filename, t_data *data);
+t_settings	*initialize_settings(t_data *data);
+t_player	*initialize_player(t_data *data);
+t_temp		*initialize_temp();
+int			find_map_width(t_data *data);
+int			find_map_height_before_map(t_data *data);
+t_rays		**initialize_rays(t_data *data);
 
 //initialize_player.c
 float			**initialize_player_position(t_data *data);
@@ -213,20 +214,15 @@ void			update_ray_position(t_data *data);
 int				check_wall_hit(t_data *data);
 void			cast_ray(t_data *data, float ray_angle, int i);
 
-//free.c
-void			free_three_d_array(char ***colors);
-void			free_two_d_array(char **pixel_map);
-void			free_image(char ***map, int height, int width);
-void			free_data_3d(t_data *data);
+int			args_check(int argc, char **argv);
 
-//alloc_memory.c
-char			**malloc_pixel_map(int height, int width);
-char			***malloc_color_map(int height, int width);
-char			***malloc_color_entries(int num_colors);
+void		cubfile_check(char *mapfile, t_data *data);
 
-int				args_check(int argc, char **argv);
+void		perror_exit(char *msg);
+void		error_exit(char *msg);
+void		print_string_array(char **str_array);
 
-void			perror_exit(char *msg);
-void			error_exit(char *msg);
-
+int			starts_and_ends_with_wall(char **strarr);
+int			no_grey_before_or_after_white(char **strarr);
+int			ft_arrlen(char **strarr);
 # endif
