@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:07:19 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/31 19:40:07 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/15 16:35:42 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ t_settings	*initialize_settings(t_data *data)
 	settings->player_color = 0x0000FF;
 	settings->ray_color = 0xFF0000;
 	settings->tile_size = 100;
-	settings->fov = 90;
-	settings->num_rays = 90;
+	settings->fov = 1;
+	settings->num_rays = 1;
 	settings->show_rays = 1;
 	settings->ray_step_size = 0.1;
 	settings->window_width = 1000;

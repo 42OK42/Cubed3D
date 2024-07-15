@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/31 17:25:26 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/15 18:22:28 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,10 @@ typedef struct s_assets
 	char	*wall_north_path;
 	char	*wall_east_path;
 	char	*wall_west_path;
-	char	***wall_south;
-	char	***wall_north;
-	char	***wall_east;
-	char	***wall_west;
+	int		**wall_south;
+	int		**wall_north;
+	int		**wall_east;
+	int		**wall_west;
 }					t_assets;
 
 typedef struct s_rays
@@ -139,9 +139,9 @@ typedef struct s_data
 
 // 3D_visualizer.c
 void			draw_3d_view(t_data *data);
-void			draw_wall_slice(t_data *data, int x, int wall_height, int color);
-void			fill_wall_between_rays(t_data *data, int x0, int x1, int wall_height, int color);
-char			***get_right_image(t_data *data, int i);
+void			draw_wall_slice(t_data *data, int x, int wall_height, int *color_row);
+void			fill_wall_between_rays(t_data *data, int x0, int x1, int wall_height, int *color_row);
+int				**get_right_image(t_data *data, int i);
 
 // close_game.c
 int				close_window(void *param);
@@ -151,7 +151,11 @@ void			free_map(t_data *data);
 void			print_map(char **map);
 void			print_colors(char ***colors, int num_colors);
 char			*ft_strncpy(char *dest, const char *src, size_t n);
-void			print_colored_map(char ***colored_map, t_temp_assets *temp);
+void			print_colored_map_before_hex(char ***colored_map, t_temp_assets *temp);
+void			print_image(int **colored_map);
+int				get_image_width(int **right_image);
+int				get_image_height(int **right_image);
+int				ft_atoi_base(char *str, int base);
 
 //initialize_data.c
 t_data			*initialize_data(char *filename);
@@ -200,7 +204,7 @@ char			*find_color(char ***colors, int num_colors, char pixel);
 char			***get_colors(char **xpm_lines, int num_colors);
 char			**get_pixel_map(char **xpm_lines, t_temp_assets *temp);
 char			***create_colored_map(char ***colors, int num_colors, char **pixel_map, t_temp_assets *temp);
-char			***load_xpm(char *PATH);
+int				**load_xpm(char *PATH);
 t_temp_assets	*parse_header(char **xpm_lines);
 t_assets		*initialize_assets(void);
 
