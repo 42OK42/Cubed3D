@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/31 17:25:26 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/15 15:27:22 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,17 @@ void			init_ray_values(t_data *data, float ray_angle);
 void			update_ray_position(t_data *data);
 int				check_wall_hit(t_data *data);
 void			cast_ray(t_data *data, float ray_angle, int i);
+
+//free.c
+void			free_three_d_array(char ***colors);
+void			free_two_d_array(char **pixel_map);
+void			free_image(char ***map, int height, int width);
+void			free_data_3d(t_data *data);
+
+//alloc_memory.c
+char			**malloc_pixel_map(int height, int width);
+char			***malloc_color_map(int height, int width);
+char			***malloc_color_entries(int num_colors);
 
 int			args_check(int argc, char **argv);
 

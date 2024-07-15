@@ -38,6 +38,9 @@ SRCS = 	main.c \
 		args_check.c \
 		cubfile_check.c \
 		utils.c \
+		assets.c \
+		free.c \
+		alloc_memory.c \
 		utils2.c
 
 # OBJECT FILES

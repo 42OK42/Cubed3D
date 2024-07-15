@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:07:19 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/31 19:40:07 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/15 15:37:14 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,11 @@ t_data	*initialize_data(char *filename, t_data *data)
 	data->player = initialize_player(data);
 	data->temp = initialize_temp();
 	data->rays = initialize_rays(data);
+	printf("map_height: %d\n", data->map_height); // Use %d for int
+	printf("map_width: %d\n", data->map_width);   // Use %d for int
+	printf("player_position0: %f\n", data->player->player_position[0][0]); // Use %f for float
+	printf("player_position1: %f\n", data->player->player_position[0][1]); // Use %f for float
+	printf("player_direction: %d\n", data->player->player_direction);
 	data->assets = initialize_assets();
 	raycaster(data);
 	data->mlx = initialize_mlx(data);
