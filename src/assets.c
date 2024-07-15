@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 14:06:17 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/15 18:16:36 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/15 18:41:01 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ int	**convert_to_hex(char ***image_before, t_temp_assets *temp)
 	int	**image_result;
 
 	i = 0;
+	image_result = malloc(sizeof(int *) * temp->height + 1);
 	while (i < temp->height)
 	{
 		j = 0;
@@ -150,6 +151,7 @@ int	**convert_to_hex(char ***image_before, t_temp_assets *temp)
 		}
 		i++;
 	}
+	image_result[i] = NULL;
 	return (image_result);
 }
 
