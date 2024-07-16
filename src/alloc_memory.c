@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:16:00 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/31 16:05:36 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/16 20:27:40 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,19 @@ char	***malloc_color_map(int height, int width)
 	int		i;
 	int		j;
 
-	map = (char ***)malloc(sizeof(char **) * height);
+	map = (char ***)malloc(sizeof(char **) * height + 1);
 	if (!map)
 		return (NULL);
-
 	i = 0;
 	while (i < height)
 	{
-		map[i] = (char **)malloc(sizeof(char *) * width);
+		map[i] = (char **)malloc(sizeof(char *) * width + 1);
 		if (!map[i])
 			return (free_three_d_array(map), NULL);
 		j = 0;
 		while (j < width)
 		{
-			map[i][j] = (char *)malloc(sizeof(char) * 8);
+			map[i][j] = (char *)malloc(sizeof(char) * 9);
 			j++;
 		}
 		i++;

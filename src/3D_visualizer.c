@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:04:27 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/15 18:21:59 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/16 20:55:59 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,72 +21,25 @@ int **get_right_image(t_data *data, int i)
 	float player_x = data->player->player_position[0][0];
 	float player_y = data->player->player_position[0][1];
 
-	printf("hit_x_int %i hit_y_int %i\n", hit_x_int, hit_y_int);
-	printf("player_x %f player_y %f\n", player_x, player_y);
 	if ((hit_x_int % tile_size) == 0)
 	{
 		if (hit_y_int % tile_size == 0)
 		{
 			if (player_y < hit_y_int && player_x < hit_x_int)
-				return (printf("ray[%i] ray_hitx %f hit y %f hit wall_north\n", i, data->rays[i]->hit_x, data->rays[i]->hit_y), data->assets->wall_north);
+				return ( data->assets->wall_north);
 			if (player_y < hit_y_int && player_x > hit_x_int)
-				return (printf("ray[%i] ray_hitx %f hit y %f hit wall_east\n", i, data->rays[i]->hit_x, data->rays[i]->hit_y), data->assets->wall_east);
+				return ( data->assets->wall_east);
 			if (player_y > hit_y_int && player_x < hit_x_int)
-				return (printf("ray[%i] ray_hitx %f hit y %f hit wall_west\n", i, data->rays[i]->hit_x, data->rays[i]->hit_y), data->assets->wall_west);
+				return ( data->assets->wall_west);
 			if (player_y > hit_y_int && player_x > hit_x_int)
-				return (printf("ray[%i] ray_hitx %f hit y %f hit wall_south\n", i, data->rays[i]->hit_x, data->rays[i]->hit_y), data->assets->wall_south);
+				return ( data->assets->wall_south);
 		}
 		else
 		{
 			if (player_x < hit_x_int)
-				return (printf("ray[%i] ray_hitx %f hit y %f hit wall_west\n", i, data->rays[i]->hit_x, data->rays[i]->hit_y), data->assets->wall_west);
+				return ( data->assets->wall_west);
 			if (player_x > hit_x_int)
-				return (printf("ray[%i] ray_hitx %f hit y %f hit wall_east\n", i, data->rays[i]->hit_x, data->rays[i]->hit_y), data->assets->wall_east);
-		}
-	}
-	if ((hit_y_int % tile_size) == 0)
-	{
-		if (player_y < hit_y_int)
-			return (printf("ray[%i] ray_hitx %f hit y %f hit wall_north\n", i, data->rays[i]->hit_x, data->rays[i]->hit_y), data->assets->wall_north);
-		if (player_y > hit_y_int)
-			return (printf("ray[%i] ray_hitx %f hit y %f hit wall_south\n", i, data->rays[i]->hit_x, data->rays[i]->hit_y), data->assets->wall_south);
-	}
-	ft_printf("no wall\n");
-	return (NULL);
-}
-
-/* char	***get_right_image(t_data *data, int i)
-{
-	int		hit_x_int;
-	int		hit_y_int;
-	int		tile_size;
-	float	player_x;
-	float	player_y;
-
-	hit_x_int = (int)round(data->rays[i]->hit_x);
-	hit_y_int = (int)round(data->rays[i]->hit_y);
-	tile_size = data->settings->tile_size;
-	player_x = data->player->player_position[0][0];
-	player_y = data->player->player_position[0][1];
-	if ((hit_x_int % tile_size) == 0)
-	{
-		if (hit_y_int % tile_size == 0)
-		{
-			if (player_y < hit_y_int && player_x < hit_x_int)
-				return (data->assets->wall_north);
-			if (player_y < hit_y_int && player_x > hit_x_int)
-				return (data->assets->wall_east);
-			if (player_y > hit_y_int && player_x < hit_x_int)
-				return (data->assets->wall_west);
-			if (player_y > hit_y_int && player_x > hit_x_int)
-				return (data->assets->wall_south);
-		}
-		else
-		{
-			if (player_x < hit_x_int)
-				return (data->assets->wall_west);
-			if (player_x > hit_x_int)
-				return (data->assets->wall_east);
+				return ( data->assets->wall_east);
 		}
 	}
 	if ((hit_y_int % tile_size) == 0)
@@ -94,26 +47,10 @@ int **get_right_image(t_data *data, int i)
 		if (player_y < hit_y_int)
 			return (data->assets->wall_north);
 		if (player_y > hit_y_int)
-			return (data->assets->wall_south);
+			return ( data->assets->wall_south);
 	}
 	return (NULL);
-} */
-
-/* char	**get_color_row(t_data *data, int i, int wall_height)
-{
-	char	**color_row;
-	char	***right_image;
-	int		image_x;
-	int		image_y;
-	int		image_height;
-
-	color_row = malloc(sizeof(char *) * wall_height);
-	right_image = get_right_image(data, i)[0];
-	image_height = get_image_height(right_image);
-	image_x = (int)data->rays[i]->hit_x % data->settings->tile_size;
-	image_y = 
-	return (color_row);
-} */
+}
 
 int	*get_color_row(t_data *data, int i, int wall_height)
 {
@@ -142,6 +79,8 @@ int	*get_color_row(t_data *data, int i, int wall_height)
 	image_height = get_image_height(right_image);
 	printf("image_height: %i\n", image_height);
 	// Calculate the x position in the image based on the hit point
+	printf("data->rays[i]->hit_x: %f\n", data->rays[i]->hit_x);
+	printf("tile_size: %i\n", data->settings->tile_size);
 	image_x = (int)data->rays[i]->hit_x % data->settings->tile_size;
 	printf("image_x: %i\n", image_x);
 	// Calculate the step size for scaling the image to the wall height
@@ -155,7 +94,7 @@ int	*get_color_row(t_data *data, int i, int wall_height)
 	while (y < wall_height)
 	{
 		image_y = (int)image_pos;
-		color_row[y] = right_image[image_y][image_x / image_width];
+		color_row[y] = right_image[image_y][(image_x / data->settings->tile_size) * image_width];
 		image_pos += step;
 		y++;
 	}
@@ -163,14 +102,14 @@ int	*get_color_row(t_data *data, int i, int wall_height)
 	return (color_row);
 }
 
-void	draw_color_row(char **color_row)
+void	draw_color_row(int *color_row)
 {
 	int	i;
 
 	i = 0;
 	while (color_row[i])
 	{
-		printf("color_row[%i]: %s\n", i, color_row[i]);
+		printf("color_row[%i]: %i\n", i, color_row[i]);
 		i++;
 	}
 }
@@ -199,6 +138,7 @@ void	draw_3d_view(t_data *data)
 		draw_wall_slice(data, screen_x, wall_height, color_row);
 		if (i > 0)
 		{
+			;
 			prev_screen_x = (data->settings->window_width / data->settings->num_rays) * (i - 1);
 			fill_wall_between_rays(data, prev_screen_x, screen_x, wall_height, color_row);
 		}
@@ -226,6 +166,7 @@ void	draw_wall_slice(t_data *data, int x, int wall_height, int *color_row)
 	int	start_y;
 	int	end_y;
 	int	y;
+	int	i;
 
 	start_y = (data->settings->window_height / 2) - (wall_height / 2);
 	end_y = (data->settings->window_height / 2) + (wall_height / 2);
@@ -236,10 +177,12 @@ void	draw_wall_slice(t_data *data, int x, int wall_height, int *color_row)
 	y = start_y;
 	printf("start_y %i end_y %i\n", start_y, end_y);
 	printf("x: %i\n", x);
+	i = 0;
 	while (y <= end_y)
 	{
-		printf("color_row[%i]: %i\n", y, color_row[y]);
-		mlx_pixel_put(data->mlx->mlx, data->mlx->mlx_win, x, y, color_row[y]);
+		printf("color_row[%i]: %i\n", y, color_row[i]);
+		mlx_pixel_put(data->mlx->mlx, data->mlx->mlx_win, x, y, color_row[i]);
 		y++;
+		i++;
 	}
 }

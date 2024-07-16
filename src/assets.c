@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 14:06:17 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/16 14:43:56 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/16 20:36:20 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,50 +128,72 @@ char	***create_colored_map(char ***colors, int num_colors, char **pixel_map, t_t
 			}
 			j++;
 		}
+		map[i][j] = NULL;
 		i++;
 	}
+	map[i] = NULL;
 	return (map);
 }
 
-int **convert_to_hex(char ***image_before, t_temp_assets *temp)
+// Funktion zur Konvertierung eines Hex-Strings in einen Dezimalwert
+int	hex_to_decimal(const char *hex_str)
 {
-	int i;
-	int j;
-	int **image_result;
+	int	decimal_value;
+	int	digit;
 
-	i = 0;
-	image_result = (int **)malloc(sizeof(int *) * temp->height);
-	if (!image_result)
+	decimal_value = 0;
+	// Überspringen des Hashtags, falls vorhanden
+	if (*hex_str == ' ')
+		hex_str++;
+	if (*hex_str == '#')
+		hex_str++;
+	// Konvertieren des Hex-Strings in einen Dezimalwert
+	while (*hex_str != '\0')
 	{
-		return (NULL);
-	}
-	while (i < temp->height)
-	{
-		image_result[i] = (int *)malloc(sizeof(int) * temp->width);
-		if (!image_result[i])
+		digit = 0;
+		if (*hex_str >= '0' && *hex_str <= '9')
+			digit = *hex_str - '0';
+		else if (*hex_str >= 'A' && *hex_str <= 'F')
+			digit = *hex_str - 'A' + 10;
+		else if (*hex_str >= 'a' && *hex_str <= 'f')
+			digit = *hex_str - 'a' + 10;
+		else
 		{
-			while (--i >= 0)
-			{
-				free(image_result[i]);
-			}
-			free(image_result);
-			return (NULL);
+			// Ungültiges Zeichen
+			ft_printf("Error: Invalid hexadecimal digit '%c'\n", *hex_str);
+			break;
 		}
+		decimal_value = (decimal_value * 16) + digit;
+		hex_str++;
+	}
+	return (decimal_value);
+}
+
+int	**convert_to_hex(char ***image_before, t_temp_assets *temp)
+{
+	int	i;
+	int	j;
+	int	**image_result;
+
+	image_result = (int **)malloc(sizeof(int *) * temp->height + 1);
+	if (!image_result)
+		return (NULL);
+	i = 0;
+	while (i < 10)
+	{
+		image_result[i] = (int *)malloc(sizeof(int) * temp->width + 1);
+		if (!image_result[i])
+			return (NULL);
 		j = 0;
-		while (j < temp->width)
+		while (j < 10)
 		{
-			if (image_before[i][j])
-			{
-				image_result[i][j] = ft_atoi_base(image_before[i][j], 16);
-			}
-			else
-			{
-				image_result[i][j] = 0;
-			}
+			image_result[i][j] = hex_to_decimal(image_before[i][j]);
 			j++;
 		}
+		image_result[i][j] = '\0';
 		i++;
 	}
+	image_result[i] = NULL;
 	return (image_result);
 }
 
@@ -190,7 +212,11 @@ int	**load_xpm(char *PATH)
 	pixel_map = get_pixel_map(xpm_lines, temp);
 	image_before_hex = create_colored_map(colors, temp->num_colors, pixel_map, temp);
 	image_result = convert_to_hex(image_before_hex, temp);
+	/* printf("before hex\n");
 	print_colored_map_before_hex(image_before_hex, temp);
+	printf("after hex\n");
+	print_image(image_result); */
+	free_three_d_array(image_before_hex);
 	return (image_result);
 }
 

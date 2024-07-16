@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:13:34 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/15 18:11:54 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/16 20:09:57 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,23 @@ void	print_colors(char ***colors, int num_colors)
 	}
 }
 
-char	*ft_strncpy(char *dest, const char *src, size_t n)
-{
-	size_t	i;
+// char	*ft_strncpy(char *dest, const char *src, size_t n)
+// {
+// 	size_t	i;
 
-	i = 0;
-	while (i < n && src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	while (i < n)
-	{
-		dest[i] = '\0';
-		i++;
-	}
-	return (dest);
-}
+// 	i = 0;
+// 	while (i < n && src[i] != '\0')
+// 	{
+// 		dest[i] = src[i];
+// 		i++;
+// 	}
+// 	while (i < n)
+// 	{
+// 		dest[i] = '\0';
+// 		i++;
+// 	}
+// 	return (dest);
+// }
 
 void	print_colored_map_before_hex(char ***colored_map, t_temp_assets *temp)
 {
@@ -76,11 +76,17 @@ void	print_colored_map_before_hex(char ***colored_map, t_temp_assets *temp)
 void	print_image(int **colored_map)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	while (i < 10)
 	{
-		ft_printf("%s ", colored_map[i]);
+		j = 0;
+		while (j < 10)
+		{
+			ft_printf("%i ", colored_map[i][j]);
+			j++;
+		}
 		ft_printf("\n");
 		i++;
 	}

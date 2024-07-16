@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:07:19 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/15 16:35:42 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/16 20:57:14 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,18 @@ t_settings	*initialize_settings(t_data *data)
 		return (NULL);
 	settings->open_minimap = 1;
 	settings->move_step = 5;
-	settings->rotation_step = 1;
+	settings->rotation_step = 3;
 	settings->direction_line_length = 20.0;
 	settings->background_color = 0xFFFFFF;
 	settings->wall_color = 0x467836;
 	settings->space_color = 0x808080;
 	settings->player_color = 0x0000FF;
 	settings->ray_color = 0xFF0000;
-	settings->tile_size = 100;
-	settings->fov = 1;
-	settings->num_rays = 1;
+	settings->tile_size = 20;
+	settings->fov = 90;
+	settings->num_rays = 90;
 	settings->show_rays = 1;
-	settings->ray_step_size = 0.1;
+	settings->ray_step_size = 0.01;
 	settings->window_width = 1000;
 	settings->window_height = 1000;
 	settings->max_distance = settings->tile_size / 5.0;
@@ -174,16 +174,11 @@ t_rays	**initialize_rays(t_data *data)
 	return (rays);
 }
 
-t_data	*initialize_data(char *filename)
+t_data	*initialize_data(char *filename, t_data *data)
 {
-	t_data	*data;
-
-	data = (t_data *)malloc(sizeof(t_data));
-	if (!data)
-		return (0);
 	data->filename = filename;
 	data->map_height = find_map_height_before_map(data);
-	data->map = map_read(data);
+	// data->map = map_read(data);
 	data->map_width = find_map_width(data);
 	data->settings = initialize_settings(data);
 	data->player = initialize_player(data);
