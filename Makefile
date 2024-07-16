@@ -36,7 +36,9 @@ SRCS = 	main.c \
 		update_game.c \
 		3D_visualizer.c \
 		args_check.c \
+		cubfile_check.c \
 		utils.c \
+		utils2.c \
 		free.c \
 		assets.c \
 		alloc_memory.c \

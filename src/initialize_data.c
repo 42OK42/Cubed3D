@@ -88,7 +88,7 @@ t_settings	*initialize_settings(t_data *data)
 	settings->fov = 90;
 	settings->num_rays = 90;
 	settings->show_rays = 1;
-	settings->ray_step_size = 0.1;
+	settings->ray_step_size = 0.01;
 	settings->window_width = 1000;
 	settings->window_height = 1000;
 	settings->max_distance = settings->tile_size / 5.0;
@@ -174,16 +174,11 @@ t_rays	**initialize_rays(t_data *data)
 	return (rays);
 }
 
-t_data	*initialize_data(char *filename)
+t_data	*initialize_data(char *filename, t_data *data)
 {
-	t_data	*data;
-
-	data = (t_data *)malloc(sizeof(t_data));
-	if (!data)
-		return (0);
 	data->filename = filename;
 	data->map_height = find_map_height_before_map(data);
-	data->map = map_read(data);
+	// data->map = map_read(data);
 	data->map_width = find_map_width(data);
 	data->settings = initialize_settings(data);
 	data->player = initialize_player(data);

@@ -16,9 +16,12 @@ int	main(int argc, char **argv)
 {
 	t_data	*data;
 
-	data = NULL;
+	data = (t_data *)malloc(sizeof(t_data));
+	if (!data)
+		return (0);
 	args_check(argc, argv);
-	data = initialize_data(argv[1]);
+	cubfile_check(argv[1], data);
+	data = initialize_data(argv[1], data);
 	draw_3d_view(data);
 	//print_map(data);
 	game_loop(data);
