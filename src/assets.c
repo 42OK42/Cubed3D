@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 14:06:17 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/15 18:41:01 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/16 14:43:56 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,25 +133,45 @@ char	***create_colored_map(char ***colors, int num_colors, char **pixel_map, t_t
 	return (map);
 }
 
-int	**convert_to_hex(char ***image_before, t_temp_assets *temp)
+int **convert_to_hex(char ***image_before, t_temp_assets *temp)
 {
-	int	i;
-	int	j;
-	int	**image_result;
+	int i;
+	int j;
+	int **image_result;
 
 	i = 0;
-	image_result = malloc(sizeof(int *) * temp->height + 1);
+	image_result = (int **)malloc(sizeof(int *) * temp->height);
+	if (!image_result)
+	{
+		return (NULL);
+	}
 	while (i < temp->height)
 	{
+		image_result[i] = (int *)malloc(sizeof(int) * temp->width);
+		if (!image_result[i])
+		{
+			while (--i >= 0)
+			{
+				free(image_result[i]);
+			}
+			free(image_result);
+			return (NULL);
+		}
 		j = 0;
 		while (j < temp->width)
 		{
-			image_result[i][j] = ft_atoi_base(image_before[i][j], 16);
+			if (image_before[i][j])
+			{
+				image_result[i][j] = ft_atoi_base(image_before[i][j], 16);
+			}
+			else
+			{
+				image_result[i][j] = 0;
+			}
 			j++;
 		}
 		i++;
 	}
-	image_result[i] = NULL;
 	return (image_result);
 }
 
