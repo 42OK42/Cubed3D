@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:07:19 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/16 20:57:14 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/18 18:08:47 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,35 +65,6 @@ int	find_map_height_before_map(t_data *data) //needs to be done on a string, not
 	free(map_line);
 	close(fd);
 	return (map_height);
-}
-
-t_settings	*initialize_settings(t_data *data)
-{
-	t_settings	*settings;
-
-	data++;
-	settings = malloc(sizeof(t_settings));
-	if (!settings)
-		return (NULL);
-	settings->open_minimap = 1;
-	settings->move_step = 5;
-	settings->rotation_step = 3;
-	settings->direction_line_length = 20.0;
-	settings->background_color = 0xFFFFFF;
-	settings->wall_color = 0x467836;
-	settings->space_color = 0x808080;
-	settings->player_color = 0x0000FF;
-	settings->ray_color = 0xFF0000;
-	settings->tile_size = 20;
-	settings->fov = 90;
-	settings->num_rays = 90;
-	settings->show_rays = 1;
-	settings->ray_step_size = 0.01;
-	settings->window_width = 1000;
-	settings->window_height = 1000;
-	settings->max_distance = settings->tile_size / 5.0;
-	settings->dist_to_proj_plane = (settings->window_height * settings->max_distance) / settings->tile_size;
-	return (settings);
 }
 
 t_player	*initialize_player(t_data *data)
@@ -174,6 +145,7 @@ t_rays	**initialize_rays(t_data *data)
 	return (rays);
 }
 
+
 t_data	*initialize_data(char *filename, t_data *data)
 {
 	data->filename = filename;
@@ -185,6 +157,7 @@ t_data	*initialize_data(char *filename, t_data *data)
 	data->temp = initialize_temp();
 	data->rays = initialize_rays(data);
 	data->assets = initialize_assets();
+	data->color_row = initialize_color_row(data);
 	raycaster(data);
 	data->mlx = initialize_mlx(data);
 	return (data);

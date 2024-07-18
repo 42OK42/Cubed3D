@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/15 18:22:28 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/18 18:09:50 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,13 +138,15 @@ typedef struct s_data
 	char				**map;
 	int					map_height;
 	int					map_width;
+	int					*color_row;
 }			t_data;
 
 // 3D_visualizer.c
 void			draw_3d_view(t_data *data);
-void			draw_wall_slice(t_data *data, int x, int wall_height, int *color_row);
-void			fill_wall_between_rays(t_data *data, int x0, int x1, int wall_height, int *color_row);
+void			draw_wall_slice(t_data *data, int x, int wall_height, int ray_identification_number);
+void			fill_wall_between_rays(t_data *data, int x0, int x1, int wall_height,int ray_identification_number);
 int				**get_right_image(t_data *data, int i);
+void			reset_color_row(t_data *data);
 
 // close_game.c
 int				close_window(void *param);
@@ -160,9 +162,11 @@ int				get_image_width(int **right_image);
 int				get_image_height(int **right_image);
 int				ft_atoi_base(char *str, int base);
 
+//settings.c
+t_settings	*initialize_settings(t_data *data);
+
 //initialize_data.c
 t_data		*initialize_data(char *filename, t_data *data);
-t_settings	*initialize_settings(t_data *data);
 t_player	*initialize_player(t_data *data);
 t_temp		*initialize_temp();
 int			find_map_width(t_data *data);
@@ -228,6 +232,7 @@ void			free_data_3d(t_data *data);
 char			**malloc_pixel_map(int height, int width);
 char			***malloc_color_map(int height, int width);
 char			***malloc_color_entries(int num_colors);
+int				*initialize_color_row(t_data *data);
 
 int				args_check(int argc, char **argv);
 

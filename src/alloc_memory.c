@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:16:00 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/16 20:27:40 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/18 17:14:15 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,14 @@ char	***malloc_color_entries(int num_colors)
 		i++;
 	}
 	return (colors);
+}
+
+int	*initialize_color_row(t_data *data)
+{
+	int	*color_row;
+
+	color_row = malloc(sizeof(int) * data->settings->window_height);
+	if (!color_row)
+		return (NULL);
+	return (color_row);
 }

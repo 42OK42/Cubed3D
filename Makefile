@@ -42,6 +42,7 @@ SRCS = 	main.c \
 		free.c \
 		assets.c \
 		alloc_memory.c \
+		settings.c \
 
 # OBJECT FILES
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
