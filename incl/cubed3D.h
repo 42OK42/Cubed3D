@@ -25,6 +25,11 @@
 
 # define M_PI 3.14159265358979323846
 
+typedef struct s_point
+{
+	float		x;
+	float		y;
+}				t_point;
 typedef struct s_mlx
 {
 	void			*mlx;

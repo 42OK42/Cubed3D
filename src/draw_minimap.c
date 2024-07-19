@@ -56,6 +56,8 @@ void	draw_player(t_data *data, t_mlx *mlx)
 
 	px = (int)(data->player->player_position[0][0]);
 	py = (int)(data->player->player_position[0][1]);
+	px = px/4;
+	py = py/4;
 	offset = 5;
 	i = px - offset;
 	while (i <= px + offset)
@@ -82,7 +84,7 @@ void	draw_element(t_data *data, t_mlx *mlx, char c, int c_color)
 		while (x < data->map_width)
 		{
 			if (data->map[y][x] == c)
-				draw_tile(mlx, data->settings->tile_size, x * data->settings->tile_size, y * data->settings->tile_size, c_color);
+				draw_tile(mlx, data->settings->tile_size/4, x * data->settings->tile_size/4, y * data->settings->tile_size/4, c_color);
 			x++;
 		}
 		y++;

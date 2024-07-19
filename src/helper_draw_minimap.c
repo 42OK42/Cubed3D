@@ -36,7 +36,7 @@ void	bresenham_algorithm(t_data *data, t_mlx *mlx)
 
 	while (1)
 	{
-		mlx_pixel_put(mlx->mlx, mlx->mlx_win_minimap, data->temp->center_x, data->temp->center_y, data->settings->player_color);
+		mlx_pixel_put(mlx->mlx, mlx->mlx_win_minimap, data->temp->center_x/4, data->temp->center_y/4, data->settings->player_color);
 		if (data->temp->center_x == data->temp->end_x && data->temp->center_y == data->temp->end_y)
 			break ;
 		e2 = 2 * data->temp->err;

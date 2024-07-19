@@ -76,6 +76,7 @@ t_settings	*initialize_settings(t_data *data)
 	if (!settings)
 		return (NULL);
 	settings->open_minimap = 1;
+	settings->tile_size = 120;
 	settings->move_step = 5;
 	settings->rotation_step = 3;
 	settings->direction_line_length = 20.0;
@@ -84,11 +85,10 @@ t_settings	*initialize_settings(t_data *data)
 	settings->space_color = 0x808080;
 	settings->player_color = 0x0000FF;
 	settings->ray_color = 0xFF0000;
-	settings->tile_size = 20;
 	settings->fov = 90;
 	settings->num_rays = 90;
 	settings->show_rays = 1;
-	settings->ray_step_size = 0.01;
+	settings->ray_step_size = 0.05;
 	settings->window_width = 1000;
 	settings->window_height = 1000;
 	settings->max_distance = settings->tile_size / 5.0;

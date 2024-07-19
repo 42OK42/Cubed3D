@@ -199,6 +199,8 @@ int	check_surrounded_by_walls(char	**line_grid)
 {
 	char **row_grid;
 
+	// ft_printf("row_grid\n");
+	// print_string_array(line_grid);
 	row_grid = lines_to_rows(line_grid);
 	enclosed_by_walls(line_grid, row_grid);
 	return (0);
@@ -213,7 +215,7 @@ int create_map(char *file_content, t_data *data)
 	check_surrounded_by_walls(line_grid);
 	//max_width = find_max_width(line_grid);
 	// ft_printf("line_grid\n");
-	print_string_array(line_grid);
+	// print_string_array(line_grid);
 	data->map = line_grid;
 	return (0);
 }
