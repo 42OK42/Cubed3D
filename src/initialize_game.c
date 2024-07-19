@@ -4,8 +4,8 @@ t_mlx	*initialize_mlx(t_data *data)
 {
 	t_mlx	*mlx;
 
-	mlx = (t_mlx *) malloc (sizeof(t_mlx));
-	mlx->needs_redraw = 0;
+	mlx = (t_mlx *)malloc(sizeof(t_mlx));
+	mlx->needs_redraw = 1;
 	mlx->mlx = NULL;
 	mlx->mlx = mlx_init();
 	if (data->settings->open_minimap)
@@ -14,6 +14,9 @@ t_mlx	*initialize_mlx(t_data *data)
 		draw_minimap(data, mlx);
 	}
 	mlx->mlx_win = mlx_new_window(mlx->mlx, data->settings->window_width, data->settings->window_height, "Cubed3D");
+	mlx->img_ptr = mlx_new_image(mlx->mlx, data->settings->window_width, data->settings->window_height);
+	mlx->data_addr = mlx_get_data_addr(mlx->img_ptr, &mlx->bits_per_pixel, &mlx->size_line, &mlx->endian);
+	mlx->old_img_ptr = NULL;
 	return (mlx);
 }
 

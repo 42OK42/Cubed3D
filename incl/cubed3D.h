@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/18 18:09:50 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/19 17:49:33 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ typedef struct s_mlx
 	void			*mlx_win_minimap;
 	void			*mlx_win;
 	int				needs_redraw;
+	void			*img_ptr;
+	char			*data_addr;
+	void			*old_img_ptr; 
+	int				bits_per_pixel;
+	int				size_line;
+	int				endian;
 }					t_mlx;
 
 typedef struct s_settings
@@ -42,6 +48,8 @@ typedef struct s_settings
 	int		wall_color;
 	int		space_color;
 	int		player_color;
+	int		upper_background_color;
+	int		lower_background_color;
 	int		ray_color;
 	int		tile_size;
 	int		show_rays;
@@ -147,6 +155,7 @@ void			draw_wall_slice(t_data *data, int x, int wall_height, int ray_identificat
 void			fill_wall_between_rays(t_data *data, int x0, int x1, int wall_height,int ray_identification_number);
 int				**get_right_image(t_data *data, int i);
 void			reset_color_row(t_data *data);
+void			draw_background(t_data *data);
 
 // close_game.c
 int				close_window(void *param);
@@ -203,7 +212,7 @@ int				on_press(int keycode, t_data *data);
 void			update_player_position(t_data *data, char direction);
 void			update_player_direction(t_data *data, char direction);
 int				update_frame(t_data *data);
-int				is_position_walkable(t_data *data, int x, int y);
+int				is_position_walkable(t_data *data, float x, float y);
 
 // assets.c
 char			**read_xpm(char *PATH);
