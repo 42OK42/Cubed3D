@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/15 16:01:28 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/22 18:51:16 by okrahl           ###   ########.fr       */
+/*   Created: 2024/07/22 18:04:20 by okrahl            #+#    #+#             */
+/*   Updated: 2024/07/22 18:50:19 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cubed3D.h"
 
-int	main(int argc, char **argv)
+void	free_mlx(t_mlx *mlx)
 {
-	t_data	*data;
-
-	data = (t_data *)malloc(sizeof(t_data));
-	if (!data)
-		return (0);
-	args_check(argc, argv);
-	cubfile_check(argv[1], data);
-	data = initialize_data(argv[1], data);
-	draw_3d_view(data);
-	//print_map(data);
-	if (game_loop(data) == 1)
-		free_data(data);
-	return (1);
+	free(mlx->mlx);
+	if (mlx->mlx_win_minimap)
+		free(mlx->mlx_win_minimap);
+	free(mlx->mlx_win);
+	free(mlx);
 }

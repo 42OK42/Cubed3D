@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 14:06:17 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/16 20:36:20 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/22 18:22:44 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,12 +142,10 @@ int	hex_to_decimal(const char *hex_str)
 	int	digit;
 
 	decimal_value = 0;
-	// Überspringen des Hashtags, falls vorhanden
 	if (*hex_str == ' ')
 		hex_str++;
 	if (*hex_str == '#')
 		hex_str++;
-	// Konvertieren des Hex-Strings in einen Dezimalwert
 	while (*hex_str != '\0')
 	{
 		digit = 0;
@@ -210,12 +208,10 @@ int	**load_xpm(char *PATH)
 	temp = parse_header(xpm_lines);
 	colors = get_colors(xpm_lines, temp->num_colors);
 	pixel_map = get_pixel_map(xpm_lines, temp);
+	free_two_d_array(xpm_lines);
 	image_before_hex = create_colored_map(colors, temp->num_colors, pixel_map, temp);
+	free_two_d_array(pixel_map);
 	image_result = convert_to_hex(image_before_hex, temp);
-	/* printf("before hex\n");
-	print_colored_map_before_hex(image_before_hex, temp);
-	printf("after hex\n");
-	print_image(image_result); */
 	free_three_d_array(image_before_hex);
 	return (image_result);
 }
@@ -227,8 +223,6 @@ t_assets	*initialize_assets(void)
 	assets = (t_assets *)malloc(sizeof(t_assets));
 	if (!assets)
 		return (NULL);
-	assets->ceiling_color = 0x000000;
-	assets->floor_color = 0x000000;
 	assets->wall_south_path = "images/wall_south.xpm";
 	assets->wall_north_path = "images/wall_north.xpm";
 	assets->wall_east_path = "images/wall_east.xpm";

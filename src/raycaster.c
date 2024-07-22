@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 11:47:37 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/16 16:22:50 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/22 16:54:02 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,19 @@ void	raycaster(t_data *data)
 {
 	int		i;
 	float	fov;
+	float	angle_step;
+	float	start_angle;
 	float	angle;
 
 	i = 0;
 	fov = data->settings->fov;
+	angle_step = fov / (float)data->settings->num_rays;
+	start_angle = data->player->player_direction - (fov / 2.0);
+
 	while (i < data->settings->num_rays)
 	{
 		data->temp->hit_wall = 0;
-		angle = data->player->player_direction - (fov / 2.0) + (fov * i / (float)data->settings->num_rays);
+		angle = start_angle + (i * angle_step);
 		data->rays[i]->angle = angle;
 		cast_ray(data, angle, i);
 		i++;
@@ -125,30 +130,14 @@ void	cast_ray(t_data *data, float ray_angle, int i)
 
 	j = 0;
 	start_x = data->player->player_position[0][0];
-	//printf("start_x: %f\n", start_x);
 	start_y = data->player->player_position[0][1];
-	//printf("start_y: %f\n", start_y);
 	init_ray_values(data, ray_angle);
-	//printf("ray_angle: %f\n", ray_angle);
-	//printf("player_direction: %d\n", data->player->player_direction);
 	while (!data->temp->hit_wall)
 	{
-		//printf("current_x_before_update: %f\n", data->temp->current_x);
-		//printf("current_y_before_update: %f\n", data->temp->current_y);
 		update_ray_position(data);
-		//printf("current_x: %f\n", data->temp->current_x);
-		//printf("current_y: %f\n", data->temp->current_y);
 		if (check_wall_hit(data))
 		{
-			//printf("hit_x: %d\n", (int)data->temp->current_x);
-			//printf("hit_y: %d\n", (int)data->temp->current_y);
-			//printf("player_x: %d\n", data->player->player_position[0][0]);
-			//printf("player_y: %d\n", data->player->player_position[0][1]);
-			//printf("angle: %f\n", ray_angle);
-			//printf("step_x: %f\n", data->temp->step_x);
-			//printf("step_y: %f\n", data->temp->step_y);
 			distance = sqrt(pow(data->temp->current_x - start_x, 2) + pow(data->temp->current_y - start_y, 2));
-			//printf("distance: %f\n", distance);
 			data->rays[i]->length = distance;
 			data->rays[i]->hit_x = data->temp->current_x;
 			data->rays[i]->hit_y = data->temp->current_y;

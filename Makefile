@@ -39,7 +39,8 @@ SRCS = 	main.c \
 		cubfile_check.c \
 		utils.c \
 		utils2.c \
-		free.c \
+		free_assets.c \
+		free_data.c \
 		assets.c \
 		alloc_memory.c \
 		settings.c \

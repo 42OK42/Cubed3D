@@ -1,0 +1,29 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    to_do.txt                                          :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/07/22 16:24:09 by okrahl            #+#    #+#              #
+#    Updated: 2024/07/22 16:28:02 by okrahl           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+Olli:
+
+- fish_eye verbessern?
+- abstand zur wand
+- skaling ueber screenhoehe hinaus
+
+
+Damian:
+
+- hit_punkte korrigieren
+	- rightimage sollte sich dadurch fixen 
+	- edges right image auch 
+
+Zusammen:
+
+- Norminette
+- valgrind

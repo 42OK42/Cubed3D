@@ -6,21 +6,26 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:07:09 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/28 16:36:50 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/22 18:45:32 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cubed3D.h"
 
-int	close_window(void *param)
+int	close_window(t_data *data)
 {
-	t_data	*data;
-
-	data = param;
-	mlx_clear_window(data->mlx->mlx, data->mlx->mlx_win_minimap);
-	mlx_destroy_window(data->mlx->mlx, data->mlx->mlx_win_minimap);
+	if (data->mlx->img_ptr)
+		mlx_destroy_image(data->mlx->mlx, data->mlx->img_ptr);
+	if (data->mlx->old_img_ptr)
+		mlx_destroy_image(data->mlx->mlx, data->mlx->old_img_ptr);
+	if (data->settings->open_minimap)
+	{
+		mlx_clear_window(data->mlx->mlx, data->mlx->mlx_win_minimap);
+		mlx_destroy_window(data->mlx->mlx, data->mlx->mlx_win_minimap);
+	}
+	mlx_clear_window(data->mlx->mlx, data->mlx->mlx_win);
+	mlx_destroy_window(data->mlx->mlx, data->mlx->mlx_win);
 	mlx_destroy_display(data->mlx->mlx);
-	exit(0);
 	return (0);
 }
 
@@ -42,5 +47,35 @@ void	free_data(t_data *data)
 	free_map(data);
 	free(data->filename);
 	free(data->mlx->mlx);
+	free(data->settings);
+	free(data->player->player_position[0]);
+	free(data->player->player_position);
+	free(data->player);
+	free(data->temp);
+	free_rays(data->rays, data->settings->num_rays);
+	free_assets(data->assets);
+	free_mlx(data->mlx);
 	free(data);
+}
+
+void	free_rays(t_rays **rays, int num_rays)
+{
+	int	i;
+
+	i = 0;
+	while (i < num_rays)
+	{
+		free(rays[i]);
+		i++;
+	}
+	free(rays);
+}
+
+void	free_assets(t_assets *assets)
+{
+	free_two_d_int_array(assets->wall_south);
+	free_two_d_int_array(assets->wall_north);
+	free_two_d_int_array(assets->wall_west);
+	free_two_d_int_array(assets->wall_east);
+	free(assets);
 }

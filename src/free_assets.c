@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   free_ assets.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 14:28:44 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/31 15:45:21 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/22 18:25:29 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../incl/cubed3D.h"
+
+
 
 void	free_two_d_array(char **pixel_map)
 {
@@ -65,43 +67,16 @@ void	free_image(char ***map, int height, int width)
 	free(map);
 }
 
-
-/* void	free_data_3d(t_data *data)
+void	free_two_d_int_array(int **int_array)
 {
 	int	i;
 
-	if (data->mlx)
-		free(data->mlx);
-	if (data->settings)
-		free(data->settings);
-	if (data->player)
-		free(data->player);
-	if (data->temp)
-		free(data->temp);
-	if (data->rays)
+	i = 0;
+	while (int_array[i])
 	{
-		i = 0;
-		while (i < data->map_height)
-		{
-			free(data->rays[i]);
-			i++;
-		}
-		free(data->rays);
+		free(int_array[i]);
+		i++;
 	}
-	if (data->assets)
-		free(data->assets);
-	if (data->filename)
-		free(data->filename);
-	if (data->map)
-	{
-		i = 0;
-		while (i < data->map_height)
-		{
-			free(data->map[i]);
-			i++;
-		}
-		free(data->map);
-	}
-	free(data);
-} */
+	free(int_array);
+}
 

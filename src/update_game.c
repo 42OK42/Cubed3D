@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:16:50 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/19 17:49:08 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/22 18:42:58 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,20 +72,21 @@ int	on_press(int keycode, t_data *data)
 			update_player_position(data, 'd');
 		else if (keycode == 13 || keycode == 119)
 			update_player_position(data, 'u');
-
 		data->mlx->needs_redraw = 1;
 		return (1);
 	}
 	return (0);
 }
 
-int is_position_walkable(t_data *data, float x, float y)
+int	is_position_walkable(t_data *data, float x, float y)
 {
-	int map_x;
-	int map_y;
-	int tile_size = data->settings->tile_size;
-	float buffer = tile_size * 0.05; // 5% der tile_size
+	int		map_x;
+	int		map_y;
+	int		tile_size;
+	float	buffer;
 
+	tile_size = data->settings->tile_size;
+	buffer = tile_size * 0.05;
 	map_x = x / tile_size;
 	map_y = y / tile_size;
 	if (data->map[map_y][map_x] == '1')
@@ -102,44 +103,6 @@ int is_position_walkable(t_data *data, float x, float y)
 			return (0);
 	}
 	return (1);
-}
-
-void	update_player_position(t_data *data, char direction)
-{
-	int move_step;
-	double angle_rad;
-	float new_x;
-	float new_y;
-
-	move_step = data->settings->move_step;
-	angle_rad = (data->player->player_direction - 90) * M_PI / 180.0;
-	if (direction == 'u')
-	{
-		new_x = data->player->player_position[0][0] + (move_step * cos(angle_rad));
-		new_y = data->player->player_position[0][1] + (move_step * sin(angle_rad));
-	}
-	else if (direction == 'd')
-	{
-		new_x = data->player->player_position[0][0] - (move_step * cos(angle_rad));
-		new_y = data->player->player_position[0][1] - (move_step * sin(angle_rad));
-	}
-	else
-		return;
-	if (is_position_walkable(data, new_x, new_y))
-	{
-		data->player->player_position[0][0] = new_x;
-		data->player->player_position[0][1] = new_y;
-	}
-}
-
-/* int	is_position_walkable(t_data *data, int x, int y)
-{
-	int	map_x;
-	int	map_y;
-
-	map_x = x / data->settings->tile_size;
-	map_y = y / data->settings->tile_size;
-	return (data->map[map_y][map_x] != '1');
 }
 
 void	update_player_position(t_data *data, char direction)
@@ -168,7 +131,7 @@ void	update_player_position(t_data *data, char direction)
 		data->player->player_position[0][0] = new_x;
 		data->player->player_position[0][1] = new_y;
 	}
-} */
+}
 
 void	update_player_direction(t_data *data, char direction)
 {

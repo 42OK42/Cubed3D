@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/19 17:49:33 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/22 18:46:09 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,6 @@ typedef struct s_temp
 
 typedef struct s_assets
 {
-	char	*floor_color;
-	char	*ceiling_color;
 	char	*wall_south_path;
 	char	*wall_north_path;
 	char	*wall_east_path;
@@ -158,8 +156,11 @@ void			reset_color_row(t_data *data);
 void			draw_background(t_data *data);
 
 // close_game.c
-int				close_window(void *param);
+int				close_window(t_data *data);
 void			free_map(t_data *data);
+void			free_data(t_data *data);
+void			free_rays(t_rays **rays, int num_rays);
+void			free_assets(t_assets *assets);
 
 //helper.c
 void			print_map(char **map);
@@ -231,11 +232,15 @@ void			update_ray_position(t_data *data);
 int				check_wall_hit(t_data *data);
 void			cast_ray(t_data *data, float ray_angle, int i);
 
-//free.c
+//free_assets.c
 void			free_three_d_array(char ***colors);
 void			free_two_d_array(char **pixel_map);
 void			free_image(char ***map, int height, int width);
 void			free_data_3d(t_data *data);
+void			free_two_d_int_array(int **int_array);
+
+//free_data.c
+void			free_mlx(t_mlx *mlx);
 
 //alloc_memory.c
 char			**malloc_pixel_map(int height, int width);
