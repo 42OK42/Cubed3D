@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   args_check.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/25 16:44:42 by okrahl            #+#    #+#             */
+/*   Updated: 2024/07/25 16:44:43 by okrahl           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cubed3D.h"
 
 void	extension_check(char *str) //checks the string starting from the right to make sure it matches the extension

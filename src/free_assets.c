@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_ assets.c                                     :+:      :+:    :+:   */
+/*   free_assets.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 14:28:44 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/22 18:25:29 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/25 17:21:17 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../incl/cubed3D.h"
-
-
+#include "../incl/cubed3D.h"
 
 void	free_two_d_array(char **pixel_map)
 {
@@ -79,4 +77,3 @@ void	free_two_d_int_array(int **int_array)
 	}
 	free(int_array);
 }
-

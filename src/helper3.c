@@ -1,38 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   helper3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/25 18:03:24 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/25 18:03:29 by okrahl           ###   ########.fr       */
+/*   Created: 2024/07/25 15:34:27 by okrahl            #+#    #+#             */
+/*   Updated: 2024/07/25 15:34:34 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cubed3D.h"
 
-void	perror_exit(char *msg)
-{
-	perror(msg);
-	exit(EXIT_FAILURE);
-}
-
-void	error_exit(char *msg)
-{
-	ft_printf("%s\n", msg);
-	exit(EXIT_FAILURE);
-}
-
-void	print_string_array(char **str_array)
+void	draw_color_row(int *color_row)
 {
 	int	i;
 
 	i = 0;
-	while (str_array[i] != NULL)
+	while (color_row[i])
 	{
-		printf("\nstrArr[%d] #%s#", i, str_array[i]);
+		printf("color_row[%i]: %i\n", i, color_row[i]);
 		i++;
 	}
-	printf("\n");
 }

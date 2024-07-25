@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:13:34 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/16 20:09:57 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/25 15:31:30 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	print_map(char **map)
 	}
 	ft_printf("\n");
 }
+
 void	print_colors(char ***colors, int num_colors)
 {
 	int	i;
@@ -35,24 +36,6 @@ void	print_colors(char ***colors, int num_colors)
 		i++;
 	}
 }
-
-// char	*ft_strncpy(char *dest, const char *src, size_t n)
-// {
-// 	size_t	i;
-
-// 	i = 0;
-// 	while (i < n && src[i] != '\0')
-// 	{
-// 		dest[i] = src[i];
-// 		i++;
-// 	}
-// 	while (i < n)
-// 	{
-// 		dest[i] = '\0';
-// 		i++;
-// 	}
-// 	return (dest);
-// }
 
 void	print_colored_map_before_hex(char ***colored_map, t_temp_assets *temp)
 {
@@ -92,48 +75,14 @@ void	print_image(int **colored_map)
 	}
 }
 
-int	get_image_height(int **right_image)
+void	reset_color_row(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while (right_image[i])
-		i++;
-	return (i);
-}
-
-int	get_image_width(int **right_image)
-{
-	int	i;
-
-	i = 0;
-	while (right_image[0][i])
-		i++;
-	return (i);
-}
-int	ft_atoi_base(char *str, int base)
-{
-	int i;
-	int res;
-	int sign;
-
-	i = 0;
-	res = 0;
-	sign = 1;
-	if (str[i] == '-')
+	while (i < data->settings->window_height)
 	{
-		sign = -1;
+		data->color_row[i] = 0;
 		i++;
 	}
-	while (str[i])
-	{
-		if (str[i] >= '0' && str[i] <= '9')
-			res = res * base + str[i] - '0';
-		else if (str[i] >= 'A' && str[i] <= 'F')
-			res = res * base + str[i] - 'A' + 10;
-		else if (str[i] >= 'a' && str[i] <= 'f')
-			res = res * base + str[i] - 'a' + 10;
-		i++;
-	}
-	return (res * sign);
 }

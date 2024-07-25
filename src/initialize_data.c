@@ -6,66 +6,11 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:07:19 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/18 18:08:47 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/25 18:10:16 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cubed3D.h"
-
-// int	find_map_width(t_data *data)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (!data->map)
-// 		return (0);
-// 	while (data->map[0][i] != '\n' && data->map[0][i] != '\0')
-// 		i++;
-// 	return (i);
-// }
-
-int	find_map_width(t_data *data)
-{
-	int max_length = 0;
-	int current_length;
-	int i = 0;
-
-	// Iterate through each line using a while loop
-	while (data->map[i] != NULL) {
-		current_length = ft_strlen(data->map[i]);
-		if (current_length > max_length) {
-			max_length = current_length;
-		}
-		i++; // Move to the next line
-	}
-	max_length--;
-	return (max_length);
-}
-
-int	find_map_height_before_map(t_data *data) //needs to be done on a string, not a file
-{
-	int		fd;
-	int		map_height;
-	char	*map_line;
-
-	fd = open(data->filename, O_RDONLY);
-	if (fd == -1)
-		return (0);
-	map_height = 1;
-	map_line = get_next_line(fd);
-	if (!map_line)
-		return (0);
-	while (map_line)
-	{
-		if (strchr(map_line, '\n') != NULL)
-			map_height++;
-		free(map_line);
-		map_line = get_next_line(fd);
-	}
-	free(map_line);
-	close(fd);
-	return (map_height);
-}
 
 t_player	*initialize_player(t_data *data)
 {
@@ -75,11 +20,10 @@ t_player	*initialize_player(t_data *data)
 	if (!player)
 		return (0);
 	player->player_position = initialize_player_position(data);
-	player->player_direction = initialize_player_direction(data, player->player_position);
-	//printf("player_direction: %d\n", player->player_direction);
+	player->player_direction = initialize_player_direction(data, \
+		player->player_position);
 	return (player);
 }
-
 
 t_temp	*initialize_temp(void)
 {
@@ -88,7 +32,6 @@ t_temp	*initialize_temp(void)
 	temp = malloc(sizeof(t_temp));
 	if (!temp)
 		return (0);
-	// draw_minimap
 	temp->center_x = 0;
 	temp->center_y = 0;
 	temp->end_x = 0;
@@ -99,9 +42,14 @@ t_temp	*initialize_temp(void)
 	temp->sy = 0;
 	temp->err = 0;
 	temp->angle_rad = 0;
-	// raycaster
 	temp->current_x = 0.0f;
 	temp->current_y = 0.0f;
+	temp = initialize_temp2(temp);
+	return (temp);
+}
+
+t_temp	*initialize_temp2(t_temp *temp)
+{
 	temp->next_x = 0.0f;
 	temp->next_y = 0.0f;
 	temp->step_x = 0.0f;
@@ -109,11 +57,13 @@ t_temp	*initialize_temp(void)
 	temp->ray_angle_rad = 0.0f;
 	temp->ray_distance = 0.0f;
 	temp->hit_wall = 0;
-	// load_assets
 	temp->width = 0;
 	temp->height = 0;
 	temp->num_colors = 0;
 	temp->chars_per_pixel = 0;
+	temp->screen_x = 0;
+	temp->step = 0.0f;
+	temp->image_pos = 0.0f;
 	return (temp);
 }
 
@@ -128,7 +78,6 @@ t_rays	**initialize_rays(t_data *data)
 		perror("Failed to allocate memory for rays");
 		exit(EXIT_FAILURE);
 	}
-
 	i = 0;
 	while (i < data->settings->num_rays)
 	{
@@ -145,14 +94,12 @@ t_rays	**initialize_rays(t_data *data)
 	return (rays);
 }
 
-
 t_data	*initialize_data(char *filename, t_data *data)
 {
 	data->filename = filename;
 	data->map_height = find_map_height_before_map(data);
-	// data->map = map_read(data);
 	data->map_width = find_map_width(data);
-	data->settings = initialize_settings(data);
+	data->settings = initialize_settings();
 	data->player = initialize_player(data);
 	data->temp = initialize_temp();
 	data->rays = initialize_rays(data);
