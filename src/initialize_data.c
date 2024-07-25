@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:07:19 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/25 18:10:16 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/25 20:07:41 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_temp	*initialize_temp(void)
 	temp->angle_rad = 0;
 	temp->current_x = 0.0f;
 	temp->current_y = 0.0f;
+	temp->exited = 0;
 	temp = initialize_temp2(temp);
 	return (temp);
 }

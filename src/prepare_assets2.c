@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:48:53 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/25 18:09:02 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/25 19:36:03 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ int	**convert_to_hex(char ***image_before, t_temp_assets *temp)
 	int	j;
 	int	**image_result;
 
-	image_result = (int **)malloc(sizeof(int *) * temp->height + 1);
+	image_result = (int **)malloc(sizeof(int *) * (temp->height + 1));
 	if (!image_result)
 		return (NULL);
 	i = 0;
 	while (i < 10)
 	{
-		image_result[i] = (int *)malloc(sizeof(int) * temp->width + 1);
+		image_result[i] = (int *)malloc(sizeof(int) * (temp->width + 1));
 		if (!image_result[i])
 			return (NULL);
 		j = 0;
@@ -97,8 +97,7 @@ char	***get_colors(char **xpm_lines, int num_colors)
 	{
 		colors[i][0][0] = xpm_lines[i + 4][1];
 		colors[i][0][1] = '\0';
-		ft_strncpy(colors[i][1], &xpm_lines[i + 4][4], 8);
-		colors[i][1][8] = '\0';
+		ft_strncpy(colors[i][1], &xpm_lines[i + 4][5], 8);
 		i++;
 	}
 	return (colors);

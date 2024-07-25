@@ -28,6 +28,8 @@ NAME = cubed3D
 SRCS = 	main.c \
 		initialize_game.c \
 		helper.c \
+		helper2.c \
+		helper3.c \
 		close_game.c \
 		initialize_data.c \
 		initialize_player.c \
@@ -35,14 +37,19 @@ SRCS = 	main.c \
 		helper_draw_minimap.c \
 		raycaster.c \
 		update_game.c \
+		update_player.c \
 		3D_visualizer.c \
+		3D_visualizer2.c \
+		get_image.c \
 		args_check.c \
 		cubfile_check.c \
 		utils.c \
 		utils2.c \
 		free_assets.c \
 		free_data.c \
-		assets.c \
+		prepare_assets.c \
+		prepare_assets2.c \
+		prepare_assets3.c \
 		alloc_memory.c \
 		settings.c \
 

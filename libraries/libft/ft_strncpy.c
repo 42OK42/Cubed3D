@@ -1,19 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_data.c                                        :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/22 18:04:20 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/25 20:33:36 by okrahl           ###   ########.fr       */
+/*   Created: 2024/07/25 15:37:47 by okrahl            #+#    #+#             */
+/*   Updated: 2024/07/25 15:39:56 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/cubed3D.h"
+#include "libft.h"
 
-void	free_mlx(t_data *data)
+char	*ft_strncpy(char *dest, const char *src, size_t n)
 {
-	free(data->mlx->mlx);
-	free(data->mlx);
+	size_t	i;
+
+	i = 0;
+	while (i < n && src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	while (i < n)
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
 }

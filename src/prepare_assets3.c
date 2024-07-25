@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 17:13:37 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/25 18:09:16 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/25 19:37:56 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	**get_pixel_map(char **xpm_lines, t_temp_assets *temp)
 		pixel_map[i][temp->width] = '\0';
 		i++;
 	}
+	pixel_map[i] = NULL;
 	return (pixel_map);
 }
 

@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/22 18:46:09 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/25 20:25:31 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define CUBED3D_H
 
 # include <mlx.h>
+# include "../libraries/minilibx_opengl_20191021/mlx.h"
+# include "../libraries/minilibx-linux/mlx.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <string.h>
@@ -110,6 +112,10 @@ typedef struct s_temp
 	char	*header;
 	char	*color_line;
 	char	*pixel_line;
+	int		screen_x;
+	float	step;
+	float	image_pos;
+	int		exited;
 }					t_temp;
 
 typedef struct s_assets
@@ -149,11 +155,21 @@ typedef struct s_data
 
 // 3D_visualizer.c
 void			draw_3d_view(t_data *data);
-void			draw_wall_slice(t_data *data, int x, int wall_height, int ray_identification_number);
-void			fill_wall_between_rays(t_data *data, int x0, int x1, int wall_height,int ray_identification_number);
-int				**get_right_image(t_data *data, int i);
-void			reset_color_row(t_data *data);
+void			draw_wall_slice(t_data *data, int x, int wall_height, int ray_id);
+void			fill_wall_between_rays(t_data *data, int prev_screen_x, int wall_height, int ray_id);
+void			update_color_row(t_data *data, int ray_id, int start_y, int end_y);
+int				calculate_image_x(t_data *data, int ray_id, int image_width);
+
+// 3D_visualizer2.c
+float			fix_fish_eye(t_data *data, int ray_id);
 void			draw_background(t_data *data);
+void			draw_background_section(t_data *data, int start_y, \
+				int end_y, unsigned int color);
+
+//get_image.c
+int				**get_right_image(t_data *data, int i);
+int				**get_image_for_vertical_hit(t_data *data, int hit_x_int, int hit_y_int);
+int				**get_image_for_horizontal_hit(t_data *data, int hit_y_int, float player_y);
 
 // close_game.c
 int				close_window(t_data *data);
@@ -165,26 +181,34 @@ void			free_assets(t_assets *assets);
 //helper.c
 void			print_map(char **map);
 void			print_colors(char ***colors, int num_colors);
-char			*ft_strncpy(char *dest, const char *src, size_t n);
 void			print_colored_map_before_hex(char ***colored_map, t_temp_assets *temp);
 void			print_image(int **colored_map);
+void			reset_color_row(t_data *data);
+
+//helper2.c
+int				find_map_width(t_data *data);
+int				find_map_height_before_map(t_data *data);
 int				get_image_width(int **right_image);
 int				get_image_height(int **right_image);
 int				ft_atoi_base(char *str, int base);
 
+//helper3.c
+void			draw_color_row(int *color_row);
+
 //settings.c
-t_settings	*initialize_settings(t_data *data);
+t_settings		*initialize_settings(void);
+t_settings		*initialize_settings2(t_settings *settings);
 
 //initialize_data.c
-t_data		*initialize_data(char *filename, t_data *data);
-t_player	*initialize_player(t_data *data);
-t_temp		*initialize_temp();
-int			find_map_width(t_data *data);
-int			find_map_height_before_map(t_data *data);
-t_rays		**initialize_rays(t_data *data);
+t_data			*initialize_data(char *filename, t_data *data);
+t_player		*initialize_player(t_data *data);
+t_temp			*initialize_temp();
+t_temp			*initialize_temp2(t_temp *temp);
+t_rays			**initialize_rays(t_data *data);
 
 //initialize_player.c
 float			**initialize_player_position(t_data *data);
+void			find_player_start_position(t_data *data, float **player_position);
 int				initialize_player_direction(t_data	*data, float	**player_position);
 
 // initialize_game.c
@@ -192,16 +216,18 @@ t_mlx			*initialize_mlx(t_data *data);
 char			**map_read(t_data *data);
 
 // draw_minimap.c
-void			draw_element(t_data *data, t_mlx *mlx, char c, int c_color);
-void			draw_player(t_data *data, t_mlx *mlx);
-void			draw_rays(t_data *data, t_mlx *mlx);
-void			draw_ray(t_data *data, t_mlx *mlx, float length, int angle);
-void			draw_minimap(t_data *data, t_mlx *mlx);
+void			draw_element(t_data *data, char c, int c_color);
+void			draw_player(t_data *data);
+void			draw_rays(t_data *data);
+void			draw_ray(t_data *data, float length, int angle);
+void			draw_minimap(t_data *data);
 
-// helper_drawlevel.c
-void			bresenham_algorithm(t_data *data, t_mlx *mlx);
+// helper_draw_minimap.c
 void			calculate_end_point(t_data *data, int length);
-void			draw_tile(t_mlx *mlx, int tile_size, int tile_x, int tile_y, int color);
+void			bresenham_algorithm(t_data *data);
+void			initialize_bresenham(t_data *data);
+void			update_bresenham(t_data *data);
+void			draw_tile(t_data *data, int tile_x, int tile_y, int color);
 
 // main.c
 int				main(int argc, char **argv);
@@ -210,20 +236,32 @@ int				main(int argc, char **argv);
 int				on_press(int keycode, t_data *data);
 int				game_loop(t_data *data);
 int				on_press(int keycode, t_data *data);
-void			update_player_position(t_data *data, char direction);
-void			update_player_direction(t_data *data, char direction);
 int				update_frame(t_data *data);
-int				is_position_walkable(t_data *data, float x, float y);
 
-// assets.c
+//update_player.c
+void			update_player_position(t_data *data, char direction);
+void			calculate_new_position(t_data *data, char direction, \
+				float *new_x, float *new_y);
+void			update_player_direction(t_data *data, char direction);
+int				is_position_walkable(t_data *data, float x, float y);
+int				check_buffer_zones(t_data *data, float x, float y);
+
+// prepare_assets.c
+t_assets		*initialize_assets(void);
+int				**load_xpm(char *PATH);
 char			**read_xpm(char *PATH);
+
+// prepare_assets2.c
+int				hex_to_decimal(const char *hex_str);
+int				**convert_to_hex(char ***image_before, t_temp_assets *temp);
 char			*find_color(char ***colors, int num_colors, char pixel);
 char			***get_colors(char **xpm_lines, int num_colors);
-char			**get_pixel_map(char **xpm_lines, t_temp_assets *temp);
-char			***create_colored_map(char ***colors, int num_colors, char **pixel_map, t_temp_assets *temp);
-int				**load_xpm(char *PATH);
 t_temp_assets	*parse_header(char **xpm_lines);
-t_assets		*initialize_assets(void);
+
+// prepare_assets3.c
+char			**get_pixel_map(char **xpm_lines, t_temp_assets *temp);
+char			***create_colored_map(char ***colors, \
+				int num_colors, char **pixel_map, t_temp_assets *temp);
 
 // raycaster.c
 void			raycaster(t_data *data);
@@ -240,7 +278,7 @@ void			free_data_3d(t_data *data);
 void			free_two_d_int_array(int **int_array);
 
 //free_data.c
-void			free_mlx(t_mlx *mlx);
+void			free_mlx(t_data *data);
 
 //alloc_memory.c
 char			**malloc_pixel_map(int height, int width);

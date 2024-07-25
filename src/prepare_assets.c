@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:48:50 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/25 17:51:15 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/25 19:23:59 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	**read_xpm(char *PATH)
 	fd = open(PATH, O_RDONLY);
 	if (fd == -1)
 		return (ft_printf("Error:\n File not found\n"), NULL);
-	xpm_lines = (char **)malloc(sizeof(char *) * 64);
+	xpm_lines = (char **)malloc(sizeof(char *) * 19);
 	line = get_next_line(fd);
 	i = 0;
 	while (line != NULL)
