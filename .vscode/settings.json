@@ -2,6 +2,8 @@
 	"files.associations": {
 		"mlx_int.h": "c",
 		"cubed3d.h": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"stdio.h": "c",
+		"fcntl.h": "c"
 	}
 }

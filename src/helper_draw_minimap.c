@@ -16,11 +16,13 @@ void	calculate_end_point(t_data *data, int length)
 {
 	data->temp->end_x = data->temp->center_x + (int)(length * cos(data->temp->angle_rad));
 	data->temp->end_y = data->temp->center_y + (int)(length * sin(data->temp->angle_rad));
+	
 }
 
 void	bresenham_algorithm(t_data *data, t_mlx *mlx)
 {
 	int	e2;
+
 
 	data->temp->dx = abs(data->temp->end_x - data->temp->center_x);
 	data->temp->dy = -abs(data->temp->end_y - data->temp->center_y);
@@ -33,7 +35,10 @@ void	bresenham_algorithm(t_data *data, t_mlx *mlx)
 	else
 		data->temp->sy = -1;
 	data->temp->err = data->temp->dx + data->temp->dy;
-
+		printf("center x %d\n",data->temp->center_x);
+		printf("center y %d\n",data->temp->center_y);
+		printf("end x %d\n",data->temp->end_x);
+		printf("end y %d\n",data->temp->end_y);
 	while (1)
 	{
 		mlx_pixel_put(mlx->mlx, mlx->mlx_win_minimap, data->temp->center_x/4, data->temp->center_y/4, data->settings->player_color);

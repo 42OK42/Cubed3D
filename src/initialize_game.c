@@ -13,7 +13,10 @@ t_mlx	*initialize_mlx(t_data *data)
 		mlx->mlx_win_minimap = mlx_new_window(mlx->mlx, (((data->map_width/4) + 1) * data->settings->tile_size), (((data->map_height /4) + 1) * data->settings->tile_size), "Minimap");
 		draw_minimap(data, mlx);
 	}
+	if (data->settings->open_3D)
+	{
 	mlx->mlx_win = mlx_new_window(mlx->mlx, data->settings->window_width, data->settings->window_height, "Cubed3D");
+	}
 	return (mlx);
 }
 

@@ -22,7 +22,7 @@ int	main(int argc, char **argv)
 	args_check(argc, argv);
 	cubfile_check(argv[1], data);
 	data = initialize_data(argv[1], data);
-	draw_3d_view(data);
+	// draw_3d_view(data);
 	//print_map(data);
 	game_loop(data);
 	return (1);

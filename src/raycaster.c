@@ -6,29 +6,11 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 11:47:37 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/31 17:33:45 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/16 16:22:50 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cubed3D.h"
-
-void normalize_rays(t_data *data) {
-    for (int i = 1; i < data->settings->num_rays - 1; i++) {
-        float prev = data->rays[i - 1]->length;
-        float curr = data->rays[i]->length;
-        float next = data->rays[i + 1]->length;
-
-        // Check if the current value follows the direction of change
-        if (fabs(next - curr) < data->settings->ray_step_size) {
-            // If the next change is minor, follow the same direction
-            if (curr < prev && curr > next) {
-                data->rays[i]->length = (prev + next) / 2;
-            } else if (curr > prev && curr < next) {
-                data->rays[i]->length = (prev + next) / 2;
-            }
-        }
-    }
-}
 
 void	raycaster(t_data *data)
 {
@@ -36,6 +18,10 @@ void	raycaster(t_data *data)
 	float	fov;
 	float	angle;
 
+	// data->temp->previous_x = data->player->player_position[0][0]; // for safety, maybe unecessary
+	// data->temp->previous_y = data->player->player_position[0][0]; // for safety, maybe unecessary
+	// data->temp->current_x = data->player->player_position[0][0];
+	// data->temp->current_y = data->player->player_position[0][1];
 	i = 0;
 	fov = data->settings->fov;
 	while (i < data->settings->num_rays)
@@ -48,82 +34,110 @@ void	raycaster(t_data *data)
 	}
 }
 
-
-
-t_point	*check_real_intersection()
+float	find_closest_y(t_data *data)
 {
-	t_point	*true_sect;
+	float	closest_grid_section;
+	int		grid_num;
 
-	calculate_intercepts(t_point p1, t_point p2)
-	return (true_sect)
+	printf("\n current x %d\n",(int)data->temp->current_x);
+	printf("current y %d\n",(int)data->temp->current_y);
+	grid_num = ((int)data->temp->current_y + 1) / data->settings->tile_size;
+	printf(" grid_num %d\n", grid_num);
+	closest_grid_section = grid_num * data->settings->tile_size;
+	printf(" closest_grid y%f\n\n",closest_grid_section);
+	return(closest_grid_section);
 }
 
-t_point *move_towards(t_point *p1, t_point *p2, float distance) {
-    // Calculate the distance between the two points
-    float d = sqrt(pow(p2->x - p1->x, 2) + pow(p2->y - p1->y, 2));
 
-    // Calculate the unit direction vector components
-    float ux = (p1->x - p2->x) / d;
-    float uy = (p1->y - p2->y) / d;
+float	find_closest_x(t_data *data)
+{
+	float	closest_grid_section;
+	int		grid_num;
 
-    // Calculate the new point coordinates
-    t_point *p3;
-    p3->x = p2->x + distance * ux;
-    p3->y = p2->y + distance * uy;
-
-    return p3;
+	grid_num = ((int)data->temp->current_x + 1) / data->settings->tile_size;
+	closest_grid_section = grid_num * data->settings->tile_size;
+	return(closest_grid_section);
 }
 
-t_point	*calculate_intercepts(t_point p1, t_point p2, float *x_intercept, float *y_intercept)
-{
-	float	limit;
-	int		i;
-    // Calculate the slope (m)
-    float m = (p2.y - p1.y) / (p2.x - p1.x);
-
-    // Calculate the y-intercept (b)
-    float b = p1.y - m * p1.x;
-
-    // x-intercept (when y = 0)
-    *x_intercept = -b / m;
-
-    // y-intercept (when x = 0
-	while ()
-    *y_intercept = b;
+float find_closest_multiple(float x, int t) {
+    // Calculate the nearest multiple of t
+    float closest_multiple = round(x / t) * t;
+    return closest_multiple;
 }
 
-t_point	*grid_intersections(t_point *p3, t_point *hit_p, t_point *var_sects)
+t_point* get_y(t_point *var_sects, float start_x, float start_y, t_data *data, int *i)
 {
+	float	y_sect;
 
+	y_sect = find_y_intercept(start_x, start_y, data->temp->current_x, data->temp->current_y, data->grid_x);
+	
+	var_sects[*i].x = data->grid_x;
+	var_sects[*i].y = y_sect;
+	*i = *i + 1;
+    return (var_sects);
 }
 
-t_point	*get_backwards_intersections(t_point *start_p, t_point *hit_p, t_data *data)
+t_point* get_x(t_point *var_sects, float start_x, float start_y, t_data *data, int *i)
 {
-	t_point *p3;
-	t_point	*var_sects;
+	float	x_sect;
 
-	p3 = move_towards(start_p, hit_p, data->settings->ray_step_size * 1.1);
-	var_sects = grid_intersections(p3, hit_p, var_sects);
+	x_sect = find_x_intercept(start_x, start_y, data->temp->current_x, data->temp->current_y, data->grid_y);
+	
+	var_sects[*i].x = x_sect;
+	var_sects[*i].y = data->grid_y;
+	*i = *i + 1;
+    return (var_sects);
+}
 
+t_point	*get_backwards_intersections(t_point *var_sects, float start_x, float start_y, t_data *data)
+{
+	int *i;
 
-
+	i = malloc(sizeof(int));
+	*i = 0;
+	printf("temp curr x %f\n", data->temp->current_x);
+    printf("temp curr y %f\n", data->temp->current_y);
+	data->grid_x = find_closest_multiple(data->temp->current_x, data->settings->tile_size);
+	data->grid_y = find_closest_multiple(data->temp->current_y, data->settings->tile_size);
+	printf("grid_x %f\n", data->grid_x);
+    printf("grid_y %f\n", data->grid_y);
+	if (y_sect_exists(start_x, data->temp->current_x, data->grid_x))
+	{
+		get_y(var_sects, start_x, start_y, data, i);
+		printf("x grid is hit\n");
+	}
+	if (x_sect_exists(start_y, data->temp->current_y, data->grid_y))
+	{
+		get_x(var_sects, start_x, start_y, data, i);
+		printf(" y grid is hit\n");
+	}
+	var_sects[*i].x = -1.0f;
+	var_sects[*i].y = -1.0f;
 	return (var_sects);
 }
+
 
 t_point	*check_true_intersection(float start_x, float start_y, t_data *data)
 {
 	t_point	*var_sects;
 	t_point	*true_sect;
 	t_point	*start_p;
-	t_point *hit_p;
+	t_point *hit_p; 
 
+	hit_p = malloc(sizeof(t_point));
+	start_p = malloc(sizeof(t_point));
+	true_sect = malloc(sizeof(t_point));
+	var_sects = malloc(sizeof(t_point) * 42);
 	hit_p->x = data->temp->current_x;
 	hit_p->y = data->temp->current_y;
 	start_p->x = start_x;
 	start_p->y = start_y;
 
-	var_sects = get_backwards_intersections(start_p, hit_p, data);
-	true_sect = check_real_intersection();
+	var_sects = get_backwards_intersections(var_sects, start_x, start_y, data);
+	printf("sects[0]: x = %f, y = %f\n", var_sects[0].x, var_sects[0].y);
+    printf("sects[1]: x = %f, y = %f\n", var_sects[1].x, var_sects[1].y);
+    printf("sects[1]: x = %f, y = %f\n", var_sects[2].x, var_sects[2].y);
+	true_sect = check_real_intersections(var_sects, true_sect, data);
 	return (true_sect);
 }
 
@@ -145,7 +159,12 @@ void	cast_ray(t_data *data, float ray_angle, int i)
 		if (check_wall_hit(data))
 		{
 			true_sect = check_true_intersection(start_x, start_y, data);
+			printf("true x %f\n",true_sect->x);
+			printf("true y %f\n",true_sect->y);
+			data->temp->current_x = true_sect->x;
+			data->temp->current_y = true_sect->y;
 			distance = sqrt(pow(data->temp->current_x - start_x, 2) + pow(data->temp->current_y - start_y, 2));
+			//distance = sqrt(pow(true_sect->x - start_x, 2) + pow(true_sect->y - start_y, 2));
 			
 			//printf("distance: %f\n", distance);
 			data->rays[i]->length = distance;
@@ -160,7 +179,8 @@ void	init_ray_values(t_data *data, float ray_angle)
 {
 	data->temp->current_x = data->player->player_position[0][0];
 	data->temp->current_y = data->player->player_position[0][1];
-
+	data->temp->previous_x = data->player->player_position[0][0]; // for safety, maybe unecessary
+	data->temp->previous_y = data->player->player_position[0][1]; // for safety, maybe unecessary
 	if (ray_angle != 0)
 	{
 		data->temp->step_x = cos((ray_angle - 90) * M_PI / 180.0) * data->settings->ray_step_size;

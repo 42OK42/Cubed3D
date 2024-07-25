@@ -19,6 +19,7 @@ OBJ_DIR = obj
 SRC_DIR = src
 INCL_DIR = incl
 LIBFT_DIR = libraries/libft
+MLX_DIR = libraries/mlx
 
 # EXECUTABLE NAME
 NAME = cubed3D
@@ -39,9 +40,11 @@ SRCS = 	main.c \
 		cubfile_check.c \
 		utils.c \
 		utils2.c \
-		free.c \
 		assets.c \
 		alloc_memory.c \
+		free.c \
+		ray_utils.c \
+		ray_utils2.c
 
 # OBJECT FILES
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
@@ -53,14 +56,15 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -I$(INCL_DIR) -Imlx_linux -I$(LIBFT_DIR) -g
 
 # LINKER FLAGS
-LDFLAGS = -Lmlx_linux -lmlx -L/usr/lib -lXext -lX11 -lm -L$(LIBFT_DIR) -lft
+LDFLAGS = -Lmlx_linux -lmlx -L/usr/lib -lXext -lX11 -lm -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx
 
 # COMMANDS
 RM = rm -f
 MKDIR = mkdir -p
 
-# LIBFT
+# LIBRARIES
 LIBFT = $(LIBFT_DIR)/libft.a
+MLX = $(MLX_DIR)/libmlx.a
 
 # RULES
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
@@ -72,7 +76,13 @@ all : $(NAME)
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR)
 
-$(NAME) : $(LIBFT) $(OBJS)
+$(MLX):
+	@if [ ! -f $(MLX) ]; then \
+		echo "Installing libmlx.a..."; \
+		$(MAKE) -C $(MLX_DIR); \
+	fi
+
+$(NAME) : $(LIBFT) $(MLX) $(OBJS)
 	@$(CC) $(OBJS) $(LDFLAGS) -o $(NAME)
 	@echo "$(GREEN)./$(NAME) is ready!$(RESET)"
 
