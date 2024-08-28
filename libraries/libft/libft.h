@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 15:35:37 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/15 16:30:27 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/08/28 14:19:30 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }					t_list;
+
+int					ft_isspace(char c);
 void				*ft_memset(void *dest, int c, size_t n);
 void				ft_bzero(void *b, size_t n);
 void				*ft_memcpy(void *dest, const void *src, size_t n);

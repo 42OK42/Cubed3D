@@ -218,11 +218,155 @@ int create_map(char *file_content, t_data *data)
 	return (0);
 }
 
+t_file_info	*initialize_file_info()
+{
+	t_file_info	*file_info;
+
+	file_info = malloc(sizeof(t_file_info));
+	if (!file_info)
+		return (NULL);
+	file_info->ceiling_color = NULL;
+	file_info->floor_color = NULL;
+	file_info->path_NO = NULL;
+	file_info->path_SU = NULL;
+	file_info->path_WE = NULL;
+	file_info->path_EA = NULL;
+	return (file_info);
+}
+
+char	*skip_empty_lines(char *file_content)
+{
+	while (*file_content == '\n' || *file_content == ' ' || *file_content == '\t')
+		file_content++;
+	return (file_content);
+}
+
+int	is_element(char *file_content)
+{
+	if (*file_content == 'N' || *file_content == 'S' || *file_content == 'W' || *file_content == 'E' || *file_content == 'F' || *file_content == 'C')
+		return (1);
+	return (0);
+}
+
+size_t	find_length(char *start, char *end)
+{
+	size_t		length;
+
+	length = 0;
+	while (start != end)
+	{
+		if (*start == '\n')
+			break;
+		while (ft_isspace(*start))
+			start++;
+		if (*start == '\n')
+			break;
+		start++;
+		length++;
+	}
+	return (length);
+}
+
+char	*copy_without_spaces(char *start, char *end)
+{
+	char	*path;
+	size_t	path_length;
+	char	*path_start;
+
+	path_length = find_length(start, end);
+	path = malloc(path_length + 1);
+	if (!path)
+		return (NULL);
+	path_start = path;
+	while (start != end)
+	{
+		while (ft_isspace(*start))
+			start++;
+		*path = *start;
+		if (*start == '\n')
+			break;
+		start++;
+		path++;
+	}
+	*path = '\0';
+	return (path_start);
+}
+
+char *extract_path(char *file_content)
+{
+	char	*path_start;
+	char	*path_end;
+	char	*path;
+
+	while (*file_content != 'O' && *file_content != 'U' && *file_content != 'E' && *file_content != 'A') 
+		file_content++;
+	file_content++;
+	path_start = file_content;
+	while (*file_content != '\n')
+		file_content++;
+	path_end = file_content;
+	path = NULL;
+	path = copy_without_spaces(path_start, path_end);
+	return (path);
+}
+
+char	*extract_color(char *file_content)
+{
+	char	*path_start;
+	char	*path_end;
+	char	*path;
+
+	file_content++;
+	path_start = file_content;
+	while (*file_content != '\n')
+		file_content++;
+	path_end = file_content;
+	path = NULL;
+	path = copy_without_spaces(path_start, path_end);
+	return (path);
+}
+
+void	extract_element(t_data *data, char *file_content)
+{
+	if (*file_content == 'N')
+		data->file_info->path_NO = extract_path(++file_content);
+	if (*file_content == 'S')
+		data->file_info->path_SU = extract_path(++file_content);
+	if (*file_content == 'W')
+		data->file_info->path_WE = extract_path(++file_content);
+	if (*file_content == 'E')
+		data->file_info->path_EA = extract_path(++file_content);
+	if (*file_content == 'F')
+		data->file_info->floor_color = extract_color(file_content);
+	if (*file_content == 'C')
+		data->file_info->ceiling_color = extract_color(file_content);
+}
+
+
+char	*read_fileinfo(char *file_content, t_data *data)
+{
+	int		elements_found;
+
+	elements_found = 0;
+	data->file_info = initialize_file_info();
+	while (elements_found != 6 && file_content)
+	{
+		file_content = skip_empty_lines(file_content);
+		if (is_element(file_content))
+		{
+			extract_element(data, file_content);
+			elements_found++;
+			file_content++;
+		}
+		file_content++;
+	}
+	return (file_content);
+}
 
 void	cubfile_check(char *mapfile, t_data *data)
 {
-	int     map_fd;
-	char    *file_content;
+	int		map_fd;
+	char	*file_content;
 	int		bytesRead;
 	// int		max_width;
 
@@ -238,6 +382,15 @@ void	cubfile_check(char *mapfile, t_data *data)
 		perror_exit("Error reading file");
 	}
 	file_content[bytesRead] = '\0'; // Null-terminate the file_content
-	create_map(file_content, data);
+	file_content = read_fileinfo(file_content, data); // file_content now equal to the map content
+	while (*file_content != '\n' && *file_content)
+		file_content++;
+	printf("data->file_info->path_NO: %s\n", data->file_info->path_NO);
+	printf("data->file_info->path_SU: %s\n", data->file_info->path_SU);
+	printf("data->file_info->path_WE: %s\n", data->file_info->path_WE);
+	printf("data->file_info->path_EA: %s\n", data->file_info->path_EA);
+	printf("data->file_info->floor_color: %s\n", data->file_info->floor_color);
+	printf("data->file_info->ceiling_color: %s\n", data->file_info->ceiling_color);
 	// map_check(file_content, data);
+	create_map(file_content, data);
 }

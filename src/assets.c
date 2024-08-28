@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 14:06:17 by okrahl            #+#    #+#             */
-/*   Updated: 2024/05/31 22:09:55 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/16 14:43:56 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,20 +133,64 @@ char	***create_colored_map(char ***colors, int num_colors, char **pixel_map, t_t
 	return (map);
 }
 
-char	***load_xpm(char *PATH)
+int **convert_to_hex(char ***image_before, t_temp_assets *temp)
 {
-	char			***image_result;
+	int i;
+	int j;
+	int **image_result;
+
+	i = 0;
+	image_result = (int **)malloc(sizeof(int *) * temp->height);
+	if (!image_result)
+	{
+		return (NULL);
+	}
+	while (i < temp->height)
+	{
+		image_result[i] = (int *)malloc(sizeof(int) * temp->width);
+		if (!image_result[i])
+		{
+			while (--i >= 0)
+			{
+				free(image_result[i]);
+			}
+			free(image_result);
+			return (NULL);
+		}
+		j = 0;
+		while (j < temp->width)
+		{
+			if (image_before[i][j])
+			{
+				image_result[i][j] = ft_atoi_base(image_before[i][j], 16);
+			}
+			else
+			{
+				image_result[i][j] = 0;
+			}
+			j++;
+		}
+		i++;
+	}
+	return (image_result);
+}
+
+int	**load_xpm(char *PATH)
+{
+	char			***image_before_hex;
 	char			**xpm_lines;
 	t_temp_assets	*temp;
 	char			**pixel_map;
 	char			***colors;
+	int				**image_result;
 
 	xpm_lines = read_xpm(PATH);
 	temp = parse_header(xpm_lines);
 	colors = get_colors(xpm_lines, temp->num_colors);
 	pixel_map = get_pixel_map(xpm_lines, temp);
-	image_result = create_colored_map(colors, temp->num_colors, pixel_map, temp);
-	print_colored_map(image_result, temp);
+	image_before_hex = create_colored_map(colors, temp->num_colors, pixel_map, temp);
+	image_result = convert_to_hex(image_before_hex, temp);
+	print_colored_map_before_hex(image_before_hex, temp);
 	return (image_result);
 }
 

@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:07:19 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/15 15:37:14 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/16 16:31:00 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,9 @@ t_settings	*initialize_settings(t_data *data)
 	settings->space_color = 0x808080;
 	settings->player_color = 0x0000FF;
 	settings->ray_color = 0xFF0000;
-	settings->tile_size = 100;
-	settings->fov = 90;
-	settings->num_rays = 90;
+	settings->tile_size = 20;
+	settings->fov = 1;
+	settings->num_rays = 1;
 	settings->show_rays = 1;
 	settings->ray_step_size = 0.01;
 	settings->window_width = 1000;
@@ -184,11 +184,6 @@ t_data	*initialize_data(char *filename, t_data *data)
 	data->player = initialize_player(data);
 	data->temp = initialize_temp();
 	data->rays = initialize_rays(data);
-	printf("map_height: %d\n", data->map_height); // Use %d for int
-	printf("map_width: %d\n", data->map_width);   // Use %d for int
-	printf("player_position0: %f\n", data->player->player_position[0][0]); // Use %f for float
-	printf("player_position1: %f\n", data->player->player_position[0][1]); // Use %f for float
-	printf("player_direction: %d\n", data->player->player_direction);
 	data->assets = initialize_assets();
 	raycaster(data);
 	data->mlx = initialize_mlx(data);

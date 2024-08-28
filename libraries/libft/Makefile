@@ -6,11 +6,12 @@
 #    By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/11 14:20:12 by okrahl            #+#    #+#              #
-#    Updated: 2024/05/15 16:45:37 by okrahl           ###   ########.fr        #
+#    Updated: 2024/08/28 14:19:58 by okrahl           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS			=	ft_isalnum.c\
+				ft_isspace.c\
 				ft_isprint.c\
 				ft_bzero.c\
 				ft_isalpha.c\
@@ -64,7 +65,7 @@ SRCS			=	ft_isalnum.c\
 				get_next_line_utils.c \
 				get_next_line.c \
 				get_next_line_bonus.c \
-				get_next_line_utils_bonus.c
+				get_next_line_utils_bonus.c \
 
 OBJS			= $(SRCS:%.c=%.o)
 

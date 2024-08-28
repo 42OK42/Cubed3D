@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:52:48 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/15 15:36:43 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/28 15:58:02 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 float	**initialize_player_position(t_data *data)
 {
 	float	**player_position;
-	int		y;
-	int		x;
+	int	y;
+	int	x;
 
 	y = 0;
 	x = 0;
-	player_position = malloc(sizeof(float *) * 2);
+	player_position = malloc(sizeof(int *) * 2);
 	if (!player_position)
 		return (0);
-	player_position[0] = malloc(sizeof(float) * 2);
+	player_position[0] = malloc(sizeof(int) * 2);
 	if (!player_position[0])
 		return (0);
 	while (data->map[y][x] && data->map[y][x] != 'N' && data->map[y][x] != 'E' && data->map[y][x] != 'W' && data->map[y][x] != 'S')
