@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:09:17 by okrahl            #+#    #+#             */
-/*   Updated: 2024/08/29 17:20:18 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/08/29 18:50:56 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,50 @@ t_file_info	*initialize_file_info(void)
 	return (file_info);
 }
 
-char	*skip_empty_lines(char *file_content)
+int	is_element_color(char *file_content, t_data *data)
 {
-	while (*file_content == '\n' || *file_content == ' ' \
-		|| *file_content == '\t')
-		file_content++;
-	return (file_content);
+	if (*file_content == 'F')
+	{
+		if (data->file_info->fc != -1)
+			perror_exit("Floorcolor provided multiple times");
+		return (1);
+	}
+	if (*file_content == 'C')
+	{
+		if (data->file_info->cc != -1)
+			perror_exit("Cellingcolor provided multiple times");
+		return (1);
+	}
+	return (0);
 }
 
-int	is_element(char *file_content)
+int	is_element(char *file_content, t_data *data)
 {
-	if (*file_content == 'N' || *file_content == 'S' || \
-		*file_content == 'W' || *file_content == 'E' || *file_content \
-		== 'F' || *file_content == 'C')
+	if (*file_content == 'N')
+	{
+		if (data->file_info->path_NO)
+			perror_exit("NO path provided multiple times");
 		return (1);
-	return (0);
+	}
+	if (*file_content == 'S')
+	{
+		if (data->file_info->path_SU)
+			perror_exit("SU path provided multiple times");
+		return (1);
+	}
+	if (*file_content == 'W')
+	{
+		if (data->file_info->path_WE)
+			perror_exit("WE path provided multiple times");
+		return (1);
+	}
+	if (*file_content == 'E')
+	{
+		if (data->file_info->path_EA)
+			perror_exit("EA path provided multiple times");
+		return (1);
+	}
+	return (is_element_color(file_content, data));
 }
 
 size_t	find_length(char *start, char *end)

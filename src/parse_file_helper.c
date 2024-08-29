@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:09:17 by okrahl            #+#    #+#             */
-/*   Updated: 2024/08/29 17:41:38 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/08/29 18:51:04 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,12 @@ int	not_all_elements_provided(t_data *data)
 		data->file_info->cc == -1)
 		return (1);
 	return (0);
+}
+
+char	*skip_empty_lines(char *file_content)
+{
+	while (*file_content == '\n' || *file_content == ' ' \
+		|| *file_content == '\t')
+		file_content++;
+	return (file_content);
 }

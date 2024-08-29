@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:09:17 by okrahl            #+#    #+#             */
-/*   Updated: 2024/08/29 17:47:31 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/08/29 18:52:39 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	*read_fileinfo(char *file_content, t_data *data)
 	while (map_started(file_content) == 0 && file_content)
 	{
 		file_content = skip_empty_lines(file_content);
-		if (is_element(file_content))
+		if (is_element(file_content, data))
 			extract_element(data, &file_content);
 		file_content++;
 		file_content = skip_empty_lines(file_content);

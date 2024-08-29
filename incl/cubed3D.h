@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/08/29 17:20:18 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/08/29 18:52:27 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,8 +246,8 @@ char			*read_fileinfo(char *file_content, t_data *data);
 
 //parse_file2.c
 t_file_info		*initialize_file_info(void);
-char			*skip_empty_lines(char *file_content);
-int				is_element(char *file_content);
+int				is_element_color(char *file_content, t_data *data);
+int				is_element(char *file_content, t_data *data);
 size_t			find_length(char *start, char *end);
 char			*copy_without_spaces(char *start, char *end);
 
@@ -256,6 +256,7 @@ int				parse_rgb_value(const char *str, int *index);
 int				rgb_to_hex(const char *rgb);
 int				map_started(char *file_content);
 int				not_all_elements_provided(t_data *data);
+char			*skip_empty_lines(char *file_content);
 
 // main.c
 int				main(int argc, char **argv);
