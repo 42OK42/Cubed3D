@@ -60,18 +60,20 @@ OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 CC = gcc
 
 # COMPILATION FLAGS
-CFLAGS = -Wall -Wextra -Werror -I$(INCL_DIR) -Imlx_linux -I$(LIBFT_DIR) -g
+CFLAGS = -Wall -Wextra -Werror -I$(INCL_DIR) -I$(MLX_DIR) -I$(LIBFT_DIR) -g
 
 # LINKER FLAGS
-LDFLAGS = -Lmlx_linux -lmlx -L/usr/lib -lXext -lX11 -lm -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx
+LDFLAGS = -L$(MLX_DIR) -lmlx -L/usr/lib -lXext -lX11 -lm -L$(LIBFT_DIR) -lft
 
 # COMMANDS
 RM = rm -f
 MKDIR = mkdir -p
 
-# LIBRARIES
+# LIBFT
 LIBFT = $(LIBFT_DIR)/libft.a
-MLX = $(MLX_DIR)/libmlx.a
+
+# MLX
+MLX_LIB = $(MLX_DIR)/libmlx.a
 
 # RULES
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
@@ -83,13 +85,13 @@ all : $(NAME)
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR)
 
-$(MLX):
-	@if [ ! -f $(MLX) ]; then \
-		echo "Installing libmlx.a..."; \
-		$(MAKE) -C $(MLX_DIR); \
+$(MLX_LIB):
+	@if [ ! -f $(MLX_LIB) ]; then \
+		echo "Installing libmlx..."; \
+		cd $(MLX_DIR) && ./configure && make; \
 	fi
 
-$(NAME) : $(LIBFT) $(MLX) $(OBJS)
+$(NAME) : $(LIBFT) $(MLX_LIB) $(OBJS)
 	@$(CC) $(OBJS) $(LDFLAGS) -o $(NAME)
 	@echo "$(GREEN)./$(NAME) is ready!$(RESET)"
 

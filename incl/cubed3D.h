@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/25 20:25:31 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/08/29 14:20:11 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define CUBED3D_H
 
 # include <mlx.h>
-# include "../libraries/minilibx_opengl_20191021/mlx.h"
-# include "../libraries/minilibx-linux/mlx.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <string.h>
@@ -138,8 +136,19 @@ typedef struct s_rays
 	float		hit_y;
 }			t_rays;
 
+typedef struct s_file_info
+{
+	char		*path_NO;
+	char		*path_SU;
+	char		*path_WE;
+	char		*path_EA;
+	char		*floor_color;
+	char		*ceiling_color;
+}			t_file_info;
+
 typedef struct s_data
 {
+	t_file_info			*file_info;
 	t_mlx				*mlx;
 	t_settings			*settings;
 	t_player			*player;
