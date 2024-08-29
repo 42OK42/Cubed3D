@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:09:17 by okrahl            #+#    #+#             */
-/*   Updated: 2024/08/29 17:20:38 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/08/29 17:47:31 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void	extract_element(t_data *data, char **file_content)
 char	*read_fileinfo(char *file_content, t_data *data)
 {
 	data->file_info = initialize_file_info();
+	file_content = skip_empty_lines(file_content);
 	while (map_started(file_content) == 0 && file_content)
 	{
 		file_content = skip_empty_lines(file_content);
@@ -108,6 +109,6 @@ char	*read_fileinfo(char *file_content, t_data *data)
 		file_content = skip_empty_lines(file_content);
 	}
 	if (not_all_elements_provided(data))
-		perror_exit("Not all elements provided");
+		perror_exit("Not all elements provided before map");
 	return (file_content);
 }

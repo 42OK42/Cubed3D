@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:09:17 by okrahl            #+#    #+#             */
-/*   Updated: 2024/08/29 17:20:18 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/08/29 17:41:38 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	rgb_to_hex(const char *rgb)
 	int	i;
 	int	hexcolor;
 
+	if (rgb == NULL)
+		perror_exit("Not all RGB values provided");
 	i = 0;
 	r = parse_rgb_value(rgb, &i);
 	if (r == -1)
@@ -50,10 +52,7 @@ int	rgb_to_hex(const char *rgb)
 	if (b == -1)
 		return (-1);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-	{
 		perror_exit("RGB-values must be between 0 and 255");
-		return (-1);
-	}
 	hexcolor = (r << 16) | (g << 8) | b;
 	return (hexcolor);
 }

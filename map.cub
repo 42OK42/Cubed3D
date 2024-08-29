@@ -1,10 +1,10 @@
-NO images/wall_north.xpm
+NO     images/wall_north.xpm
 SO images/wall_south.xpm
 WE images/wall_west.xpm
 
 EA images/wall_east.xpm
 
-F     220,   100,0
+F 220,100,0
 
 C 225,30,0
 
