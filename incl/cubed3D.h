@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/08/29 14:20:11 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/08/29 17:20:18 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <math.h>
-# include "libft.h"
-// ../libraries/libft/
+# include "../libraries/libft/libft.h"
 
 # define M_PI 3.14159265358979323846
 
@@ -142,8 +141,8 @@ typedef struct s_file_info
 	char		*path_SU;
 	char		*path_WE;
 	char		*path_EA;
-	char		*floor_color;
-	char		*ceiling_color;
+	int			fc;
+	int			cc;
 }			t_file_info;
 
 typedef struct s_data
@@ -238,6 +237,26 @@ void			initialize_bresenham(t_data *data);
 void			update_bresenham(t_data *data);
 void			draw_tile(t_data *data, int tile_x, int tile_y, int color);
 
+//parse_file.c
+char			*copy_path(char *start, char *end);
+char			*extract_path(char **file_content);
+char			*extract_color(char **file_content);
+void			extract_element(t_data *data, char **file_content);
+char			*read_fileinfo(char *file_content, t_data *data);
+
+//parse_file2.c
+t_file_info		*initialize_file_info(void);
+char			*skip_empty_lines(char *file_content);
+int				is_element(char *file_content);
+size_t			find_length(char *start, char *end);
+char			*copy_without_spaces(char *start, char *end);
+
+//parse_file_helper.c
+int				parse_rgb_value(const char *str, int *index);
+int				rgb_to_hex(const char *rgb);
+int				map_started(char *file_content);
+int				not_all_elements_provided(t_data *data);
+
 // main.c
 int				main(int argc, char **argv);
 
@@ -256,7 +275,7 @@ int				is_position_walkable(t_data *data, float x, float y);
 int				check_buffer_zones(t_data *data, float x, float y);
 
 // prepare_assets.c
-t_assets		*initialize_assets(void);
+void			initialize_assets(t_data *data);
 int				**load_xpm(char *PATH);
 char			**read_xpm(char *PATH);
 

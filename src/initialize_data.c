@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:07:19 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/25 20:07:41 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/08/29 15:32:23 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,12 @@ t_rays	**initialize_rays(t_data *data)
 
 t_data	*initialize_data(char *filename, t_data *data)
 {
+	t_assets	*assets;
+
+	assets = (t_assets *)malloc(sizeof(t_assets));
+	if (!assets)
+		return (NULL);
+	data->assets = assets;
 	data->filename = filename;
 	data->map_height = find_map_height_before_map(data);
 	data->map_width = find_map_width(data);
@@ -104,7 +110,7 @@ t_data	*initialize_data(char *filename, t_data *data)
 	data->player = initialize_player(data);
 	data->temp = initialize_temp();
 	data->rays = initialize_rays(data);
-	data->assets = initialize_assets();
+	initialize_assets(data);
 	data->color_row = initialize_color_row(data);
 	raycaster(data);
 	data->mlx = initialize_mlx(data);

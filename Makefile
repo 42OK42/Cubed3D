@@ -30,6 +30,9 @@ SRCS = 	main.c \
 		helper.c \
 		helper2.c \
 		helper3.c \
+		parse_file.c \
+		parse_file2.c \
+		parse_file_helper.c \
 		close_game.c \
 		initialize_data.c \
 		initialize_player.c \

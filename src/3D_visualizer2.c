@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:33:26 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/25 16:39:50 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/08/29 17:20:18 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ float	fix_fish_eye(t_data *data, int ray_id)
 void	draw_background(t_data *data)
 {
 	draw_background_section(data, 0, data->settings->window_height / \
-	2, data->settings->upper_background_color);
+	2, data->file_info->cc);
 	draw_background_section(data, data->settings->window_height \
-	/ 2, data->settings->window_height, data->settings->lower_background_color);
+	/ 2, data->settings->window_height, data->file_info->fc);
 }
 
 void	draw_background_section(t_data *data, int \
