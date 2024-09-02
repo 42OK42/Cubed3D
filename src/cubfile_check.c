@@ -200,6 +200,8 @@ int	check_surrounded_by_walls(char	**line_grid)
 	char **row_grid;
 
 	row_grid = lines_to_rows(line_grid);
+	// ft_printf("row grid:\n");
+	// print_string_array(row_grid);
 	enclosed_by_walls(line_grid, row_grid);
 	return (0);
 }
@@ -211,9 +213,7 @@ int create_map(char *file_content, t_data *data)
 	line_grid = ft_split(file_content,'\n');
 	pad(line_grid, 57);
 	check_surrounded_by_walls(line_grid);
-	//max_width = find_max_width(line_grid);
-	// ft_printf("line_grid\n");
-	print_string_array(line_grid);
+	// print_string_array(line_grid);
 	data->map = line_grid;
 	return (0);
 }
@@ -238,6 +238,6 @@ void	cubfile_check(char *mapfile, t_data *data)
 	}
 	file_content[bytesRead] = '\0'; // Null-terminate the file_content
 	file_content = read_fileinfo(file_content, data); // file_content now equal to the map content
-	// map_check(file_content, data);
+	printf(" file content :\n%s", file_content);
 	create_map(file_content, data);
 }

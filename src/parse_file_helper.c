@@ -71,6 +71,25 @@ int	map_started(char *file_content)
 	return (1);
 }
 
+int	line_is_map(char *file_content)
+{
+	while (*file_content != '\n' && *file_content != '\0' ) 
+	{
+		if (*file_content != '0' && *file_content != '1' \
+			&& *file_content != 'N' && *file_content != 'S' \
+			&& *file_content != 'E' && *file_content != 'W' && \
+			*file_content != ' ')
+			return (0);
+		file_content++;
+		// printf("%c",*(file_content -1));
+		if (*file_content == '\n' && *(file_content - 1) == '1')
+		{
+			return (1);
+		}
+	}
+	return (0);
+}
+
 int	not_all_elements_provided(t_data *data)
 {
 	if (!data->file_info->path_NO || !data->file_info->path_SU \

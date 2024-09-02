@@ -99,17 +99,19 @@ void	extract_element(t_data *data, char **file_content)
 char	*read_fileinfo(char *file_content, t_data *data)
 {
 	char	*map_start;
+	char	*file_copy;
 
+	file_copy = ft_strdup(file_content);
 	map_start = skip_until_map(file_content);
 	data->file_info = initialize_file_info();
-	file_content = skip_empty_lines(file_content);
-	while (map_started(file_content) == 0 && file_content)
+	file_copy = skip_empty_lines(file_copy);
+	while (map_started(file_copy) == 0 && file_copy)
 	{
-		file_content = skip_empty_lines(file_content);
-		if (is_element(file_content, data))
-			extract_element(data, &file_content);
-		file_content++;
-		file_content = skip_empty_lines(file_content);
+		file_copy = skip_empty_lines(file_copy);
+		if (is_element(file_copy, data))
+			extract_element(data, &file_copy);
+		file_copy++;
+		file_copy = skip_empty_lines(file_copy);
 	}
 	if (not_all_elements_provided(data))
 		perror_exit("Not all elements provided before map");

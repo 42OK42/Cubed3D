@@ -21,11 +21,13 @@ int	main(int argc, char **argv)
 		return (0);
 	args_check(argc, argv);
 	cubfile_check(argv[1], data);
-	/* data = initialize_data(argv[1], data);
+	
+	data = initialize_data(argv[1], data);
 	if (data->settings->open_minimap)
 		draw_minimap(data);
 	draw_3d_view(data);
 	if (game_loop(data) == 1)
-		free_data(data); */
+		free_data(data);
+	
 	return (1);
 }

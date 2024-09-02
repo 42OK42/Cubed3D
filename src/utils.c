@@ -31,8 +31,8 @@ void	print_string_array(char **str_array)
 	i = 0;
 	while (str_array[i] != NULL)
 	{
-		printf("\nstrArr[%d] #%s#", i, str_array[i]);
+		ft_printf("\nstrArr[%d] #%s#", i, str_array[i]);
 		i++;
 	}
-	printf("\n");
+	ft_printf("\n");
 }

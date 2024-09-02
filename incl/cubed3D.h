@@ -254,9 +254,10 @@ char			*copy_without_spaces(char *start, char *end);
 //parse_file_helper.c
 int				parse_rgb_value(const char *str, int *index);
 int				rgb_to_hex(const char *rgb);
-int				map_started(char *file_content);
+int				line_is_map(char *file_content);
 int				not_all_elements_provided(t_data *data);
 char			*skip_empty_lines(char *file_content);
+int				map_started(char *file_content);
 
 //parse_file_helper2.c
 char			*skip_until_map(char *file_content);

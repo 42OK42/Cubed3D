@@ -12,9 +12,21 @@
 
 #include "../incl/cubed3D.h"
 
+char *revert_on_line(char *file_content)
+{
+	if (*file_content != '\n')
+		file_content--;
+	while (*file_content != '\n')
+	{
+		file_content--;
+	}
+	return (file_content);
+}
+
 char	*skip_until_map(char *file_content)
 {
-	while (map_started(file_content) != 1 && *file_content)
+	while (line_is_map(file_content) != 1 && *file_content != '\0')
 		file_content++;
+	revert_on_line(file_content);
 	return (file_content);
 }
