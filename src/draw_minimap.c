@@ -37,7 +37,7 @@ void	draw_rays(t_data *data)
 	}
 }
 
-void	draw_ray(t_data *data, float length, int angle)
+void	draw_ray(t_data *data, long double length, int angle)
 {
 	data->temp->angle_rad = (angle - 90) * M_PI / 180.0;
 	data->temp->center_x = data->player->player_position[0][0];

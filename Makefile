@@ -56,6 +56,10 @@ SRCS = 	main.c \
 		prepare_assets3.c \
 		alloc_memory.c \
 		settings.c \
+		ray_utils.c \
+		backtrack.c \
+		wall_checks.c
+		
 
 # OBJECT FILES
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
@@ -73,8 +77,9 @@ LDFLAGS = -L$(MLX_DIR) -lmlx -L/usr/lib -lXext -lX11 -lm -L$(LIBFT_DIR) -lft
 RM = rm -f
 MKDIR = mkdir -p
 
-# LIBFT
+# LIBRARIES
 LIBFT = $(LIBFT_DIR)/libft.a
+MLX = $(MLX_DIR)/libmlx.a
 
 # MLX
 MLX_LIB = $(MLX_DIR)/libmlx.a

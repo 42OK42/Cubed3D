@@ -12,21 +12,21 @@
 
 #include "../incl/cubed3D.h"
 
-float	**initialize_player_position(t_data *data)
+long double	**initialize_player_position(t_data *data)
 {
-	float	**player_position;
+	long double	**player_position;
 
-	player_position = malloc(sizeof(float *) * 2);
+	player_position = malloc(sizeof(long double *) * 2);
 	if (!player_position)
 		return (0);
-	player_position[0] = malloc(sizeof(float) * 2);
+	player_position[0] = malloc(sizeof(long double) * 2);
 	if (!player_position[0])
 		return (0);
 	find_player_start_position(data, player_position);
 	return (player_position);
 }
 
-void	find_player_start_position(t_data *data, float **player_position)
+void	find_player_start_position(t_data *data, long double **player_position)
 {
 	int	y;
 	int	x;
@@ -47,13 +47,13 @@ void	find_player_start_position(t_data *data, float **player_position)
 		y++;
 		x = 0;
 	}
-	player_position[0][0] = (float)(x * \
+	player_position[0][0] = (long double)(x * \
 		data->settings->tile_size + data->settings->tile_size / 2);
-	player_position[0][1] = (float)(y * \
+	player_position[0][1] = (long double)(y * \
 		data->settings->tile_size + data->settings->tile_size / 2);
 }
 
-int	initialize_player_direction(t_data *data, float **player_position)
+int	initialize_player_direction(t_data *data, long double **player_position)
 {
 	int		tile_x;
 	int		tile_y;

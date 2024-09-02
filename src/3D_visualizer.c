@@ -17,7 +17,7 @@ void	draw_3d_view(t_data *data)
 	int		ray_id;
 	int		wall_height;
 	int		screen_x;
-	float	corrected_distance;
+	long double	corrected_distance;
 	int		prev_screen_x;
 
 	draw_background(data);
@@ -25,6 +25,8 @@ void	draw_3d_view(t_data *data)
 	while (ray_id < data->settings->num_rays)
 	{
 		corrected_distance = fix_fish_eye(data, ray_id);
+		if(ray_id < 8)
+			printf("corrected distance:%f\n", (double)corrected_distance);
 		wall_height = (int)((data->settings->tile_size / corrected_distance) \
 			* data->settings->dist_to_proj_plane);
 		screen_x = (data->settings->window_width * ray_id) / \
@@ -97,9 +99,10 @@ void	update_color_row(t_data *data, int ray_id, int start_y, int end_y)
 	right_image = get_right_image(data, ray_id);
 	if (!right_image)
 		return ;
+	data->temp->previous_image = right_image;
 	image_x = calculate_image_x(data, ray_id, get_image_width(right_image));
-	data->temp->step = (float)get_image_height(right_image) / \
-		(float)(wall_height + 1);
+	data->temp->step = (long double)get_image_height(right_image) / \
+		(long double)(wall_height + 1);
 	data->temp->image_pos = 0;
 	i = start_y;
 	while (i <= end_y)

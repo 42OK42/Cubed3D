@@ -14,8 +14,8 @@
 
 void	update_player_position(t_data *data, char direction)
 {
-	float	new_x;
-	float	new_y;
+	long double	new_x;
+	long double	new_y;
 
 	calculate_new_position(data, direction, &new_x, &new_y);
 	if (is_position_walkable(data, new_x, new_y))
@@ -26,7 +26,7 @@ void	update_player_position(t_data *data, char direction)
 }
 
 void	calculate_new_position(t_data *data, char direction, \
-	float *new_x, float *new_y)
+	long double *new_x, long double *new_y)
 {
 	int		move_step;
 	double	angle_rad;
@@ -73,7 +73,7 @@ void	update_player_direction(t_data *data, char direction)
 	}
 }
 
-int	is_position_walkable(t_data *data, float x, float y)
+int	is_position_walkable(t_data *data, long double x, long double y)
 {
 	int		tile_size;
 	int		map_x;
@@ -87,10 +87,10 @@ int	is_position_walkable(t_data *data, float x, float y)
 	return (check_buffer_zones(data, x, y));
 }
 
-int	check_buffer_zones(t_data *data, float x, float y)
+int	check_buffer_zones(t_data *data, long double x, long double y)
 {
 	int		tile_size;
-	float	buffer;
+	long double	buffer;
 	int		map_x;
 	int		map_y;
 

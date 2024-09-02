@@ -7,6 +7,7 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 11:47:37 by okrahl            #+#    #+#             */
 /*   Updated: 2024/07/22 16:54:02 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/07/16 16:22:50 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +16,61 @@
 void	raycaster(t_data *data)
 {
 	int		i;
-	float	fov;
-	float	angle_step;
-	float	start_angle;
-	float	angle;
+	long double	fov;
+	long double	angle;
 
 	i = 0;
 	fov = data->settings->fov;
-	angle_step = fov / (float)data->settings->num_rays;
-	start_angle = data->player->player_direction - (fov / 2.0);
-
+	system("clear");
+	printf("rays||||||||||||||||||||||||||||||||||||||\n");
 	while (i < data->settings->num_rays)
 	{
 		data->temp->hit_wall = 0;
-		angle = start_angle + (i * angle_step);
+		angle = data->player->player_direction - (fov / 2.0) + (fov * i / (long double)data->settings->num_rays);
 		data->rays[i]->angle = angle;
 		cast_ray(data, angle, i);
 		i++;
 	}
+	printf("\n");
 }
 
-void	init_ray_values(t_data *data, float ray_angle)
+
+void	cast_ray(t_data *data, long double ray_angle, int i)
+{
+	int		j;
+	long double	distance;
+	t_point *start;
+	t_point *true_sect;
+
+	true_sect = malloc(sizeof(t_point));
+	start = malloc(sizeof(t_point));
+	j = 0;
+	start->x = data->player->player_position[0][0];
+	start->y = data->player->player_position[0][1];
+	init_ray_values(data, ray_angle);
+	while (!data->temp->hit_wall)
+	{
+		update_ray_position(data);
+		if (check_wall_hit(data))
+		{
+			true_sect = get_true_intersection(start, data, data->temp);
+			data->temp->current_x = true_sect->x;
+			data->temp->current_y = true_sect->y;
+			distance = sqrt(pow(data->temp->current_x - start->x, 2) + pow(data->temp->current_y - start->y, 2));
+			data->rays[i]->length = distance;
+			data->rays[i]->hit_x = data->temp->current_x;
+			data->rays[i]->hit_y = data->temp->current_y;
+		}
+		j++;
+	}
+}
+
+void	init_ray_values(t_data *data, long double ray_angle)
 {
 	data->temp->current_x = data->player->player_position[0][0];
 	data->temp->current_y = data->player->player_position[0][1];
-
+	data->temp->previous_x = data->player->player_position[0][0]; // for safety, maybe unecessary
+	data->temp->previous_y = data->player->player_position[0][1]; // for safety, maybe unecessary
 	if (ray_angle != 0)
 	{
 		data->temp->step_x = cos((ray_angle - 90) * M_PI / 180.0) * data->settings->ray_step_size;
@@ -52,7 +83,6 @@ void	init_ray_values(t_data *data, float ray_angle)
 	}
 }
 
-
 void	update_ray_position(t_data *data)
 {
 	data->temp->current_x += data->temp->step_x;
@@ -64,13 +94,13 @@ int	check_wall_hit(t_data *data)
 	int	cell_x;
 	int	cell_y;
 
-	cell_y = (int)((data->temp->current_y) / data->settings->tile_size);
-	cell_x = (int)(data->temp->current_x / data->settings->tile_size);
+	cell_y = ((int)(data->temp->current_y) / data->settings->tile_size);
+	cell_x = ((int)(data->temp->current_x) / data->settings->tile_size);
 	if (data->temp->previous_x && data->temp->current_x >= data->temp->previous_x && data->temp->current_y >= data->temp->previous_y)
 	{
 		if ((int)data->temp->current_x % data->settings->tile_size == 0 && (int)data->temp->current_y % data->settings->tile_size == 0)
 		{
-			if (data->map[cell_y][cell_x-1] == '1' && data->map[cell_y - 1][cell_x])
+			if (data->map[cell_y][cell_x-1] == '1' && data->map[cell_y - 1][cell_x] == '1')
 			{
 				data->temp->hit_wall = 1;
 				return (1);
@@ -92,7 +122,7 @@ int	check_wall_hit(t_data *data)
 	{
 		if ((int)data->temp->current_x  % data->settings->tile_size == 0 && ((int)data->temp->current_y + 1) % data->settings->tile_size == 0)
 		{
-			if (data->map[cell_y][cell_x-1] == '1' && data->map[cell_y + 1][cell_x])
+			if (data->map[cell_y][cell_x-1] == '1' && data->map[cell_y + 1][cell_x] == '1')
 			{
 				data->temp->hit_wall = 1;
 				return (1);
@@ -103,7 +133,7 @@ int	check_wall_hit(t_data *data)
 	{
 		if (((int)data->temp->current_x + 1) % data->settings->tile_size == 0 && ((int)data->temp->current_y + 1) % data->settings->tile_size == 0)
 		{
-			if (data->map[cell_y][cell_x+1] == '1' && data->map[cell_y + 1][cell_x])
+			if (data->map[cell_y][cell_x+1] == '1' && data->map[cell_y + 1][cell_x] == '1')
 			{
 				data->temp->hit_wall = 1;
 				return (1);
@@ -120,28 +150,18 @@ int	check_wall_hit(t_data *data)
 	return (0);
 }
 
-
-void	cast_ray(t_data *data, float ray_angle, int i)
+long double	find_closest_x(t_data *data)
 {
-	int		j;
-	float	start_x;
-	float	start_y;
-	float	distance;
+	long double	closest_grid_section;
+	int		grid_num;
 
-	j = 0;
-	start_x = data->player->player_position[0][0];
-	start_y = data->player->player_position[0][1];
-	init_ray_values(data, ray_angle);
-	while (!data->temp->hit_wall)
-	{
-		update_ray_position(data);
-		if (check_wall_hit(data))
-		{
-			distance = sqrt(pow(data->temp->current_x - start_x, 2) + pow(data->temp->current_y - start_y, 2));
-			data->rays[i]->length = distance;
-			data->rays[i]->hit_x = data->temp->current_x;
-			data->rays[i]->hit_y = data->temp->current_y;
-		}
-		j++;
-	}
+	grid_num = ((int)data->temp->current_x + 1) / data->settings->tile_size;
+	closest_grid_section = grid_num * data->settings->tile_size;
+	return(closest_grid_section);
+}
+
+long double find_closest_multiple(long double x, int t) 
+{
+    long double closest_multiple = round(x / t) * t;
+    return closest_multiple;
 }
