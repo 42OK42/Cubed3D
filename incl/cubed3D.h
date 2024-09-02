@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/08/29 18:52:27 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/02 16:42:54 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,6 +257,9 @@ int				rgb_to_hex(const char *rgb);
 int				map_started(char *file_content);
 int				not_all_elements_provided(t_data *data);
 char			*skip_empty_lines(char *file_content);
+
+//parse_file_helper2.c
+char			*skip_until_map(char *file_content);
 
 // main.c
 int				main(int argc, char **argv);

@@ -238,12 +238,6 @@ void	cubfile_check(char *mapfile, t_data *data)
 	}
 	file_content[bytesRead] = '\0'; // Null-terminate the file_content
 	file_content = read_fileinfo(file_content, data); // file_content now equal to the map content
-	printf("data->file_info->path_NO: %s\n", data->file_info->path_NO);
-	printf("data->file_info->path_SU: %s\n", data->file_info->path_SU);
-	printf("data->file_info->path_WE: %s\n", data->file_info->path_WE);
-	printf("data->file_info->path_EA: %s\n", data->file_info->path_EA);
-	printf("data->file_info->floor_color: %i\n", data->file_info->fc);
-	printf("data->file_info->ceiling_color: %i\n", data->file_info->cc);
 	// map_check(file_content, data);
 	create_map(file_content, data);
 }
