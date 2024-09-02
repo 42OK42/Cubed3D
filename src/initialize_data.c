@@ -105,7 +105,7 @@ t_data	*initialize_data(char *filename, t_data *data)
 	data->player = initialize_player(data);
 	data->temp = initialize_temp();
 	data->rays = initialize_rays(data);
-	initialize_assets(data);
+	data->assets = initialize_assets();
 	data->color_row = initialize_color_row(data);
 	raycaster(data);
 	data->mlx = initialize_mlx(data);

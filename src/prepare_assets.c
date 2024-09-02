@@ -12,16 +12,26 @@
 
 #include "../incl/cubed3D.h"
 
-void	initialize_assets(t_data *data)
+t_assets	*initialize_assets(void)
 {
-	data->assets->wall_south_path = data->file_info->path_SU;
-	data->assets->wall_north_path = data->file_info->path_NO;
-	data->assets->wall_east_path = data->file_info->path_EA;
-	data->assets->wall_west_path = data->file_info->path_WE;
-	data->assets->wall_south = load_xpm(data->assets->wall_south_path);
-	data->assets->wall_north = load_xpm(data->assets->wall_north_path);
-	data->assets->wall_east = load_xpm(data->assets->wall_east_path);
-	data->assets->wall_west = load_xpm(data->assets->wall_west_path);
+	t_assets	*assets;
+
+	assets = (t_assets *)malloc(sizeof(t_assets));
+	if (!assets)
+		return (NULL);
+	assets->wall_south_path = "images/wall_south.xpm";
+	assets->wall_north_path = "images/wall_north.xpm";
+	assets->wall_east_path = "images/wall_east.xpm";
+	assets->wall_west_path = "images/wall_west.xpm";
+	assets->wall_corner_path = "images/wall_corner.xpm";
+	assets->wall_sectfail_path = "images/wall_sectfail.xpm";
+	assets->wall_south = load_xpm(assets->wall_south_path);
+	assets->wall_north = load_xpm(assets->wall_north_path);
+	assets->wall_east = load_xpm(assets->wall_east_path);
+	assets->wall_west = load_xpm(assets->wall_west_path);
+	assets->wall_corner = load_xpm(assets->wall_corner_path);
+	assets->wall_sectfail = load_xpm(assets->wall_sectfail_path);
+	return (assets);
 }
 
 int	**load_xpm(char *PATH)
