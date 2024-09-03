@@ -14,14 +14,22 @@
 
 void	initialize_assets(t_data *data)
 {
-	data->assets->wall_south_path = data->file_info->path_SU;
-	data->assets->wall_north_path = data->file_info->path_NO;
-	data->assets->wall_east_path = data->file_info->path_EA;
-	data->assets->wall_west_path = data->file_info->path_WE;
+
+	data->assets = (t_assets *)malloc(sizeof(t_assets));
+	if (!(data->assets))
+		return;
+	data->assets->wall_south_path = "images/wall_south.xpm";
+	data->assets->wall_north_path = "images/wall_north.xpm";
+	data->assets->wall_east_path = "images/wall_east.xpm";
+	data->assets->wall_west_path = "images/wall_west.xpm";
+	data->assets->wall_corner_path = "images/wall_corner.xpm";
+	data->assets->wall_sectfail_path = "images/wall_sectfail.xpm";
 	data->assets->wall_south = load_xpm(data->assets->wall_south_path);
 	data->assets->wall_north = load_xpm(data->assets->wall_north_path);
 	data->assets->wall_east = load_xpm(data->assets->wall_east_path);
 	data->assets->wall_west = load_xpm(data->assets->wall_west_path);
+	data->assets->wall_corner = load_xpm(data->assets->wall_corner_path);
+	data->assets->wall_sectfail = load_xpm(data->assets->wall_sectfail_path);
 }
 
 int	**load_xpm(char *PATH)

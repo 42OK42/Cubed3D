@@ -142,9 +142,11 @@ typedef struct s_assets
 typedef struct s_rays
 {
 	long double		length;
-	int			angle;
+	long double		corrected_length;
+	int				angle;
 	long double		hit_x;
 	long double		hit_y;
+	int				hinge;
 }			t_rays;
 
 typedef struct s_file_info
@@ -185,8 +187,8 @@ typedef struct s_data
 
 // 3D_visualizer.c
 void			draw_3d_view(t_data *data);
-void			draw_wall_slice(t_data *data, int x, int wall_height, int ray_id);
-void			fill_wall_between_rays(t_data *data, int prev_screen_x, int wall_height, int ray_id);
+void			draw_wall_slice(t_data *data, int x, double wall_height, int ray_id);
+void			fill_wall_between_rays(t_data *data, int prev_screen_x, double wall_height, int ray_id);
 void			update_color_row(t_data *data, int ray_id, int start_y, int end_y);
 int				calculate_image_x(t_data *data, int ray_id, int image_width);
 
@@ -302,7 +304,7 @@ int				is_position_walkable(t_data *data, long double x, long double y);
 int				check_buffer_zones(t_data *data, long double x, long double y);
 
 // prepare_assets.c
-t_assets		*initialize_assets(void);
+void			initialize_assets(t_data *data);
 int				**load_xpm(char *PATH);
 char			**read_xpm(char *PATH);
 

@@ -136,8 +136,6 @@ t_point	*get_true_intersection(t_point *start, t_data *data, t_temp *temp)
 	d_start_y = distance(start, sect_with_y);
 	d_curr_x = distance(curr, sect_with_x);
 	d_curr_y = distance(curr, sect_with_y);
-	//printf("",);
-
 
 
 
@@ -147,12 +145,7 @@ t_point	*get_true_intersection(t_point *start, t_data *data, t_temp *temp)
 	if (d_curr_x >= data->settings->ray_step_size && d_curr_y >= data->settings->ray_step_size) //neither in range
 	{
 		data->esc++;
-		// printf("\nRerun: Neither hitpoint was int step size range \n");
-		// printf("total reruns yet: %d\n", data->esc);
-		// printf("d_curr_x: %f\n", d_curr_x);
-		// printf("d_curr_y: %f\n\n", d_curr_y);
-		// printf("temp->current_x: %f\n", temp->current_x);
-		// printf("temp->current_y: %f\n\n", temp->current_y);
+
 
 		data->temp->current_x = middleValue(temp->previous_x, temp->current_x);
 		data->temp->current_y = middleValue(temp->previous_y, temp->current_y);
@@ -203,80 +196,9 @@ t_point	*get_true_intersection(t_point *start, t_data *data, t_temp *temp)
 	}
 	else
 	{
-		printf("runner\n");
-		printf("curr x %f\n",(double)temp->current_x);		
-		printf("curr y %f\n",(double)temp->current_y);
-		printf("d curr x %f\n", (double) d_curr_x);		
-		printf("d curr y %f\n", (double) d_curr_y);
 		ret->x = temp->current_x;
 		ret->y = temp->current_y;
 
 	}
 		return (ret);
 }
-
-
-
-
-// if(d_curr_x >= (data->settings->ray_step_size * 1.07) && d_curr_y >= (data->settings->ray_step_size * 1.07))
-// 	data->esc++;
-// if(d_curr_x >= 0.01 && d_curr_x <= 0.011)
-// {
-// 	printf("\nd_curr_x: %f\n", d_curr_x);
-// 	printf("temp->x: %f\n", temp->current_x);
-// 	printf("temp->y: %f\n\n", temp->current_y);
-// 	printf("count: %d\n", data->count);
-// }
-
-
-// if(d_curr_x >= 0.01 && d_curr_y <= 0.011)
-// {
-// 	printf("d_curr_y: %f\n\n", d_curr_y);
-// 	printf("temp->x: %f\n", temp->current_x);
-// 	printf("temp->y: %f\n\n", temp->current_y);
-// 	printf("count: %d\n", data->count);
-// 	printf("esc: %d\n", data->esc);
-// }
-
-
-// if(sect_with_x == NULL)
-// {
-// 	ret->x = sect_with_y->x;
-// 	ret->y = sect_with_y->y;
-// 	return (ret);
-// }
-// if(sect_with_y == NULL)
-// {
-// 	ret->x = sect_with_x->x;
-// 	ret->y = sect_with_x->y;
-// 	return (ret);
-// }
-
-
-	// if (d_curr_x >= data->settings->ray_step_size && d_curr_y >= data->settings->ray_step_size) //neither in range
-	// {
-	// 	data->esc++;
-	// 	// printf("\nRerun: Neither hitpoint was int step size range \n");
-	// 	// printf("total reruns yet: %d\n", data->esc);
-	// 	// printf("d_curr_x: %f\n", d_curr_x);
-	// 	// printf("d_curr_y: %f\n\n", d_curr_y);
-	// 	// printf("temp->current_x: %f\n", temp->current_x);
-	// 	// printf("temp->current_y: %f\n\n", temp->current_y);
-	// 	if (d_curr_x < d_curr_y) 
-	// 	{
-	// 		temp->current_x = adjustTowardsClosestMultipleBy(sect_with_x->x, data->settings->tile_size, 0.0001);
-	// 		temp->current_y = adjustTowardsClosestMultipleBy(sect_with_x->y, data->settings->tile_size, 0.0001);
-	// 	}
-	// 	else if(d_curr_x > d_curr_y)
-	// 	{
-	// 		temp->current_x = adjustTowardsClosestMultipleBy(sect_with_y->x, data->settings->tile_size, 0.0001);
-	// 		temp->current_y = adjustTowardsClosestMultipleBy(sect_with_y->y, data->settings->tile_size, 0.0001);
-	// 	}
-	// 	else if(d_curr_x == d_curr_y)
-	// 	{
-	// 		temp->current_x = adjustTowardsClosestMultipleBy(temp->current_x, data->settings->tile_size, 0.0001);
-	// 		temp->current_y = adjustTowardsClosestMultipleBy(temp->current_y, data->settings->tile_size, 0.0001);
-	// 	}
-	// 	ret = get_true_intersection(start, data, temp);
-	// 	return (ret);
-	// }

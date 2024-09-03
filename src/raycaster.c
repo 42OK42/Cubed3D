@@ -13,6 +13,20 @@
 
 #include "../incl/cubed3D.h"
 
+void move_player_right(t_data *data, double step)
+{
+    double right_angle = data->player->player_direction - M_PI / 2.0;
+	data->player->player_position[0][0] += cos(right_angle) * step;
+	data->player->player_position[0][1] += sin(right_angle) * step;
+}
+
+void move_player_left(t_data *data, double step)
+{
+    double left_angle = data->player->player_direction + M_PI / 2.0;
+    data->player->player_position[0][0] += cos(left_angle) * step;
+    data->player->player_position[0][1] += sin(left_angle) * step;
+}
+
 void	raycaster(t_data *data)
 {
 	int		i;
@@ -21,8 +35,6 @@ void	raycaster(t_data *data)
 
 	i = 0;
 	fov = data->settings->fov;
-	system("clear");
-	printf("rays||||||||||||||||||||||||||||||||||||||\n");
 	while (i < data->settings->num_rays)
 	{
 		data->temp->hit_wall = 0;
@@ -31,9 +43,11 @@ void	raycaster(t_data *data)
 		cast_ray(data, angle, i);
 		i++;
 	}
-	printf("\n");
 }
 
+
+
+// Function to move the player right
 
 void	cast_ray(t_data *data, long double ray_angle, int i)
 {
@@ -45,8 +59,10 @@ void	cast_ray(t_data *data, long double ray_angle, int i)
 	true_sect = malloc(sizeof(t_point));
 	start = malloc(sizeof(t_point));
 	j = 0;
+
 	start->x = data->player->player_position[0][0];
 	start->y = data->player->player_position[0][1];
+
 	init_ray_values(data, ray_angle);
 	while (!data->temp->hit_wall)
 	{
@@ -65,12 +81,14 @@ void	cast_ray(t_data *data, long double ray_angle, int i)
 	}
 }
 
+
 void	init_ray_values(t_data *data, long double ray_angle)
 {
 	data->temp->current_x = data->player->player_position[0][0];
 	data->temp->current_y = data->player->player_position[0][1];
 	data->temp->previous_x = data->player->player_position[0][0]; // for safety, maybe unecessary
 	data->temp->previous_y = data->player->player_position[0][1]; // for safety, maybe unecessary
+	
 	if (ray_angle != 0)
 	{
 		data->temp->step_x = cos((ray_angle - 90) * M_PI / 180.0) * data->settings->ray_step_size;

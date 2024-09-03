@@ -21,11 +21,11 @@ long double	fix_fish_eye(t_data *data, int ray_id)
 	player_angle_rad = data->player->player_direction * M_PI / 180;
 	ray_angle_rad = data->rays[ray_id]->angle * M_PI / 180 ;
 	diff_angle = ray_angle_rad - player_angle_rad;
-	while (diff_angle < -M_PI)
+	while (diff_angle < -(M_PI))
 		diff_angle += 2 * M_PI;
-	while (diff_angle > M_PI)
+	while (diff_angle > (M_PI))
 		diff_angle -= 2 * M_PI;
-	return (data->rays[ray_id]->length * cos(diff_angle));
+	return (data->rays[ray_id]->length * pow(cos(diff_angle), 0.5));
 }
 
 void	draw_background(t_data *data)

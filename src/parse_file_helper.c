@@ -81,7 +81,6 @@ int	line_is_map(char *file_content)
 			*file_content != ' ')
 			return (0);
 		file_content++;
-		// printf("%c",*(file_content -1));
 		if (*file_content == '\n' && *(file_content - 1) == '1')
 		{
 			return (1);

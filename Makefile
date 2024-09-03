@@ -58,7 +58,8 @@ SRCS = 	main.c \
 		settings.c \
 		ray_utils.c \
 		backtrack.c \
-		wall_checks.c
+		wall_checks.c \
+		wall_checks_small.c
 		
 
 # OBJECT FILES

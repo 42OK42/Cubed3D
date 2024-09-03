@@ -1,7 +1,17 @@
-1111111
-1010101
-1100011
-100N001
-1100011
-1010101
-1111111
+NO     images/wall_north.xpm
+SO images/wall_south.xpm
+WE images/wall_west.xpm
+
+EA images/wall_east.xpm
+
+F 220,100,0
+
+C 225,30,0
+
+
+
+111111111
+1000N0001
+100100011
+100000001
+111111111

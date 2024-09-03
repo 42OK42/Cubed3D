@@ -12,15 +12,15 @@
 
 #include "../incl/cubed3D.h"
 
-calculate_map_end( t_point *start, t_point *P2, t_data *data)
-{
-    t_point *map_end;
+// calculate_map_end(t_point *start, t_point *P2, t_data *data)
+// {
+//     t_point *map_end;
 
-    map_end = malloc(sizeof(t_point));
+//     map_end = malloc(sizeof(t_point));
 
 
-    return (map_end);
-}
+//     return (map_end);
+// }
 
 t_point *calculate_all_sects(start, map_end, data)
 {
