@@ -153,12 +153,8 @@ t_point	*get_true_intersection(t_point *start, t_data *data, t_temp *temp)
 		return (ret);
 	}
 
-
-	if(d_curr_x <= data->settings->ray_step_size * 1 || d_curr_y <= data->settings->ray_step_size * 1) //either in range
-		data->count0++;
 	if(xor(d_curr_x < data->settings->ray_step_size * 1, d_curr_y < data->settings->ray_step_size * 1)) // one in range
 	{
-		data->count1++;
 		if(d_curr_x < d_curr_y)
 		{
 			ret->x = sect_with_x->x;
@@ -171,7 +167,6 @@ t_point	*get_true_intersection(t_point *start, t_data *data, t_temp *temp)
 			ret->y = sect_with_y->y;
 			return (ret);
 		}
-		dprintf(2,"error\n");
 	}
 
 	if (d_curr_x <= data->settings->ray_step_size && d_start_x <= d_start_y && ((start->y > sect_with_x->y && north_wall(data, sect_with_x->x, (int)sect_with_x->y)) || (start->y < sect_with_x->y && south_wall(data, sect_with_x->x, (int)sect_with_x->y)))) //

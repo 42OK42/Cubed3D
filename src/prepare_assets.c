@@ -14,10 +14,9 @@
 
 void	initialize_assets(t_data *data)
 {
-
 	data->assets = (t_assets *)malloc(sizeof(t_assets));
 	if (!(data->assets))
-		return;
+		return ;
 	data->assets->wall_south_path = "images/wall_south.xpm";
 	data->assets->wall_north_path = "images/wall_north.xpm";
 	data->assets->wall_east_path = "images/wall_east.xpm";

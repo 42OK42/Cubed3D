@@ -1,9 +1,9 @@
 #include "../incl/cubed3D.h"
 
-int valid_map_chars(char *str)
+int	valid_map_chars(char *str)
 {
-	int count;
-	char *p;
+	int		count;
+	char	*p;
 
 	count = 0;
 	p = str;
@@ -17,7 +17,8 @@ int valid_map_chars(char *str)
 			count++;
 		else if (*p == 'W')
 			count++;
-		else if (*p != '1' && *p != '0' && *p != ' ' && *p != '\t' && *p != '\n')
+		else if (*p != '1' && *p != '0' && *p != ' ' \
+				&& *p != '\t' && *p != '\n')
 			return (0);
 		p++;
 	}
@@ -27,15 +28,17 @@ int valid_map_chars(char *str)
 		return (0);
 }
 
-int only_valid_map_chars(char *str)
+int	only_valid_map_chars(char *str)
 {
-	char *p;
+	char	*p;
 
 	p = str;
 	while (*p != '\0')
 	{
-	if (*p != '1' && *p != '0' && *p != ' ' && *p != '\t' && *p != '\n' \
-	 && *p != 'N' && *p != 'S' && *p != 'E' && *p != 'W')
+		if (*p != '1' && *p != '0' && *p != ' ' \
+			&& *p != '\t' && *p != '\n' \
+			&& *p != 'N' && *p != 'S' \
+			&& *p != 'E' && *p != 'W')
 			return (0);
 		p++;
 	}
@@ -44,35 +47,41 @@ int only_valid_map_chars(char *str)
 
 int	find_max_width(char **line_grid)
 {
-	int max_length = 0;
-	int current_length;
-	int i = 0;
+	int	max_length;
+	int	current_length;
+	int	i;
 
-	// Iterate through each line using a while loop
+	max_length = 0;
+	i = 0;
 	while (line_grid != NULL)
 	{
 		current_length = ft_strlen(line_grid[i]);
 		if (current_length > max_length)
 			max_length = current_length;
-		i++; // Move to the next line
+		i++;
 	}
 	max_length--;
 	return (max_length);
 }
 
-int pad(char **line_grid, int max_width)
+int	pad(char **line_grid, int max_width)
 {
-	int i = 0;
+	int		i;
+	int		len;
+	char	*new_line;
+	int		j; 
 
+	i = 0;
 	while (line_grid[i] != NULL)
 	{
-		int len = ft_strlen(line_grid[i]);
-		if (len < max_width) {
-			char *new_line = (char *)malloc((max_width + 1) * sizeof(char));
+		len = ft_strlen(line_grid[i]);
+		if (len < max_width)
+		{
+			new_line = (char *)malloc((max_width + 1) * sizeof(char));
 			if (new_line == NULL)
-				return -1;
+				return (-1);
 			strcpy(new_line, line_grid[i]);
-			int j = len;
+			j = len;
 			while (j < max_width)
 				new_line[j++] = ' ';
 			new_line[max_width] = '\0';
@@ -80,7 +89,7 @@ int pad(char **line_grid, int max_width)
 		}
 		i++;
 	}
-	return 0;
+	return (0);
 }
 
 char	**malloc_row_grid(char **line_grid)
@@ -92,7 +101,7 @@ char	**malloc_row_grid(char **line_grid)
 	row_grid = malloc(sizeof(char *) * (ft_strlen(line_grid[0]) + 1));
 	while (i < ft_strlen(line_grid[0]))
 	{
-		row_grid[i] = malloc(sizeof(char) * (ft_arrlen(line_grid)+1));
+		row_grid[i] = malloc(sizeof(char) * (ft_arrlen(line_grid) + 1));
 		i++;
 	}
 	return (row_grid);
@@ -106,10 +115,7 @@ char	**lines_to_rows(char **line_grid)
 
 	i = 0;
 	j = 0;
-
-
 	row_grid = malloc_row_grid(line_grid);
-
 	while (line_grid[0][i] != '\0')
 	{
 		j = 0;
@@ -127,8 +133,8 @@ char	**lines_to_rows(char **line_grid)
 
 int	enclosed_by_walls(char **line_grid, char **row_grid)
 {
-	// starts_and_ends_with_wall(line_grid);
-	// starts_and_ends_with_wall(row_grid);
+	starts_and_ends_with_wall(line_grid);
+	starts_and_ends_with_wall(row_grid);
 	no_grey_before_or_after_white(line_grid);
 	no_grey_before_or_after_white(row_grid);
 	return(1);

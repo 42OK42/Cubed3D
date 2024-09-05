@@ -56,7 +56,6 @@ SRCS = 	main.c \
 		prepare_assets3.c \
 		alloc_memory.c \
 		settings.c \
-		ray_utils.c \
 		backtrack.c \
 		wall_checks.c \
 		wall_checks_small.c

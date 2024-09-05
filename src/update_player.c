@@ -89,10 +89,10 @@ int	is_position_walkable(t_data *data, long double x, long double y)
 
 int	check_buffer_zones(t_data *data, long double x, long double y)
 {
-	int		tile_size;
+	int			tile_size;
 	long double	buffer;
-	int		map_x;
-	int		map_y;
+	int			map_x;
+	int			map_y;
 
 	tile_size = data->settings->tile_size;
 	map_x = x / tile_size;

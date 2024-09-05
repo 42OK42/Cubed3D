@@ -36,9 +36,9 @@ t_settings	*initialize_settings(void)
 
 t_settings	*initialize_settings2(t_settings *settings)
 {
-	settings->tile_size = 12;
-	settings->fov = 60;
-	settings->num_rays = 800;
+	settings->tile_size = 20;
+	settings->fov = 100;
+	settings->num_rays = 300;
 	settings->show_rays = 1;
 	settings->ray_step_size = 0.01;
 	settings->window_width = 1000;

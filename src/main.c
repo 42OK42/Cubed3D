@@ -18,9 +18,7 @@ int	main(int argc, char **argv)
 
 	data = (t_data *)malloc(sizeof(t_data));
 	if (!data)
-	data->count0 = 0;
-	data->count1 = 0;
-	data->esc = 0;
+		return (0);
 	args_check(argc, argv);
 	cubfile_check(argv[1], data);
 	data = initialize_data(argv[1], data);

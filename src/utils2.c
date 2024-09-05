@@ -24,7 +24,7 @@ int	same_but_reverse(char **strarr, int len)
 		j = len;
 		while (strarr[i][j] != '\0')
 		{
-			while (strarr[i][j] == ' ')
+			while (strarr[i][j] == ' ' && strarr[i][j] == '\t')
 				j--;
 			if (strarr[i][j] != '1')
 			{
@@ -49,7 +49,7 @@ int	starts_and_ends_with_wall(char **strarr)
 		j = 0;
 		while (strarr[i][j] != '\0')
 		{
-			while (strarr[i][j] == ' ')
+			while (strarr[i][j] == ' ' && strarr[i][j] == '\t')
 			{
 				j++;
 			}

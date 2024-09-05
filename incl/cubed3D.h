@@ -72,7 +72,7 @@ typedef struct s_settings
 typedef struct s_player
 {
 	long double	**player_position;
-	int		player_direction;
+	long double player_direction;
 }					t_player;
 
 typedef struct s_temp_assets
@@ -143,7 +143,8 @@ typedef struct s_rays
 {
 	long double		length;
 	long double		corrected_length;
-	int				angle;
+	long double		acc_corrected_length;
+	long double				angle;
 	long double		hit_x;
 	long double		hit_y;
 	int				hinge;
@@ -184,6 +185,9 @@ typedef struct s_data
 	int					count5;
 	int					esc;
 }			t_data;
+
+
+long double	fix_fish_eye2(t_data *data, int ray_id);
 
 // 3D_visualizer.c
 void			draw_3d_view(t_data *data);
@@ -323,7 +327,7 @@ char			***create_colored_map(char ***colors, \
 // raycaster.c
 void			raycaster(t_data *data);
 void			init_ray_values(t_data *data, long double ray_angle);
-void			update_ray_position(t_data *data);
+void			update_ray_position(t_data *data, int j);
 int				check_wall_hit(t_data *data);
 void			cast_ray(t_data *data, long double ray_angle, int i);
 
@@ -354,19 +358,6 @@ void		print_string_array(char **str_array);
 int			starts_and_ends_with_wall(char **strarr);
 int			no_grey_before_or_after_white(char **strarr);
 int			ft_arrlen(char **strarr);
-
-//ray-utils.c
-long double	calculate_slope(long double x1, long double y1, long double x2, long double y2);
-long double	find_x_intercept(long double x1, long double y1, long double x2, long double y2, long double c);
-long double	find_y_intercept(long double x1, long double y1, long double x2, long double y2, long double d);
-int		y_sect_exists(long double x1, long double x2, long double x_value);
-int     x_sect_exists(long double y1, long double y2, long double d);
-
-//ray-utils2.c
-int		check_real_wall_x(char **map, t_point point, t_data *data);
-int		check_real_wall_y(char **map, t_point point, t_data *data);
-int		check_real_corner(char **map, t_point point, t_data *data);
-int		is_grid(long double f, t_data *data);
 
 //wall_checks.c
 int 	north_wall_crossing(t_data *data, int hit_x_int, int hit_y_int);

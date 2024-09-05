@@ -46,31 +46,31 @@
 
 void	wall_change(t_data *data, int	ray_id)
 {
-	if (!(fmod((double)data->rays[ray_id]->hit_x,(double)data->settings->tile_size) && fmod((double)data->rays[ray_id]->hit_y,(double)data->settings->tile_size)))
-	{
-
-		if(fmod((double)data->rays[ray_id]->hit_x,(double)data->settings->tile_size) && !(fmod((double)data->rays[ray_id+1]->hit_x,(double)data->settings->tile_size)))
+		if(fmod((double)data->rays[ray_id]->hit_x,(double)data->settings->tile_size) && !(fmod((double)data->rays[ray_id]->hit_y,(double)data->settings->tile_size)) \
+		&& !(fmod((double)data->rays[ray_id+1]->hit_y,(double)data->settings->tile_size)) && fmod((double)data->rays[ray_id+1]->hit_x,(double)data->settings->tile_size) )
 		{
 			data->rays[ray_id]->hinge = 1;
 			data->rays[ray_id+1]->hinge = 1;
+			// data->rays[ray_id]->corrected_length = data->rays[ray_id + 1]->corrected_length;
 		}
-		if(fmod((double)data->rays[ray_id]->hit_y,(double)data->settings->tile_size) && !(fmod((double)data->rays[ray_id+1]->hit_y,(double)data->settings->tile_size)))
+		if(fmod((double)data->rays[ray_id]->hit_y,(double)data->settings->tile_size) && !(fmod((double)data->rays[ray_id]->hit_x,(double)data->settings->tile_size)) \
+		&& !(fmod((double)data->rays[ray_id+1]->hit_y,(double)data->settings->tile_size)) && fmod((double)data->rays[ray_id+1]->hit_x,(double)data->settings->tile_size) )
 		{
 			data->rays[ray_id]->hinge = 1;
 			data->rays[ray_id+1]->hinge = 1;
+			// data->rays[ray_id+1 ]->corrected_length = data->rays[ray_id]->corrected_length;
 		}
-	}
 }
 
 void	wall_drop(t_data *data, int	ray_id)
 {
-	if( (data->rays[ray_id]->length - (double)data->rays[ray_id+1]->length) < -19)
+	if( (data->rays[ray_id]->length - (double)data->rays[ray_id+1]->length) > data->settings->tile_size)
 	{
 		data->rays[ray_id]->hinge = 1;
 		data->rays[ray_id +1]->hinge = 1;
 	
 	}
-	if( (data->rays[ray_id +1]->length - (double)data->rays[ray_id]->length) < -19)
+	if( (data->rays[ray_id +1]->length - (double)data->rays[ray_id]->length) > data->settings->tile_size)
 	{
 		data->rays[ray_id]->hinge = 1;
 		data->rays[ray_id +1]->hinge = 1;
@@ -89,13 +89,20 @@ void	identify_corners(t_data *data)
 	}
 	ray_id = 0;
 	data->rays[0]->hinge = 1;
-	while (ray_id < data->settings->num_rays - 1)
+	while (ray_id < data->settings->num_rays -1)
 	{
 		wall_drop(data, ray_id);
 		wall_change(data, ray_id);
 		ray_id++;
 	}
 	data->rays[data->settings->num_rays-1]->hinge = 1;
+	ray_id = 0;
+	while (ray_id < data->settings->num_rays)
+	{
+		if (data->rays[ray_id]->hinge == 1)
+			printf("ray is hinge:%d\n", ray_id);
+		ray_id++;
+	}
 }
 
 int	count_til_hinge(t_data *data, int ray_id)
@@ -119,15 +126,32 @@ void	fill_til_hinge(t_data *data, int ray_id, int to_fill)
 	int i;
 	int down;
 
-	down = 1;
-	i = 0;
-	while (i < to_fill)
+	down = 0;
+	i = 1;
+	// ray_id_cop = ray_id;
+	printf("corrected lengthA: %f \n", (double)data->rays[ray_id]->corrected_length);
+	printf("corrected lengthB: %f \n", (double)data->rays[ray_id+to_fill]->corrected_length);
+	// printf("corrected lengthA+1: %f \n", (double)data->rays[ray_id]->corrected_length);
+	printf("corrected lengthA+1: %f \n", (double)data->rays[ray_id+1]->corrected_length);
+	printf("corrected lengthB-1: %f \n", (double)data->rays[ray_id+to_fill]->corrected_length);
+	// printf("corrected lengthB+1: %f \n", (double)data->rays[ray_id+to_fill]->corrected_length);
+	if(ray_id == data->settings->num_rays -1)
+		return;
+	while (i <= to_fill)
 	{
+		data->rays[ray_id+1]->acc_corrected_length = data->rays[ray_id -down]->corrected_length  - ( 1 * (data->rays[ray_id -down]->corrected_length  - data->rays[ray_id+to_fill -down]->corrected_length ) * i / to_fill);
+		printf("ray_id:%d ray_id+to_fill -down:%d i:%d to_fill:%d\n", ray_id, ray_id+to_fill-down, i, to_fill);
 		i++;
-		data->rays[ray_id]->length = data->rays[ray_id]->length  - ( 1 * (data->rays[ray_id]->length  - data->rays[ray_id+to_fill -down]->length ) * i / to_fill);
 		ray_id++;
 		down++;
 	}
+	ray_id = 0;
+	while (ray_id < data->settings->num_rays)
+	{
+		printf("corrected length: %f \n", (double)data->rays[ray_id]->acc_corrected_length);
+		ray_id++;
+	}
+	
 
 
 }
@@ -148,7 +172,14 @@ void	smooth_scaling_between_hinges(t_data *data)
 
 void	normalize_rays(t_data *data)
 {
+
 	identify_corners(data);
+	// while (ray_id < data->settings->num_rays-2)
+	// {
+	// 	if(data->rays[ray_id]->hinge == 1)
+	// 		return;
+	// 	ray_id++;
+	// }
 	smooth_scaling_between_hinges(data);
 }
 
@@ -157,21 +188,18 @@ void	draw_3d_view(t_data *data)
 	int			ray_id;
 	double		wall_height;
 	int			screen_x;
-	//          long double	corrected_distance;
 	int			prev_screen_x;
 
 	draw_background(data);
 	ray_id = 0;
-	// normalize_rays(data);
 	while (ray_id < data->settings->num_rays)
-	{
+	{ 
 		data->rays[ray_id]->corrected_length = fix_fish_eye(data, ray_id);
 		ray_id++;
 	}
 	ray_id = 0;
 	while (ray_id < data->settings->num_rays)
 	{
-		// data->rays[ray_id]->corrected_length = data->rays[ray_id]->length;
 		wall_height = (double)((data->settings->tile_size / data->rays[ray_id]->corrected_length) \
 			* data->settings->dist_to_proj_plane);
 		screen_x = (data->settings->window_width * ray_id) / \
