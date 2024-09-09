@@ -47,6 +47,9 @@ t_temp	*initialize_temp(void)
 	temp->exited = 0;
 	temp = initialize_temp2(temp);
 	temp->previous_image = NULL;
+	temp->start = malloc (sizeof (t_point *));
+	temp->sect_with_x = malloc (sizeof (t_point *));
+	temp->sect_with_y = malloc (sizeof (t_point *));
 	return (temp);
 }
 

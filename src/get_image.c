@@ -12,7 +12,7 @@
 
 #include "../incl/cubed3D.h"
 
-void	case_corner(t_data *data, int hit_x_int, int hit_y_int, int ray_id)
+int	**case_corner(t_data *data, int hit_x_int, int hit_y_int, int ray_id)
 {
 	if ((fmod(data->rays[ray_id]->hit_y, \
 	(double)data->settings->tile_size) == 0) && \
@@ -28,6 +28,7 @@ void	case_corner(t_data *data, int hit_x_int, int hit_y_int, int ray_id)
 		if (east_wall_crossing(data, hit_x_int, hit_y_int))
 			return (data->assets->wall_east);
 	}
+	return (data->assets->wall_sectfail);
 }
 
 int	**get_right_image(t_data *data, int ray_id)
@@ -41,7 +42,9 @@ int	**get_right_image(t_data *data, int ray_id)
 	hit_y_int = (int)round(data->rays[ray_id]->hit_y);
 	player_y = data->player->player_position[0][1];
 	player_x = data->player->player_position[0][0];
-	case_corner(data, hit_x_int, hit_y_int, ray_id);
+	if (case_corner(data, hit_x_int, hit_y_int, ray_id) \
+						!= data->assets->wall_sectfail)
+		return (case_corner(data, hit_x_int, hit_y_int, ray_id));
 	if ((fmod(data->rays[ray_id]->hit_y, \
 	(double)data->settings->tile_size) == 0) \
 	&& (fmod(data->rays[ray_id]->hit_x, \

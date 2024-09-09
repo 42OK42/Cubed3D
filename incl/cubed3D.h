@@ -123,6 +123,8 @@ typedef struct s_temp
 	long double	d_curr_x;
 	long double	d_curr_y;
 	t_point		*start;
+	t_point		*sect_with_x;
+	t_point		*sect_with_y;
 }					t_temp;
 
 typedef struct s_assets
@@ -131,12 +133,12 @@ typedef struct s_assets
 	char	*wall_north_path;
 	char	*wall_east_path;
 	char	*wall_west_path;
+	char	*wall_corner_path;
+	char	*wall_sectfail_path;
 	int		**wall_south;
 	int		**wall_north;
 	int		**wall_east;
 	int		**wall_west;
-	char	*wall_corner_path;
-	char	*wall_sectfail_path;
 	int		**wall_corner;
 	int		**wall_sectfail;
 }					t_assets;
@@ -341,7 +343,6 @@ char			***create_colored_map(char ***colors, \
 // raycaster.c
 void			raycaster(t_data *data);
 void			init_ray_values(t_data *data, long double ray_angle);
-void			update_ray_position(t_data *data, int j);
 int				check_wall_hit(t_data *data);
 void			cast_ray(t_data *data, long double ray_angle, int i);
 
@@ -397,6 +398,16 @@ long double		adjust_towards_closest_multiple_by(long double current_x, \
 							long double tile_size, long double inch);
 void			init_ray_values(t_data *data, long double ray_angle);
 void			update_ray_position(t_data *data, int j);
+//corner_utils.c
+int				southeast(t_data *data);
+int				southwest(t_data *data);
+int				northeast(t_data *data);
+int				northwest(t_data *data);
+//corner_utils2.c
+int				southeast_corner(t_data *data, int cell_x, int cell_y);
+int				southwest_corner(t_data *data, int cell_x, int cell_y);
+int				northeast_corner(t_data *data, int cell_x, int cell_y);
+int				northwest_corner(t_data *data, int cell_x, int cell_y);
 
 //wall_checks.c
 int				north_wall_crossing(t_data *data, int hit_x_int, int hit_y_int);

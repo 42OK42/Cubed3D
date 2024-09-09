@@ -32,11 +32,11 @@ void	raycaster(t_data *data)
 	}
 }
 
-void	ray_loop(t_data *data, t_point *true_sect, int *i, int *j)
+void	ray_loop(t_data *data, t_point *true_sect, int i, int *j)
 {
 	long double	distance;
 
-	update_ray_position(data, j);
+	update_ray_position(data, (*j));
 	if (check_wall_hit(data))
 	{
 		true_sect = get_true_intersection(data->temp->start, data, data->temp);
@@ -44,9 +44,9 @@ void	ray_loop(t_data *data, t_point *true_sect, int *i, int *j)
 		data->temp->current_y = true_sect->y;
 		distance = sqrt(pow(data->temp->current_x - data->temp->start->x, 2) \
 		+ pow(data->temp->current_y - data->temp->start->y, 2));
-		data->rays[*i]->length = distance;
-		data->rays[*i]->hit_x = data->temp->current_x;
-		data->rays[*i]->hit_y = data->temp->current_y;
+		data->rays[i]->length = distance;
+		data->rays[i]->hit_x = data->temp->current_x;
+		data->rays[i]->hit_y = data->temp->current_y;
 	}
 	(*j)++;
 }
@@ -54,7 +54,6 @@ void	ray_loop(t_data *data, t_point *true_sect, int *i, int *j)
 void	cast_ray(t_data *data, long double ray_angle, int i)
 {
 	int			j;
-	t_point		*start;
 	t_point		*true_sect;
 
 	true_sect = malloc(sizeof(t_point));
@@ -63,7 +62,7 @@ void	cast_ray(t_data *data, long double ray_angle, int i)
 	data->temp->start->y = data->player->player_position[0][1];
 	init_ray_values(data, ray_angle);
 	while (!data->temp->hit_wall)
-		ray_loop(data, true_sect, i, j);
+		ray_loop(data, true_sect, i, &j);
 }
 
 int	check_wall_hit(t_data *data)
