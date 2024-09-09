@@ -21,10 +21,10 @@ t_file_info	*initialize_file_info(void)
 		return (NULL);
 	file_info->cc = -1;
 	file_info->fc = -1;
-	file_info->path_NO = NULL;
-	file_info->path_SU = NULL;
-	file_info->path_WE = NULL;
-	file_info->path_EA = NULL;
+	file_info->path_no = NULL;
+	file_info->path_su = NULL;
+	file_info->path_we = NULL;
+	file_info->path_ea = NULL;
 	return (file_info);
 }
 
@@ -49,25 +49,25 @@ int	is_element(char *file_content, t_data *data)
 {
 	if (*file_content == 'N')
 	{
-		if (data->file_info->path_NO)
+		if (data->file_info->path_no)
 			perror_exit("NO path provided multiple times");
 		return (1);
 	}
 	if (*file_content == 'S')
 	{
-		if (data->file_info->path_SU)
+		if (data->file_info->path_su)
 			perror_exit("SU path provided multiple times");
 		return (1);
 	}
 	if (*file_content == 'W')
 	{
-		if (data->file_info->path_WE)
+		if (data->file_info->path_we)
 			perror_exit("WE path provided multiple times");
 		return (1);
 	}
 	if (*file_content == 'E')
 	{
-		if (data->file_info->path_EA)
+		if (data->file_info->path_ea)
 			perror_exit("EA path provided multiple times");
 		return (1);
 	}

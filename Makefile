@@ -49,6 +49,11 @@ SRCS = 	main.c \
 		cubfile_check.c \
 		utils.c \
 		utils2.c \
+		utils3.c \
+		utils4.c \
+		utils5.c \
+		corner_utils.c \
+		corner_utils2.c \
 		free_assets.c \
 		free_data.c \
 		prepare_assets.c \

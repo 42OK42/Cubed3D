@@ -91,8 +91,8 @@ int	line_is_map(char *file_content)
 
 int	not_all_elements_provided(t_data *data)
 {
-	if (!data->file_info->path_NO || !data->file_info->path_SU \
-		|| !data->file_info->path_WE || !data->file_info->path_EA \
+	if (!data->file_info->path_no || !data->file_info->path_su \
+		|| !data->file_info->path_we || !data->file_info->path_ea \
 		|| data->file_info->fc == -1 || \
 		data->file_info->cc == -1)
 		return (1);

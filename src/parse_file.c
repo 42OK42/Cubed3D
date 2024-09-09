@@ -73,22 +73,22 @@ void	extract_element(t_data *data, char **file_content)
 	if (**file_content == 'N')
 	{
 		(*file_content)++;
-		data->file_info->path_NO = extract_path(file_content);
+		data->file_info->path_no = extract_path(file_content);
 	}
 	if (**file_content == 'S')
 	{
 		(*file_content)++;
-		data->file_info->path_SU = extract_path(file_content);
+		data->file_info->path_su = extract_path(file_content);
 	}
 	if (**file_content == 'W')
 	{
 		(*file_content)++;
-		data->file_info->path_WE = extract_path(file_content);
+		data->file_info->path_we = extract_path(file_content);
 	}
 	if (**file_content == 'E')
 	{
 		(*file_content)++;
-		data->file_info->path_EA = extract_path(file_content);
+		data->file_info->path_ea = extract_path(file_content);
 	}
 	if (**file_content == 'F')
 		data->file_info->fc = rgb_to_hex(extract_color(&(*file_content)));
