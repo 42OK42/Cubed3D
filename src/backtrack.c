@@ -19,31 +19,30 @@ long double	distance(t_point *start, t_point *end)
 	return (sqrt(pow(end->x - start->x, 2) + pow(end->y - start->y, 2)));
 }
 
-int closestMultipleOfTile(int num, int tile_size)
+int	closest_multiple_of_tile(int num, int tile_size)
 {
-    int remainder = num % tile_size;
+	int	remainder;
 
-    if (remainder < tile_size / 2) {
-        return num - remainder;
-    } else {
-        return num + (tile_size - remainder);
-    }
+	remainder = num % tile_size;
+	if (remainder < tile_size / 2)
+		return (num - remainder);
+	else
+		return (num + tile_size - remainder);
 }
 
-long double absolute_difference(long double num1, long double num2)
+long double	absolute_difference(long double num1, long double num2)
 {
-    long double diff = num1 - num2;
-    
-    if (diff < 0) {
-        diff = -diff;
-    }
-    
-    return diff;
+	long double	diff;
+
+	diff = num1 - num2;
+	if (diff < 0)
+		diff = -diff;
+	return (diff);
 }
 
 t_point	*backtrack_to_x(t_data *data)
 {
-	t_point *ret;
+	t_point		*ret;
 	long double	y_mov_for_x;
 	long double	x_diff;
 
@@ -53,19 +52,24 @@ t_point	*backtrack_to_x(t_data *data)
 		ret = NULL;
 		return (ret);
 	}
-	y_mov_for_x = data->temp->step_y/data->temp->step_x;
-	x_diff = absolute_difference(data->temp->current_x, closestMultipleOfTile(data->temp->current_x, data->settings->tile_size));
-	ret->x = closestMultipleOfTile(data->temp->current_x, data->settings->tile_size);
-	if (closestMultipleOfTile(data->temp->current_x, data->settings->tile_size) >= data->temp->current_x)
+	y_mov_for_x = data->temp->step_y / data->temp->step_x;
+	x_diff = absolute_difference(data->temp->current_x, \
+		closest_multiple_of_tile(data->temp->current_x, \
+		data->settings->tile_size));
+	ret->x = closest_multiple_of_tile(data->temp->current_x, \
+		data->settings->tile_size);
+	if (closest_multiple_of_tile(data->temp->current_x, \
+		data->settings->tile_size) >= data->temp->current_x)
 		ret->y = data->temp->current_y + (y_mov_for_x * x_diff);
-	if (closestMultipleOfTile(data->temp->current_x, data->settings->tile_size) <= data->temp->current_x)
+	if (closest_multiple_of_tile(data->temp->current_x, \
+		data->settings->tile_size) <= data->temp->current_x)
 		ret->y = data->temp->current_y - (y_mov_for_x * x_diff);
 	return (ret);
 }
 
 t_point	*backtrack_to_y(t_data *data)
 {
-	t_point *ret;
+	t_point		*ret;
 	long double	x_mov_for_y;
 	long double	y_diff;
 
@@ -75,12 +79,17 @@ t_point	*backtrack_to_y(t_data *data)
 		ret = NULL;
 		return (ret);
 	}
-	x_mov_for_y = data->temp->step_x/data->temp->step_y;
-	y_diff = absolute_difference(data->temp->current_y, closestMultipleOfTile(data->temp->current_y, data->settings->tile_size));
-	ret->y = closestMultipleOfTile(data->temp->current_y, data->settings->tile_size);
-	if (closestMultipleOfTile(data->temp->current_y, data->settings->tile_size) >= data->temp->current_y)
+	x_mov_for_y = data->temp->step_x / data->temp->step_y;
+	y_diff = absolute_difference(data->temp->current_y, \
+		closest_multiple_of_tile(data->temp->current_y, \
+			data->settings->tile_size));
+	ret->y = closest_multiple_of_tile(data->temp->current_y, \
+		data->settings->tile_size);
+	if (closest_multiple_of_tile(data->temp->current_y, \
+		data->settings->tile_size) >= data->temp->current_y)
 		ret->x = data->temp->current_x + (x_mov_for_y * y_diff);
-	if (closestMultipleOfTile(data->temp->current_y, data->settings->tile_size) <= data->temp->current_y)
+	if (closest_multiple_of_tile(data->temp->current_y, \
+		data->settings->tile_size) <= data->temp->current_y)
 		ret->x = data->temp->current_x - (x_mov_for_y * y_diff);
 	return (ret);
 }
@@ -92,26 +101,32 @@ int	xor(int a, int b)
 	else if (a == 0 && b == 1)
 		return (1);
 	else
-		return(0);
+		return (0);
 }
 
-long double adjustTowardsClosestMultipleBy(long double current_x, long double tile_size, long double inch)
+long double	adjust_towards_closest_multiple_by(long double current_x, \
+							long double tile_size, long double inch)
 {
-    long double closest_multiple = closestMultipleOfTile(current_x, tile_size);
+	long double	closest_multiple;
+	long double	addition_result;
+	long double	subtraction_result;
+	long double	dist_addition;
+	long double	dist_subtraction;
 
-    long double addition_result = inch * (current_x + closest_multiple);
-    long double subtraction_result = inch  * (current_x - closest_multiple);
-    long double dist_addition = fabs((double)(closest_multiple - addition_result));
-    long double dist_subtraction = fabs((double)(closest_multiple - subtraction_result));
-    if (dist_addition < dist_subtraction)
-		return addition_result;
-    else
-		return subtraction_result;
+	closest_multiple = closest_multiple_of_tile(current_x, tile_size);
+	addition_result = inch * (current_x + closest_multiple);
+	subtraction_result = inch * (current_x - closest_multiple);
+	dist_addition = fabs((double)(closest_multiple - addition_result));
+	dist_subtraction = fabs((double)(closest_multiple - subtraction_result));
+	if (dist_addition < dist_subtraction)
+		return (addition_result);
+	else
+		return (subtraction_result);
 }
 
-long double middleValue(long double a, long double b)
+long double	middle_value(long double a, long double b)
 {
-    return (a + b) / 2.0L;
+	return ((a + b) / 2.0L);
 }
 
 t_point	*get_true_intersection(t_point *start, t_data *data, t_temp *temp)
@@ -120,10 +135,10 @@ t_point	*get_true_intersection(t_point *start, t_data *data, t_temp *temp)
 	long double	d_start_y;
 	long double	d_curr_x;
 	long double	d_curr_y;
-	t_point *sect_with_x;
-	t_point	*sect_with_y;
-	t_point *ret;
-	t_point *curr;
+	t_point		*sect_with_x;
+	t_point		*sect_with_y;
+	t_point		*ret;
+	t_point		*curr;
 
 	(void)start;
 	ret = malloc(sizeof(t_point));
@@ -136,54 +151,61 @@ t_point	*get_true_intersection(t_point *start, t_data *data, t_temp *temp)
 	d_start_y = distance(start, sect_with_y);
 	d_curr_x = distance(curr, sect_with_x);
 	d_curr_y = distance(curr, sect_with_y);
-
-
-
 	free(curr);
-
-
-	if (d_curr_x >= data->settings->ray_step_size && d_curr_y >= data->settings->ray_step_size) //neither in range
+	if (d_curr_x >= data->settings->ray_step_size \
+		&& d_curr_y >= data->settings->ray_step_size)
 	{
-		data->esc++;
-
-
-		data->temp->current_x = middleValue(temp->previous_x, temp->current_x);
-		data->temp->current_y = middleValue(temp->previous_y, temp->current_y);
-		ret = get_true_intersection(start, data, temp);
+		ret->x = temp->current_x;
+		ret->y = temp->current_y;;
 		return (ret);
 	}
-
-	if(xor(d_curr_x < data->settings->ray_step_size * 1, d_curr_y < data->settings->ray_step_size * 1)) // one in range
+	if (xor(d_curr_x < data->settings->ray_step_size * 1, \
+			d_curr_y < data->settings->ray_step_size * 1))
 	{
-		if(d_curr_x < d_curr_y)
+		if (d_curr_x < d_curr_y)
 		{
 			ret->x = sect_with_x->x;
 			ret->y = sect_with_x->y;
 			return (ret);
 		}
-		if(d_curr_x > d_curr_y)
+		if (d_curr_x > d_curr_y)
 		{
 			ret->x = sect_with_y->x;
 			ret->y = sect_with_y->y;
 			return (ret);
 		}
 	}
-
-	if (d_curr_x <= data->settings->ray_step_size && d_start_x <= d_start_y && ((start->y > sect_with_x->y && north_wall(data, sect_with_x->x, (int)sect_with_x->y)) || (start->y < sect_with_x->y && south_wall(data, sect_with_x->x, (int)sect_with_x->y)))) //
+	if (d_curr_x <= data->settings->ray_step_size && d_start_x <= d_start_y \
+		&& ((start->y > sect_with_x->y && \
+		north_wall(data, sect_with_x->x, (int)sect_with_x->y)) \
+		|| (start->y < sect_with_x->y && \
+		south_wall(data, sect_with_x->x, (int)sect_with_x->y))))
 	{
 		ret->x = sect_with_x->x;
 		ret->y = sect_with_x->y;
-		if (d_curr_y <= (data->settings->ray_step_size * 1) && d_start_y <= d_start_x && ((start->x < sect_with_y->x && east_wall(data, sect_with_y->y, (int)sect_with_y->x)) || (start->x > sect_with_y->x && west_wall(data, sect_with_y->y, (int)sect_with_y->x))))
+		if (d_curr_y <= (data->settings->ray_step_size * 1) && \
+		d_start_y <= d_start_x && ((start->x < sect_with_y->x && \
+		east_wall(data, sect_with_y->y, (int)sect_with_y->x)) || \
+		(start->x > sect_with_y->x && \
+		west_wall(data, sect_with_y->y, (int)sect_with_y->x))))
 		{
 			ret->x = sect_with_y->x;
 			ret->y = sect_with_y->y;
 		}
 	}
-	else if(d_curr_y <= data->settings->ray_step_size && d_start_y <= d_start_x && ((start->x < sect_with_y->x && east_wall(data, sect_with_y->y, (int)sect_with_y->x)) || (start->x > sect_with_y->x && west_wall(data, sect_with_y->y, (int)sect_with_y->x))))
+	else if (d_curr_y <= data->settings->ray_step_size && \
+		d_start_y <= d_start_x && ((start->x < sect_with_y->x && \
+		east_wall(data, sect_with_y->y, (int)sect_with_y->x)) || \
+	(start->x > sect_with_y->x && \
+	west_wall(data, sect_with_y->y, (int)sect_with_y->x))))
 	{
 		ret->x = sect_with_y->x;
 		ret->y = sect_with_y->y;
-		if (d_curr_x <= (data->settings->ray_step_size * 1) && d_start_x <= d_start_y && ((start->y > sect_with_x->y && north_wall(data, sect_with_x->x, (int)sect_with_x->y)) || (start->y < sect_with_x->y && south_wall(data, sect_with_x->x, (int)sect_with_x->y))))
+		if (d_curr_x <= (data->settings->ray_step_size * 1) && \
+		d_start_x <= d_start_y && ((start->y > sect_with_x->y && \
+		north_wall(data, sect_with_x->x, (int)sect_with_x->y)) || \
+		(start->y < sect_with_x->y && \
+		south_wall(data, sect_with_x->x, (int)sect_with_x->y))))
 		{
 			ret->x = sect_with_x->x;
 			ret->y = sect_with_x->y;
@@ -193,7 +215,6 @@ t_point	*get_true_intersection(t_point *start, t_data *data, t_temp *temp)
 	{
 		ret->x = temp->current_x;
 		ret->y = temp->current_y;
-
 	}
-		return (ret);
+	return (ret);
 }

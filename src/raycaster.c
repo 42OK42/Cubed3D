@@ -21,7 +21,6 @@ void	raycaster(t_data *data)
 
 	i = 0;
 	fov = data->settings->fov;
-	system("clear");
 	while (i < data->settings->num_rays)
 	{
 		data->temp->hit_wall = 0;

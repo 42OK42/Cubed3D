@@ -45,7 +45,6 @@ void	free_map(t_data *data)
 void	free_data(t_data *data)
 {
 	free_map(data);
-	//free(data->filename);
 	free(data->player->player_position[0]);
 	free(data->player->player_position);
 	free(data->player);

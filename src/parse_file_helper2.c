@@ -12,7 +12,7 @@
 
 #include "../incl/cubed3D.h"
 
-char *revert_on_line(char *file_content)
+char	*revert_on_line(char *file_content)
 {
 	if (*file_content != '\n')
 		file_content--;

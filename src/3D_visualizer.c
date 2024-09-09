@@ -12,177 +12,6 @@
 
 #include "../incl/cubed3D.h"
 
-// void	normalize_rays(t_data *data)
-// {
-// 	int			ray_id;
-// 	long double prev1;
-// 	long double prev2;
-// 	long double prev3;
-// 	long double post1;
-// 	long double post2;
-// 	long double post3;
-
-
-
-// 	ray_id = 4;
-// 	while (ray_id < data->settings->num_rays - 4)
-// 	{
-// 		if (prev1 < 0.015 && prev2 < 0.015 && prev3 < 0.015 && post1 < 0.015 && post2 < 0.015 && post3 < 0.015)
-// 		{
-// 			prev1 = data->rays[ray_id-1]->corrected_length;
-// 			prev2 = data->rays[ray_id-2]->corrected_length;
-// 			prev3 = data->rays[ray_id-3]->corrected_length;
-// 			post1 = data->rays[ray_id+1]->corrected_length;
-// 			post2 = data->rays[ray_id+2]->corrected_length;
-// 			post3 = data->rays[ray_id+3]->corrected_length;
-// 			data->rays[ray_id]->corrected_length = (prev1 + prev2 + prev3 + post1 + post2 + post3 + data->rays[ray_id]->corrected_length) /7;
-// 			data->rays[ray_id]->corrected_length = (prev1 + prev2 + prev3 + post1 + post2 + post3 + data->rays[ray_id]->corrected_length) /7;
-
-// 		}
-// 		ray_id++;
-// 	}
-// 	// data->rays[ray_id]->corrected_length = data->rays[ray_id]->corrected_length + data->rays[ray_id-1]->corrected_length - data->rays[ray_id + 1]->corrected_length;
-// }
-
-void	wall_change(t_data *data, int	ray_id)
-{
-		if(fmod((double)data->rays[ray_id]->hit_x,(double)data->settings->tile_size) && !(fmod((double)data->rays[ray_id]->hit_y,(double)data->settings->tile_size)) \
-		&& !(fmod((double)data->rays[ray_id+1]->hit_y,(double)data->settings->tile_size)) && fmod((double)data->rays[ray_id+1]->hit_x,(double)data->settings->tile_size) )
-		{
-			data->rays[ray_id]->hinge = 1;
-			data->rays[ray_id+1]->hinge = 1;
-			// data->rays[ray_id]->corrected_length = data->rays[ray_id + 1]->corrected_length;
-		}
-		if(fmod((double)data->rays[ray_id]->hit_y,(double)data->settings->tile_size) && !(fmod((double)data->rays[ray_id]->hit_x,(double)data->settings->tile_size)) \
-		&& !(fmod((double)data->rays[ray_id+1]->hit_y,(double)data->settings->tile_size)) && fmod((double)data->rays[ray_id+1]->hit_x,(double)data->settings->tile_size) )
-		{
-			data->rays[ray_id]->hinge = 1;
-			data->rays[ray_id+1]->hinge = 1;
-			// data->rays[ray_id+1 ]->corrected_length = data->rays[ray_id]->corrected_length;
-		}
-}
-
-void	wall_drop(t_data *data, int	ray_id)
-{
-	if( (data->rays[ray_id]->length - (double)data->rays[ray_id+1]->length) > data->settings->tile_size)
-	{
-		data->rays[ray_id]->hinge = 1;
-		data->rays[ray_id +1]->hinge = 1;
-	
-	}
-	if( (data->rays[ray_id +1]->length - (double)data->rays[ray_id]->length) > data->settings->tile_size)
-	{
-		data->rays[ray_id]->hinge = 1;
-		data->rays[ray_id +1]->hinge = 1;
-	}
-}
-
-void	identify_corners(t_data *data)
-{
-	int	ray_id;
-
-	ray_id = 0;
-	while (ray_id < data->settings->num_rays - 1)
-	{
-		data->rays[ray_id]->hinge = 0;
-		ray_id++;
-	}
-	ray_id = 0;
-	data->rays[0]->hinge = 1;
-	while (ray_id < data->settings->num_rays -1)
-	{
-		wall_drop(data, ray_id);
-		wall_change(data, ray_id);
-		ray_id++;
-	}
-	data->rays[data->settings->num_rays-1]->hinge = 1;
-	ray_id = 0;
-	while (ray_id < data->settings->num_rays)
-	{
-		if (data->rays[ray_id]->hinge == 1)
-			printf("ray is hinge:%d\n", ray_id);
-		ray_id++;
-	}
-}
-
-int	count_til_hinge(t_data *data, int ray_id)
-{
-	int	count;
-	count = 0;
-	while (ray_id < data->settings->num_rays -1)
-	{
-		count++;
-		ray_id++;
-		if(data->rays[ray_id]->hinge == 1)
-		{
-			return(count);
-		}
-	}
-	return(ray_id);
-}
-
-void	fill_til_hinge(t_data *data, int ray_id, int to_fill)
-{
-	int i;
-	int down;
-
-	down = 0;
-	i = 1;
-	// ray_id_cop = ray_id;
-	printf("corrected lengthA: %f \n", (double)data->rays[ray_id]->corrected_length);
-	printf("corrected lengthB: %f \n", (double)data->rays[ray_id+to_fill]->corrected_length);
-	// printf("corrected lengthA+1: %f \n", (double)data->rays[ray_id]->corrected_length);
-	printf("corrected lengthA+1: %f \n", (double)data->rays[ray_id+1]->corrected_length);
-	printf("corrected lengthB-1: %f \n", (double)data->rays[ray_id+to_fill]->corrected_length);
-	// printf("corrected lengthB+1: %f \n", (double)data->rays[ray_id+to_fill]->corrected_length);
-	if(ray_id == data->settings->num_rays -1)
-		return;
-	while (i <= to_fill)
-	{
-		data->rays[ray_id+1]->acc_corrected_length = data->rays[ray_id -down]->corrected_length  - ( 1 * (data->rays[ray_id -down]->corrected_length  - data->rays[ray_id+to_fill -down]->corrected_length ) * i / to_fill);
-		printf("ray_id:%d ray_id+to_fill -down:%d i:%d to_fill:%d\n", ray_id, ray_id+to_fill-down, i, to_fill);
-		i++;
-		ray_id++;
-		down++;
-	}
-	ray_id = 0;
-	while (ray_id < data->settings->num_rays)
-	{
-		printf("corrected length: %f \n", (double)data->rays[ray_id]->acc_corrected_length);
-		ray_id++;
-	}
-	
-
-
-}
-
-void	smooth_scaling_between_hinges(t_data *data)
-{
-	int	ray_id;
-	int to_fill;
-
-	ray_id = 0;
-	while (ray_id < data->settings->num_rays -1)
-	{
-		to_fill = count_til_hinge(data, ray_id);
-		fill_til_hinge(data, ray_id, to_fill);
-		ray_id = ray_id + to_fill;
-	}
-}
-
-void	normalize_rays(t_data *data)
-{
-
-	identify_corners(data);
-	// while (ray_id < data->settings->num_rays-2)
-	// {
-	// 	if(data->rays[ray_id]->hinge == 1)
-	// 		return;
-	// 	ray_id++;
-	// }
-	smooth_scaling_between_hinges(data);
-}
-
 void	draw_3d_view(t_data *data)
 {
 	int			ray_id;
@@ -193,14 +22,15 @@ void	draw_3d_view(t_data *data)
 	draw_background(data);
 	ray_id = 0;
 	while (ray_id < data->settings->num_rays)
-	{ 
+	{
 		data->rays[ray_id]->corrected_length = fix_fish_eye(data, ray_id);
 		ray_id++;
 	}
 	ray_id = 0;
 	while (ray_id < data->settings->num_rays)
 	{
-		wall_height = (double)((data->settings->tile_size / data->rays[ray_id]->corrected_length) \
+		wall_height = (double)((data->settings->tile_size \
+			/ data->rays[ray_id]->corrected_length) \
 			* data->settings->dist_to_proj_plane);
 		screen_x = (data->settings->window_width * ray_id) / \
 			data->settings->num_rays;
@@ -264,7 +94,7 @@ void	update_color_row(t_data *data, int ray_id, int start_y, int end_y)
 	int		**right_image;
 	int		image_x;
 	int		image_y;
-	double		wall_height;
+	double	wall_height;
 	int		i;
 
 	wall_height = end_y - start_y;
