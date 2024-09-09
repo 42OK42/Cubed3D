@@ -12,6 +12,18 @@
 
 #include "../incl/cubed3D.h"
 
+void	correct_for_fisheye(t_data *data)
+{
+	int		ray_id;
+
+	ray_id = 0;
+	while (ray_id < data->settings->num_rays)
+	{
+		data->rays[ray_id]->corrected_length = fix_fish_eye(data, ray_id);
+		ray_id++;
+	}
+}
+
 void	draw_3d_view(t_data *data)
 {
 	int			ray_id;
@@ -20,12 +32,7 @@ void	draw_3d_view(t_data *data)
 	int			prev_screen_x;
 
 	draw_background(data);
-	ray_id = 0;
-	while (ray_id < data->settings->num_rays)
-	{
-		data->rays[ray_id]->corrected_length = fix_fish_eye(data, ray_id);
-		ray_id++;
-	}
+	correct_for_fisheye(data);
 	ray_id = 0;
 	while (ray_id < data->settings->num_rays)
 	{
@@ -116,14 +123,4 @@ void	update_color_row(t_data *data, int ray_id, int start_y, int end_y)
 		data->temp->image_pos += data->temp->step;
 		i++;
 	}
-}
-
-int	calculate_image_x(t_data *data, int ray_id, int image_width)
-{
-	if ((int)data->rays[ray_id]->hit_x % data->settings->tile_size == 0)
-		return (((int)data->rays[ray_id]->hit_y % data->settings->tile_size) \
-			* image_width / data->settings->tile_size);
-	else
-		return (((int)data->rays[ray_id]->hit_x % data->settings->tile_size) \
-			* image_width / data->settings->tile_size);
 }

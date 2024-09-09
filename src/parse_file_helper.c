@@ -98,11 +98,3 @@ int	not_all_elements_provided(t_data *data)
 		return (1);
 	return (0);
 }
-
-char	*skip_empty_lines(char *file_content)
-{
-	while (*file_content == '\n' || *file_content == ' ' \
-		|| *file_content == '\t')
-		file_content++;
-	return (file_content);
-}

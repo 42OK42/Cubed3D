@@ -12,17 +12,8 @@
 
 #include "../incl/cubed3D.h"
 
-int	**get_right_image(t_data *data, int ray_id)
+void	case_corner(t_data *data, int hit_x_int, int hit_y_int, int ray_id)
 {
-	int			hit_x_int;
-	int			hit_y_int;
-	long double	player_y;
-	long double	player_x;
-
-	hit_x_int = (int)round(data->rays[ray_id]->hit_x);
-	hit_y_int = (int)round(data->rays[ray_id]->hit_y);
-	player_y = data->player->player_position[0][1];
-	player_x = data->player->player_position[0][0];
 	if ((fmod(data->rays[ray_id]->hit_y, \
 	(double)data->settings->tile_size) == 0) && \
 		(fmod(data->rays[ray_id]->hit_x, \
@@ -37,6 +28,20 @@ int	**get_right_image(t_data *data, int ray_id)
 		if (east_wall_crossing(data, hit_x_int, hit_y_int))
 			return (data->assets->wall_east);
 	}
+}
+
+int	**get_right_image(t_data *data, int ray_id)
+{
+	int			hit_x_int;
+	int			hit_y_int;
+	long double	player_y;
+	long double	player_x;
+
+	hit_x_int = (int)round(data->rays[ray_id]->hit_x);
+	hit_y_int = (int)round(data->rays[ray_id]->hit_y);
+	player_y = data->player->player_position[0][1];
+	player_x = data->player->player_position[0][0];
+	case_corner(data, hit_x_int, hit_y_int, ray_id);
 	if ((fmod(data->rays[ray_id]->hit_y, \
 	(double)data->settings->tile_size) == 0) \
 	&& (fmod(data->rays[ray_id]->hit_x, \
@@ -52,7 +57,8 @@ int	**get_right_image(t_data *data, int ray_id)
 	return (data->assets->wall_sectfail);
 }
 
-int	**get_image_for_vertical_hit(t_data *data, int hit_x_int, long double player_x)
+int	**get_image_for_vertical_hit(t_data *data, \
+		int hit_x_int, long double player_x)
 {
 	if (player_x < hit_x_int)
 	{
@@ -65,7 +71,8 @@ int	**get_image_for_vertical_hit(t_data *data, int hit_x_int, long double player
 	return (NULL);
 }
 
-int	**get_image_for_horizontal_hit(t_data *data, int hit_y_int, long double player_y)
+int	**get_image_for_horizontal_hit(t_data *data, \
+			int hit_y_int, long double player_y)
 {
 	if (player_y < hit_y_int)
 	{

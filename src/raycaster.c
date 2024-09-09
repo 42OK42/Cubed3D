@@ -32,66 +32,38 @@ void	raycaster(t_data *data)
 	}
 }
 
+void	ray_loop(t_data *data, t_point *true_sect, int *i, int *j)
+{
+	long double	distance;
+
+	update_ray_position(data, j);
+	if (check_wall_hit(data))
+	{
+		true_sect = get_true_intersection(data->temp->start, data, data->temp);
+		data->temp->current_x = true_sect->x;
+		data->temp->current_y = true_sect->y;
+		distance = sqrt(pow(data->temp->current_x - data->temp->start->x, 2) \
+		+ pow(data->temp->current_y - data->temp->start->y, 2));
+		data->rays[*i]->length = distance;
+		data->rays[*i]->hit_x = data->temp->current_x;
+		data->rays[*i]->hit_y = data->temp->current_y;
+	}
+	(*j)++;
+}
+
 void	cast_ray(t_data *data, long double ray_angle, int i)
 {
 	int			j;
-	long double	distance;
 	t_point		*start;
 	t_point		*true_sect;
 
 	true_sect = malloc(sizeof(t_point));
-	start = malloc(sizeof(t_point));
 	j = 0;
-	start->x = data->player->player_position[0][0];
-	start->y = data->player->player_position[0][1];
+	data->temp->start->x = data->player->player_position[0][0];
+	data->temp->start->y = data->player->player_position[0][1];
 	init_ray_values(data, ray_angle);
 	while (!data->temp->hit_wall)
-	{
-		update_ray_position(data, j);
-		if (check_wall_hit(data))
-		{
-			true_sect = get_true_intersection(start, data, data->temp);
-			data->temp->current_x = true_sect->x;
-			data->temp->current_y = true_sect->y;
-			distance = sqrt(pow(data->temp->current_x - start->x, 2) \
-			+ pow(data->temp->current_y - start->y, 2));
-			data->rays[i]->length = distance;
-			data->rays[i]->hit_x = data->temp->current_x;
-			data->rays[i]->hit_y = data->temp->current_y;
-		}
-		j++;
-	}
-}
-
-void	init_ray_values(t_data *data, long double ray_angle)
-{
-	data->temp->current_x = data->player->player_position[0][0];
-	data->temp->current_y = data->player->player_position[0][1];
-	data->temp->previous_x = data->player->player_position[0][0];
-	data->temp->previous_y = data->player->player_position[0][1];
-	if (ray_angle != 0)
-	{
-		data->temp->step_x = cos((ray_angle - 90) * M_PI / 180.0) \
-		* data->settings->ray_step_size;
-		data->temp->step_y = sin((ray_angle - 90) * M_PI / 180.0) \
-		* data->settings->ray_step_size;
-	}
-	else
-	{
-		data->temp->step_x = 0;
-		data->temp->step_y = -data->settings->ray_step_size;
-	}
-}
-
-void	update_ray_position(t_data *data, int j)
-{
-	long double	scale;
-
-	scale = 1e5;
-	data->temp->current_x = (data->player->player_position[0][0] \
-	* scale + j * data->temp->step_x * scale) / scale;
-	data->temp->current_y = (data->player->player_position[0][1] \
-	* scale + j * data->temp->step_y * scale) / scale;
+		ray_loop(data, true_sect, i, j);
 }
 
 int	check_wall_hit(t_data *data)
@@ -101,62 +73,13 @@ int	check_wall_hit(t_data *data)
 
 	cell_y = ((int)(data->temp->current_y) / data->settings->tile_size);
 	cell_x = ((int)(data->temp->current_x) / data->settings->tile_size);
-	if (data->temp->previous_x && data->temp->current_x >= \
-	data->temp->previous_x && data->temp->current_y >= data->temp->previous_y)
+	if ((southeast(data) && southeast_corner(data, cell_x, cell_y)) || \
+		(southwest(data) && southwest_corner(data, cell_x, cell_y)) || \
+		(southeast(data) && southeast_corner(data, cell_x, cell_y)) || \
+		(southwest(data) && southwest_corner(data, cell_x, cell_y)))
 	{
-		if ((int)data->temp->current_x % data->settings->tile_size == 0 \
-		&& (int)data->temp->current_y % data->settings->tile_size == 0)
-		{
-			if (data->map[cell_y][cell_x -1] == '1' \
-			&& data->map[cell_y -1][cell_x] == '1')
-			{
-				data->temp->hit_wall = 1;
-				return (1);
-			}
-		}
-	}
-	else if (data->temp->previous_x && data->temp->current_x <= \
-	data->temp->previous_x && data->temp->current_y >= data->temp->previous_y)
-	{
-		if (((int)data->temp->current_x + 1) % data->settings->tile_size == 0 \
-		&& (int)data->temp->current_y % data->settings->tile_size == 0)
-		{
-			if (data->map[cell_y -1][cell_x] == '1' \
-			&& data->map[cell_y][cell_x +1] == '1')
-			{
-				data->temp->hit_wall = 1;
-				return (1);
-			}
-		}
-	}
-	else if (data->temp->previous_x && data->temp->current_x \
-	>= data->temp->previous_x && data->temp->current_y \
-	<= data->temp->previous_y)
-	{
-		if ((int)data->temp->current_x % data->settings->tile_size == 0 \
-		&& ((int)data->temp->current_y + 1) % data->settings->tile_size == 0)
-		{
-			if (data->map[cell_y][cell_x -1] == '1' \
-			&& data->map[cell_y +1][cell_x] == '1')
-			{
-				data->temp->hit_wall = 1;
-				return (1);
-			}
-		}
-	}
-	else if (data->temp->previous_x && data->temp->current_x <= \
-	data->temp->previous_x && data->temp->current_y <= data->temp->previous_y)
-	{
-		if (((int)data->temp->current_x + 1) % data->settings->tile_size == 0 \
-		&& ((int)data->temp->current_y + 1) % data->settings->tile_size == 0)
-		{
-			if (data->map[cell_y][cell_x +1] == '1' \
-			&& data->map[cell_y +1][cell_x] == '1')
-			{
-				data->temp->hit_wall = 1;
-				return (1);
-			}
-		}
+		data->temp->hit_wall = 1;
+		return (1);
 	}
 	data->temp->previous_x = data->temp->current_x;
 	data->temp->previous_y = data->temp->current_y;
@@ -166,22 +89,4 @@ int	check_wall_hit(t_data *data)
 		return (1);
 	}
 	return (0);
-}
-
-long double	find_closest_x(t_data *data)
-{
-	long double	closest_grid_section;
-	int			grid_num;
-
-	grid_num = ((int)data->temp->current_x +1) / data->settings->tile_size;
-	closest_grid_section = grid_num * data->settings->tile_size;
-	return (closest_grid_section);
-}
-
-long double	find_closest_multiple(long double x, int t)
-{
-	long double	closest_multiple;
-
-	closest_multiple = round(x / t) * t;
-	return (closest_multiple);
 }

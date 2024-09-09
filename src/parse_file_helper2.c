@@ -30,3 +30,11 @@ char	*skip_until_map(char *file_content)
 	revert_on_line(file_content);
 	return (file_content);
 }
+
+char	*skip_empty_lines(char *file_content)
+{
+	while (*file_content == '\n' || *file_content == ' ' \
+		|| *file_content == '\t')
+		file_content++;
+	return (file_content);
+}
