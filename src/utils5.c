@@ -32,11 +32,6 @@ long double	adjust_towards_closest_multiple_by(long double current_x, \
 		return (subtraction_result);
 }
 
-long double	middle_value(long double a, long double b)
-{
-	return ((a + b) / 2.0L);
-}
-
 void	init_ray_values(t_data *data, long double ray_angle)
 {
 	data->temp->current_x = data->player->player_position[0][0];

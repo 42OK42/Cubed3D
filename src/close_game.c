@@ -26,6 +26,7 @@ int	close_window(t_data *data)
 	mlx_clear_window(data->mlx->mlx, data->mlx->mlx_win);
 	mlx_destroy_window(data->mlx->mlx, data->mlx->mlx_win);
 	data->temp->exited = 1;
+	free_data(data);
 	return (0);
 }
 

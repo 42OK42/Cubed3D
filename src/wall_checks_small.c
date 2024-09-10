@@ -12,7 +12,7 @@
 
 #include "../incl/cubed3D.h"
 
-int	north_wall(t_data *data, long double hit_x_f, int hit_y_int)
+int	south_wall(t_data *data, long double hit_x_f, int hit_y_int)
 {
 	int	y_tile;
 	int	x_tile;
@@ -28,7 +28,7 @@ int	north_wall(t_data *data, long double hit_x_f, int hit_y_int)
 		return (0);
 }
 
-int	south_wall(t_data *data, long double hit_x_f, int hit_y_int)
+int	north_wall(t_data *data, long double hit_x_f, int hit_y_int)
 {
 	int	y_tile;
 	int	x_tile;

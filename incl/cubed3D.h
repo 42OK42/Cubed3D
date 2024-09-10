@@ -392,6 +392,7 @@ t_point			*backtrack_to_y(t_data *data);
 t_point			*backtrack_to_x(t_data *data);
 int				calculate_image_x(t_data *data, int ray_id, int image_width);
 int				xor(int a, int b);
+int				neither_in_range(t_data *data);
 
 //utils5.c
 long double		adjust_towards_closest_multiple_by(long double current_x, \
@@ -421,7 +422,7 @@ int				south_wall(t_data *data, long double hit_x_f, int hit_y_int);
 int				east_wall(t_data *data, long double hit_y_f, int hit_x_int);
 int				west_wall(t_data *data, long double hit_y_f, int hit_x_int);
 
-//backtrack.c
+//backtrack.cd
 t_point			*get_true_intersection(t_point *start, t_data *data, \
 														t_temp *temp);
 #endif

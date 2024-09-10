@@ -85,3 +85,19 @@ int	xor(int a, int b)
 	else
 		return (0);
 }
+
+int	neither_in_range(t_data *data)
+{
+	if (data->temp->d_curr_x >= data->settings->ray_step_size && \
+	data->temp->d_curr_y >= data->settings->ray_step_size)
+	{
+		data->temp->current_x = adjust_towards_closest_multiple_by \
+		(data->temp->previous_x, data->temp->current_x, 0.0004);
+		data->temp->current_y = adjust_towards_closest_multiple_by \
+		(data->temp->previous_y, data->temp->current_y, 0.0004);
+		return (1);
+		printf("test3");
+	}
+	else 
+		return (0);
+}

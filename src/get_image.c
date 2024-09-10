@@ -27,6 +27,8 @@ int	**case_corner(t_data *data, int hit_x_int, int hit_y_int, int ray_id)
 			return (data->assets->wall_west);
 		if (east_wall_crossing(data, hit_x_int, hit_y_int))
 			return (data->assets->wall_east);
+		if (data->temp->previous_image != NULL)
+			return (data->temp->previous_image);
 	}
 	return (data->assets->wall_sectfail);
 }

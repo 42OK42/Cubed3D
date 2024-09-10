@@ -49,7 +49,7 @@ int	south_wall_crossing(t_data *data, int hit_x_int, int hit_y_int)
 		return (0);
 }
 
-int	west_wall_crossing(t_data *data, int hit_x_int, int hit_y_int)
+int	east_wall_crossing(t_data *data, int hit_x_int, int hit_y_int)
 {
 	int	y_tile;
 	int	x_tile;
@@ -67,7 +67,7 @@ int	west_wall_crossing(t_data *data, int hit_x_int, int hit_y_int)
 		return (0);
 }
 
-int	east_wall_crossing(t_data *data, int hit_x_int, int hit_y_int)
+int	west_wall_crossing(t_data *data, int hit_x_int, int hit_y_int)
 {
 	int	y_tile;
 	int	x_tile;

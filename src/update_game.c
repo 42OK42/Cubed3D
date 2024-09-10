@@ -64,7 +64,6 @@ int	on_press(int keycode, t_data *data)
 	if (keycode == 65307)
 	{
 		close_window(data);
-		free_data(data);
 		return (0);
 	}
 	else if (keycode == 0 || keycode == 97 || keycode == 2 \

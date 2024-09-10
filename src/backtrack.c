@@ -14,6 +14,8 @@
 
 int	early_return(t_data *data, t_point *ret)
 {
+	if (neither_in_range(data))
+		return (0);
 	if (xor(data->temp->d_curr_x <= data->settings->ray_step_size * 1, \
 			data->temp->d_curr_y <= data->settings->ray_step_size * 1))
 	{
@@ -21,17 +23,17 @@ int	early_return(t_data *data, t_point *ret)
 		{
 			ret->x = data->temp->sect_with_x->x;
 			ret->y = data->temp->sect_with_x->y;
-			return (1);
 		}
 		if (data->temp->d_curr_x > data->temp->d_curr_y)
 		{
 			ret->x = data->temp->sect_with_y->x;
 			ret->y = data->temp->sect_with_y->y;
-			return (1);
 		}
+		return (1);
 	}
 	ret->x = data->temp->current_x;
 	ret->y = data->temp->current_y;
+	printf("test1");
 	return (0);
 }
 
