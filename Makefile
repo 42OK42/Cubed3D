@@ -52,6 +52,7 @@ SRCS = 	main.c \
 		utils3.c \
 		utils4.c \
 		utils5.c \
+		utils6.c \
 		corner_utils.c \
 		corner_utils2.c \
 		free_assets.c \

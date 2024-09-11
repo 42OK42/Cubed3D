@@ -28,6 +28,5 @@ int	main(int argc, char **argv)
 	free_ray_loop(data);
 	if (game_loop(data) == 1)
 		free_data(data);
-	printf("\n\n DONE \n\n");
 	return (1);
 }

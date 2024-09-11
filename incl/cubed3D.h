@@ -402,6 +402,12 @@ long double		adjust_towards_closest_multiple_by(long double current_x, \
 void			init_ray_values(t_data *data, long double ray_angle);
 void			update_ray_position(t_data *data, int j);
 void			free_ray_loop(t_data *data);
+
+//utils6.c
+int				no_grey_before_or_after_player(char **strarr);
+int				check__invalid_chars(char **strarr);
+int				check_chars(char **strarr);
+
 //corner_utils.c
 int				southeast(t_data *data);
 int				southwest(t_data *data);

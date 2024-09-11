@@ -67,7 +67,6 @@ void	free_data(t_data *data)
 		free(data->settings);
 		free_assets(data->assets);
 		free_mlx(data);
-		free(data->file_content);
 		free(data->color_row);
 		free(data->file_info->path_no);
 		free(data->file_info->path_ea);
@@ -77,7 +76,7 @@ void	free_data(t_data *data)
 		free(data->file_info->c_rgb);
 		free(data->file_info);
 		free(data->file_copy);
-		free(data->map_pointer);
+		free(data->file_content);
 		// free(data->line_grid);	
 		free(data);
 		data = NULL;

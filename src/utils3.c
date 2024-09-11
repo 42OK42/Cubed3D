@@ -81,7 +81,8 @@ int	pad(char **line_grid, int max_width)
 	int		i;
 	int		len;
 	char	*new_line;
-	int		j; 
+	int		j;
+	char	*phold;
 
 	i = 0;
 	while (line_grid[i] != NULL)
@@ -89,6 +90,7 @@ int	pad(char **line_grid, int max_width)
 		len = ft_strlen(line_grid[i]);
 		if (len < max_width)
 		{
+			phold = line_grid[i];
 			new_line = (char *)malloc((max_width + 1) * sizeof(char));
 			if (new_line == NULL)
 				return (-1);
@@ -98,6 +100,7 @@ int	pad(char **line_grid, int max_width)
 				new_line[j++] = ' ';
 			new_line[max_width] = '\0';
 			line_grid[i] = new_line;
+			free(phold);
 		}
 		i++;
 	}

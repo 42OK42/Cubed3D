@@ -42,6 +42,8 @@ int	enclosed_by_walls(char **line_grid, char **row_grid)
 	starts_and_ends_with_wall(row_grid);
 	no_grey_before_or_after_white(line_grid);
 	no_grey_before_or_after_white(row_grid);
+	no_grey_before_or_after_player(line_grid);
+	no_grey_before_or_after_player(row_grid);
 	return (1);
 }
 
@@ -66,6 +68,8 @@ int	create_map(char *file_content, t_data *data)
 {
 	data->line_grid = ft_split(file_content, '\n');
 	pad(data->line_grid, 57);
+	check__invalid_chars(data->line_grid);
+	check_chars(data->line_grid);
 	check_surrounded_by_walls(data->line_grid);
 	data->map = data->line_grid;
 	return (0);
