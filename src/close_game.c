@@ -6,14 +6,22 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:07:09 by okrahl            #+#    #+#             */
-/*   Updated: 2024/09/11 17:58:12 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/11 19:33:58 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cubed3D.h"
 
+int	close_window1(t_data *data)
+{
+	//sleep(1);
+	data->temp->exited = 1;
+	return (0);
+}
+
 int	close_window(t_data *data)
 {
+	//sleep(1);
 	if (data->mlx->img_ptr != NULL)
 	{
 		mlx_destroy_image(data->mlx->mlx, data->mlx->img_ptr);

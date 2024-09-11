@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:16:50 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/25 20:18:32 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/11 19:39:36 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,15 @@ int	update_frame(t_data *data)
 	{
 		raycaster(data);
 		draw_3d_view(data);
-		if (data->settings->open_minimap)
+		if (data->settings->open_minimap && data->temp->exited != 1)
 		{
 			draw_minimap(data);
 			if (data->settings->show_rays)
 				draw_rays(data);
 		}
-		mlx_put_image_to_window(data->mlx->mlx, data->mlx->mlx_win, \
-			data->mlx->img_ptr, 0, 0);
+		if (data->temp->exited != 1)
+			mlx_put_image_to_window(data->mlx->mlx, data->mlx->mlx_win, \
+				data->mlx->img_ptr, 0, 0);
 		if (data->mlx->old_img_ptr)
 			mlx_destroy_image(data->mlx->mlx, data->mlx->old_img_ptr);
 		data->mlx->old_img_ptr = data->mlx->img_ptr;

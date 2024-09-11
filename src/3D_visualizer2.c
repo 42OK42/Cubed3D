@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:33:26 by okrahl            #+#    #+#             */
-/*   Updated: 2024/09/11 18:44:56 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/11 19:36:10 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ long double	fix_fish_eye(t_data *data, int ray_id)
 
 void	draw_background(t_data *data)
 {
+	/* draw_background_section(data, 0, data->settings->window_height / \
+	2, data->settings->upper_background_color);
+	draw_background_section(data, data->settings->window_height \
+	/ 2, data->settings->window_height, data->settings->lower_background_color); */
 	draw_background_section(data, 0, data->settings->window_height / \
 	2, data->file_info->cc);
 	draw_background_section(data, data->settings->window_height \
@@ -48,10 +52,12 @@ start_y, int end_y, unsigned int color)
 		x = 0;
 		while (x < data->settings->window_width)
 		{
-			ft_printf("color: %d\n", color);
-			*(unsigned int *)(data->mlx->data_addr + \
-				(y * data->mlx->size_line + x * \
-				(data->mlx->bits_per_pixel / 8))) = color;
+			if (data->mlx->data_addr != NULL && data->mlx->img_ptr != NULL && data->temp->exited != 1)
+			{
+				*(unsigned int *)(data->mlx->data_addr + \
+					(y * data->mlx->size_line + x * \
+					(data->mlx->bits_per_pixel / 8))) = color;
+			}
 			x++;
 		}
 		y++;

@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:04:27 by okrahl            #+#    #+#             */
-/*   Updated: 2024/09/11 18:35:51 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/11 19:37:13 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	draw_wall_slice(t_data *data, int x, double wall_height, int ray_id)
 		visible_end_y = data->settings->window_height - 1;
 	update_color_row(data, ray_id, start_y, end_y);
 	y = visible_start_y;
-	while (y <= visible_end_y)
+	while (y <= visible_end_y && data->temp->exited != 1)
 	{
 		*(unsigned int *)(data->mlx->data_addr + (y * \
 			data->mlx->size_line + x * (data->mlx->bits_per_pixel / \
