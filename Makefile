@@ -22,7 +22,7 @@ LIBFT_DIR = libraries/libft
 MLX_DIR = libraries/mlx
 
 # EXECUTABLE NAME
-NAME = cubed3D
+NAME = cub3D
 
 # SOURCE FILES
 SRCS = 	main.c \

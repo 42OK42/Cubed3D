@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 18:09:08 by okrahl            #+#    #+#             */
-/*   Updated: 2024/09/11 17:58:56 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/11 18:34:59 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ t_settings	*initialize_settings(void)
 	settings->space_color = 0x808080;
 	settings->player_color = 0x0000FF;
 	settings->ray_color = 0xFF0000;
-	settings->upper_background_color = 0x0000FF;
-	settings->lower_background_color = 0x00FF00;
 	settings = initialize_settings2(settings);
 	return (settings);
 }

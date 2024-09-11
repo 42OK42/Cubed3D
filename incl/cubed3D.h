@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/09/11 17:42:42 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/11 18:26:05 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ typedef struct s_settings
 	int			wall_color;
 	int			space_color;
 	int			player_color;
-	int			upper_background_color;
-	int			lower_background_color;
 	int			ray_color;
 	int			tile_size;
 	int			show_rays;

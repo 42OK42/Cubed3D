@@ -1,3 +1,0 @@
-(((  ray 7  )))
-true_sect->x 12.044017
-true_sect->y 33.788324

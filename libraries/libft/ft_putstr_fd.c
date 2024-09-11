@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 13:58:35 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/25 15:38:54 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/11 18:04:32 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
 
 void	ft_putstr_fd(char *s, int fd)
 {
