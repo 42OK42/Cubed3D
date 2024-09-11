@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../incl/cubed3D.h"
 
 void	raycaster(t_data *data)
@@ -29,7 +28,6 @@ void	raycaster(t_data *data)
 		data->rays[i]->angle = angle;
 		cast_ray(data, angle, i);
 		i++;
-		// free_ray_loop(data);
 	}
 }
 

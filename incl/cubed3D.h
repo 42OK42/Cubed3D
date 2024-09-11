@@ -408,6 +408,9 @@ int				no_grey_before_or_after_player(char **strarr);
 int				check__invalid_chars(char **strarr);
 int				check_chars(char **strarr);
 
+//utils7.c
+void			ground_floor(t_data *data, char **file_content);
+
 //corner_utils.c
 int				southeast(t_data *data);
 int				southwest(t_data *data);

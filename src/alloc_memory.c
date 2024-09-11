@@ -47,19 +47,19 @@ char	***malloc_color_map(int height, int width)
 	int		i;
 	int		j;
 
-	map = (char ***)calloc(sizeof(char **) , (height + 1));
+	map = (char ***)ft_calloc(sizeof(char **), (height + 1));
 	if (!map)
 		return (NULL);
 	i = 0;
 	while (i < height)
 	{
-		map[i] = (char **)calloc(sizeof(char *) , (width + 1));
+		map[i] = (char **)ft_calloc(sizeof(char *), (width + 1));
 		if (!map[i])
 			return (free_three_d_array(map), NULL);
 		j = 0;
 		while (j < width)
 		{
-			map[i][j] = (char *)calloc(sizeof(char) , 9);
+			map[i][j] = (char *)ft_calloc(sizeof(char), 9);
 			j++;
 		}
 		i++;
@@ -72,17 +72,17 @@ char	***malloc_color_entries(int num_colors)
 	char	***colors;
 	int		i;
 
-	colors = (char ***)ft_calloc(sizeof(char **) , (num_colors + 1));
+	colors = (char ***)ft_calloc(sizeof(char **), (num_colors + 1));
 	if (!colors)
 		return (NULL);
 	i = 0;
 	while (i < num_colors)
 	{
-		colors[i] = (char **)ft_calloc(sizeof(char *) , (2 + 1));
+		colors[i] = (char **)ft_calloc(sizeof(char *), (2 + 1));
 		if (!colors[i])
 			return (free_three_d_array(colors), NULL);
-		colors[i][0] = (char *)ft_calloc(sizeof(char) , (2 + 1));
-		colors[i][1] = (char *)ft_calloc(sizeof(char) , 9);
+		colors[i][0] = (char *)ft_calloc(sizeof(char), (2 + 1));
+		colors[i][1] = (char *)ft_calloc(sizeof(char), 9);
 		if (!colors[i][0] || !colors[i][1])
 			return (free_three_d_array(colors), NULL);
 		i++;

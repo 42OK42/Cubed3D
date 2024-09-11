@@ -76,13 +76,21 @@ int	find_max_width(char **line_grid)
 	return (max_length);
 }
 
+void	bunch(char **line_grid, char *new_line, int i)
+{
+	char	*phold;
+
+	phold = line_grid[i];
+	line_grid[i] = new_line;
+	free(phold);
+}
+
 int	pad(char **line_grid, int max_width)
 {
 	int		i;
 	int		len;
 	char	*new_line;
 	int		j;
-	char	*phold;
 
 	i = 0;
 	while (line_grid[i] != NULL)
@@ -90,7 +98,6 @@ int	pad(char **line_grid, int max_width)
 		len = ft_strlen(line_grid[i]);
 		if (len < max_width)
 		{
-			phold = line_grid[i];
 			new_line = (char *)malloc((max_width + 1) * sizeof(char));
 			if (new_line == NULL)
 				return (-1);
@@ -99,25 +106,9 @@ int	pad(char **line_grid, int max_width)
 			while (j < max_width)
 				new_line[j++] = ' ';
 			new_line[max_width] = '\0';
-			line_grid[i] = new_line;
-			free(phold);
+			bunch(line_grid, new_line, i);
 		}
 		i++;
 	}
 	return (0);
-}
-
-char	**malloc_row_grid(char **line_grid)
-{
-	char	**row_grid;
-	size_t	i;
-
-	i = 0;
-	row_grid = malloc(sizeof(char *) * (ft_strlen(line_grid[0]) + 1));
-	while (i < ft_strlen(line_grid[0]))
-	{
-		row_grid[i] = malloc(sizeof(char) * (ft_arrlen(line_grid) + 1));
-		i++;
-	}
-	return (row_grid);
 }

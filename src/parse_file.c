@@ -90,16 +90,7 @@ void	extract_element(t_data *data, char **file_content)
 		(*file_content)++;
 		data->file_info->path_ea = extract_path(file_content);
 	}
-	if (**file_content == 'F')
-	{
-		data->file_info->f_rgb = extract_color(&(*file_content));
-		data->file_info->fc = rgb_to_hex(data->file_info->f_rgb);
-	}
-	if (**file_content == 'C')
-	{
-		data->file_info->c_rgb = extract_color(&(*file_content));
-		data->file_info->cc = rgb_to_hex(data->file_info->c_rgb);
-	}
+	ground_floor(data, file_content);
 }
 
 char	*read_fileinfo(char *file_content, t_data *data)

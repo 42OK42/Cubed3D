@@ -28,7 +28,7 @@ int	close_window(t_data *data)
 	{
 		mlx_clear_window(data->mlx->mlx, data->mlx->mlx_win_minimap);
 		mlx_destroy_window(data->mlx->mlx, data->mlx->mlx_win_minimap);
-		data->mlx->mlx_win_minimap= NULL;
+		data->mlx->mlx_win_minimap = NULL;
 	}
 	if (data->mlx->mlx_win != NULL)
 	{
@@ -77,7 +77,6 @@ void	free_data(t_data *data)
 		free(data->file_info);
 		free(data->file_copy);
 		free(data->file_content);
-		// free(data->line_grid);	
 		free(data);
 		data = NULL;
 	}

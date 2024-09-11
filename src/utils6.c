@@ -12,6 +12,18 @@
 
 #include "../incl/cubed3D.h"
 
+int	invalid_space(char **strarr, int i, int j)
+{
+	if ((strarr[i][j + 1] != '0' && strarr[i][j + 1] != \
+		'1' && strarr[i][j + 1] != 'N' && strarr[i][j + 1] != \
+		'S' && strarr[i][j + 1] != 'E' && strarr[i][j + 1] != 'W') \
+		|| (strarr[i][j - 1] != '0' && strarr[i][j - 1] != '1' && \
+		strarr[i][j - 1] != 'N' && strarr[i][j - 1] != 'S' && \
+		strarr[i][j - 1] != 'E' && strarr[i][j - 1] != 'W'))
+		return (1);
+	return (0);
+}
+
 int	no_grey_before_or_after_player(char **strarr)
 {
 	int	i;
@@ -24,14 +36,10 @@ int	no_grey_before_or_after_player(char **strarr)
 		j = 0;
 		while (strarr[i][j] != '\0')
 		{
-			if (strarr[i][j] == 'N' || strarr[i][j] == 'S' || strarr[i][j] == 'E' || strarr[i][j] == 'W')
+			if (strarr[i][j] == 'N' || strarr[i][j] == 'S' \
+			|| strarr[i][j] == 'E' || strarr[i][j] == 'W')
 			{
-				if ((strarr[i][j + 1] != '0' && strarr[i][j + 1] != \
-					'1' && strarr[i][j + 1] != 'N' && strarr[i][j + 1] != \
-					'S' && strarr[i][j + 1] != 'E' && strarr[i][j + 1] != 'W') \
-					|| (strarr[i][j - 1] != '0' && strarr[i][j - 1] != '1' && \
-					strarr[i][j - 1] != 'N' && strarr[i][j - 1] != 'S' && \
-					strarr[i][j - 1] != 'E' && strarr[i][j - 1] != 'W'))
+				if (invalid_space(strarr, i, j))
 					error_exit("player next to invalid space");
 			}
 			j++;
@@ -54,10 +62,10 @@ int	check__invalid_chars(char **strarr)
 		while (strarr[i][j] != '\0')
 		{
 			if ((strarr[i][j] != '0' && strarr[i][j] != \
-				'1' && strarr[i][j] != 'N' && strarr[i][j ] != \
-				'S' && strarr[i][j] != 'E' && strarr[i][j] != 'W')\
+				'1' && strarr[i][j] != 'N' && strarr[i][j] != \
+				'S' && strarr[i][j] != 'E' && strarr[i][j] != 'W') \
 				&& strarr[i][j] != ' ')
-			error_exit("invalid chars in map");
+				error_exit("invalid chars in map");
 			j++;
 		}
 		i++;
@@ -69,7 +77,7 @@ int	check_chars(char **strarr)
 {
 	int	i;
 	int	j;
-	int count;
+	int	count;
 
 	i = 0;
 	j = 0;
@@ -79,10 +87,9 @@ int	check_chars(char **strarr)
 		j = 0;
 		while (strarr[i][j] != '\0')
 		{
-			if (strarr[i][j] == 'N' || strarr[i][j] == 'S' || strarr[i][j] == 'E' || strarr[i][j] == 'W')
-			{
+			if (strarr[i][j] == 'N' || strarr[i][j] == 'S' \
+			|| strarr[i][j] == 'E' || strarr[i][j] == 'W')
 				count++;
-			}
 			j++;
 		}
 		i++;

@@ -114,7 +114,6 @@ t_point	*get_true_intersection(t_point *start, t_data *data, t_temp *temp)
 	ret = malloc(sizeof(t_point));
 	curr = malloc(sizeof(t_point));
 	data->temp->sect_with_x = NULL;
-	// printf("malloc x: %p\n", data->temp->sect_with_x);
 	data->temp->sect_with_y = NULL;
 	curr->x = temp->current_x;
 	curr->y = temp->current_y;
