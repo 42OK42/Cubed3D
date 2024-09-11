@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:07:09 by okrahl            #+#    #+#             */
-/*   Updated: 2024/09/11 15:24:38 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/11 17:58:12 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	free_data(t_data *data)
 {
 	if (data != NULL)
 	{
-		free_ray_loop(data);
+		mlx_destroy_display(data->mlx->mlx);
 		free_map(data);
 		free(data->player->player_position[0]);
 		free(data->player->player_position);

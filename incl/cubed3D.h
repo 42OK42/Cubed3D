@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/09/11 15:54:24 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/11 17:42:42 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define CUBED3D_H
 
 // # include <mlx.h>
-# include "../libraries/minilibx_opengl_20191021/mlx.h"
 # include "../libraries/minilibx-linux/mlx.h"
 # include <unistd.h>
 # include <stdio.h>

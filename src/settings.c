@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 18:09:08 by okrahl            #+#    #+#             */
-/*   Updated: 2024/08/29 15:27:51 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/11 17:58:56 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_settings	*initialize_settings2(t_settings *settings)
 {
 	settings->tile_size = 20;
 	settings->fov = 100;
-	settings->num_rays = 700;
+	settings->num_rays = 1000;
 	settings->show_rays = 1;
 	settings->ray_step_size = 0.01;
 	settings->window_width = 1000;
