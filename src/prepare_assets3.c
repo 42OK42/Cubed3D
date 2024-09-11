@@ -50,8 +50,8 @@ char	***create_colored_map(char ***colors, \
 			color = find_color(colors, num_colors, pixel_map[i][j]);
 			if (color)
 			{
-				ft_strncpy(map[i][j], color, 8);
-				map[i][j][8] = '\0';
+				ft_strncpy(map[i][j], color, 7);
+				map[i][j][7] = '\0';
 			}
 			j++;
 		}

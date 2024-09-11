@@ -46,6 +46,7 @@ int	**load_xpm(char *PATH)
 	free_two_d_array(xpm_lines);
 	image_before_hex = create_colored_map(colors, temp->num_colors, \
 		pixel_map, temp);
+	//print_colored_map_before_hex(image_before_hex, temp);
 	free_two_d_array(pixel_map);
 	return (convert_to_hex(image_before_hex, temp));
 }

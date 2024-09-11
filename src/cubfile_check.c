@@ -48,41 +48,46 @@ int	enclosed_by_walls(char **line_grid, char **row_grid)
 int	check_surrounded_by_walls(char	**line_grid)
 {
 	char	**row_grid;
+	int		i;
 
+	i = 0;
 	row_grid = lines_to_rows(line_grid);
 	enclosed_by_walls(line_grid, row_grid);
+	while (i < (int)ft_strlen(line_grid[0]))
+	{
+		free(row_grid[i]);
+		i++;
+	}
+	free(row_grid);
 	return (0);
 }
 
 int	create_map(char *file_content, t_data *data)
 {
-	char	**line_grid;
-
-	line_grid = ft_split(file_content, '\n');
-	pad(line_grid, 57);
-	check_surrounded_by_walls(line_grid);
-	data->map = line_grid;
+	data->line_grid = ft_split(file_content, '\n');
+	pad(data->line_grid, 57);
+	check_surrounded_by_walls(data->line_grid);
+	data->map = data->line_grid;
 	return (0);
 }
 
 void	cubfile_check(char *mapfile, t_data *data)
 {
 	int		map_fd;
-	char	*file_content;
 	int		bytes_read;
 
 	map_fd = open(mapfile, O_RDONLY);
 	if (map_fd == -1)
 		perror_exit("Error opening file");
-	file_content = malloc(14400);
-	bytes_read = read(map_fd, file_content, 14400);
+	data->file_content = malloc(14400);
+	bytes_read = read(map_fd, data->file_content, 14400);
 	if (bytes_read == -1) 
 	{
-		free(file_content);
+		free(data->file_content);
 		close(map_fd);
 		perror_exit("Error reading file");
 	}
-	file_content[bytes_read] = '\0';
-	file_content = read_fileinfo(file_content, data);
-	create_map(file_content, data);
+	data->file_content[bytes_read] = '\0';
+	data->map_pointer = read_fileinfo(data->file_content, data);
+	create_map(data->map_pointer, data);
 }

@@ -33,7 +33,6 @@ int	early_return(t_data *data, t_point *ret)
 	}
 	ret->x = data->temp->current_x;
 	ret->y = data->temp->current_y;
-	printf("test1");
 	return (0);
 }
 
@@ -114,6 +113,9 @@ t_point	*get_true_intersection(t_point *start, t_data *data, t_temp *temp)
 	data->temp->start = start;
 	ret = malloc(sizeof(t_point));
 	curr = malloc(sizeof(t_point));
+	data->temp->sect_with_x = NULL;
+	// printf("malloc x: %p\n", data->temp->sect_with_x);
+	data->temp->sect_with_y = NULL;
 	curr->x = temp->current_x;
 	curr->y = temp->current_y;
 	calc_stuff(data, curr);

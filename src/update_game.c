@@ -56,6 +56,7 @@ int	update_frame(t_data *data)
 			&data->mlx->endian);
 		data->mlx->needs_redraw = 0;
 	}
+	// free_loop(data);
 	return (1);
 }
 
@@ -63,6 +64,7 @@ int	on_press(int keycode, t_data *data)
 {
 	if (keycode == 65307)
 	{
+		// free_data(data);
 		close_window(data);
 		return (0);
 	}

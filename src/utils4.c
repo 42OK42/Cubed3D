@@ -31,6 +31,8 @@ t_point	*backtrack_to_x(t_data *data)
 	ret = malloc(sizeof(t_point));
 	if (data->temp->step_x == 0)
 	{
+		if (ret != NULL)
+			free(ret);
 		ret = NULL;
 		return (ret);
 	}
@@ -58,6 +60,8 @@ t_point	*backtrack_to_y(t_data *data)
 	ret = malloc(sizeof(t_point));
 	if (data->temp->step_y == 0)
 	{
+		if (ret != NULL)
+			free(ret);
 		ret = NULL;
 		return (ret);
 	}
@@ -96,7 +100,6 @@ int	neither_in_range(t_data *data)
 		data->temp->current_y = adjust_towards_closest_multiple_by \
 		(data->temp->previous_y, data->temp->current_y, 0.0004);
 		return (1);
-		printf("test3");
 	}
 	else 
 		return (0);

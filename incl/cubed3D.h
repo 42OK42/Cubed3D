@@ -160,6 +160,8 @@ typedef struct s_file_info
 	char		*path_su;
 	char		*path_we;
 	char		*path_ea;
+	char		*f_rgb;
+	char		*c_rgb;
 	int			fc;
 	int			cc;
 }			t_file_info;
@@ -176,7 +178,11 @@ typedef struct s_data
 	long double			grid_x;
 	long double			grid_y;
 	char				*filename;
+	char				*file_content;
+	char				*file_copy;
+	char				*map_pointer;
 	char				**map;
+	char				**line_grid;
 	char				**row_grid;
 	int					map_height;
 	int					map_width;
@@ -399,6 +405,7 @@ long double		adjust_towards_closest_multiple_by(long double current_x, \
 							long double tile_size, long double inch);
 void			init_ray_values(t_data *data, long double ray_angle);
 void			update_ray_position(t_data *data, int j);
+void			free_ray_loop(t_data *data);
 //corner_utils.c
 int				southeast(t_data *data);
 int				southwest(t_data *data);

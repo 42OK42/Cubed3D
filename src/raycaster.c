@@ -29,6 +29,7 @@ void	raycaster(t_data *data)
 		data->rays[i]->angle = angle;
 		cast_ray(data, angle, i);
 		i++;
+		// free_ray_loop(data);
 	}
 }
 
@@ -47,6 +48,9 @@ void	ray_loop(t_data *data, t_point *true_sect, int i, int *j)
 		data->rays[i]->length = distance;
 		data->rays[i]->hit_x = data->temp->current_x;
 		data->rays[i]->hit_y = data->temp->current_y;
+		free_ray_loop(data);
+		printf("\n");
+		free(true_sect);
 	}
 	(*j)++;
 }
@@ -56,13 +60,15 @@ void	cast_ray(t_data *data, long double ray_angle, int i)
 	int			j;
 	t_point		*true_sect;
 
-	true_sect = malloc(sizeof(t_point));
+	true_sect = NULL;
 	j = 0;
+	data->temp->start = malloc(sizeof(t_point));
 	data->temp->start->x = data->player->player_position[0][0];
 	data->temp->start->y = data->player->player_position[0][1];
 	init_ray_values(data, ray_angle);
 	while (!data->temp->hit_wall)
 		ray_loop(data, true_sect, i, &j);
+	free(data->temp->start);
 }
 
 int	check_wall_hit(t_data *data)

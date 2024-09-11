@@ -62,3 +62,17 @@ void	update_ray_position(t_data *data, int j)
 	data->temp->current_y = (data->player->player_position[0][1] \
 	* scale + j * data->temp->step_y * scale) / scale;
 }
+
+void	free_ray_loop(t_data *data)
+{
+	if (data->temp->sect_with_x != NULL)
+	{
+		free(data->temp->sect_with_x);
+		data->temp->sect_with_x = NULL;
+	}
+	if (data->temp->sect_with_y != NULL)
+	{
+		free(data->temp->sect_with_y);
+		data->temp->sect_with_y = NULL;
+	}
+}

@@ -91,9 +91,15 @@ void	extract_element(t_data *data, char **file_content)
 		data->file_info->path_ea = extract_path(file_content);
 	}
 	if (**file_content == 'F')
-		data->file_info->fc = rgb_to_hex(extract_color(&(*file_content)));
+	{
+		data->file_info->f_rgb = extract_color(&(*file_content));
+		data->file_info->fc = rgb_to_hex(data->file_info->f_rgb);
+	}
 	if (**file_content == 'C')
-		data->file_info->cc = rgb_to_hex(extract_color(&(*file_content)));
+	{
+		data->file_info->c_rgb = extract_color(&(*file_content));
+		data->file_info->cc = rgb_to_hex(data->file_info->c_rgb);
+	}
 }
 
 char	*read_fileinfo(char *file_content, t_data *data)
@@ -101,7 +107,8 @@ char	*read_fileinfo(char *file_content, t_data *data)
 	char	*map_start;
 	char	*file_copy;
 
-	file_copy = ft_strdup(file_content);
+	data->file_copy = ft_strdup(file_content);
+	file_copy = data->file_copy;
 	map_start = skip_until_map(file_content);
 	data->file_info = initialize_file_info();
 	file_copy = skip_empty_lines(file_copy);

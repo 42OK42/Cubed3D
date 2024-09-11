@@ -47,19 +47,19 @@ char	***malloc_color_map(int height, int width)
 	int		i;
 	int		j;
 
-	map = (char ***)malloc(sizeof(char **) * (height + 1));
+	map = (char ***)calloc(sizeof(char **) , (height + 1));
 	if (!map)
 		return (NULL);
 	i = 0;
 	while (i < height)
 	{
-		map[i] = (char **)malloc(sizeof(char *) * (width + 1));
+		map[i] = (char **)calloc(sizeof(char *) , (width + 1));
 		if (!map[i])
 			return (free_three_d_array(map), NULL);
 		j = 0;
 		while (j < width)
 		{
-			map[i][j] = (char *)malloc(sizeof(char) * 9);
+			map[i][j] = (char *)calloc(sizeof(char) , 9);
 			j++;
 		}
 		i++;
@@ -82,7 +82,7 @@ char	***malloc_color_entries(int num_colors)
 		if (!colors[i])
 			return (free_three_d_array(colors), NULL);
 		colors[i][0] = (char *)malloc(sizeof(char) * 2);
-		colors[i][1] = (char *)malloc(sizeof(char) * 8);
+		colors[i][1] = (char *)malloc(sizeof(char) * 9);
 		if (!colors[i][0] || !colors[i][1])
 			return (free_three_d_array(colors), NULL);
 		i++;
