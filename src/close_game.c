@@ -14,14 +14,12 @@
 
 int	close_window1(t_data *data)
 {
-	//sleep(1);
 	data->temp->exited = 1;
 	return (0);
 }
 
 int	close_window(t_data *data)
 {
-	//sleep(1);
 	if (data->mlx->img_ptr != NULL)
 	{
 		mlx_destroy_image(data->mlx->mlx, data->mlx->img_ptr);
@@ -101,13 +99,4 @@ void	free_rays(t_rays **rays, int num_rays)
 		i++;
 	}
 	free(rays);
-}
-
-void	free_assets(t_assets *assets)
-{
-	free_two_d_int_array(assets->wall_south);
-	free_two_d_int_array(assets->wall_north);
-	free_two_d_int_array(assets->wall_west);
-	free_two_d_int_array(assets->wall_east);
-	free(assets);
 }

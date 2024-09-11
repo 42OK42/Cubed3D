@@ -58,8 +58,8 @@ typedef struct s_settings
 	int			ray_color;
 	int			tile_size;
 	int			show_rays;
-	int			move_step;
-	int			rotation_step;
+	long double	move_step;
+	long double	rotation_step;
 	long double	direction_line_length;
 	long double	ray_step_size;
 	int			num_rays;
@@ -376,7 +376,7 @@ int				ft_arrlen(char **strarr);
 
 //utils2.c
 int				starts_and_ends_with_wall(char **strarr);
-int				closest_multiple_of_tile(int num, int tile_size);
+int				closest_multiple_of_tile(double num, int tile_size);
 int				same_but_reverse(char **strarr, int len);
 long double		distance(t_point *start, t_point *end);
 long double		absolute_difference(long double num1, long double num2);

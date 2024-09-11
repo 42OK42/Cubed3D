@@ -55,19 +55,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (newstr);
 }
 
-char	*ft_strchr(const char *s, int c)
-{
-	while (*s)
-	{
-		if (*s == (char) c)
-			return ((char *)s);
-		s++;
-	}
-	if ((char) c == 0)
-		return ((char *)s);
-	return (0);
-}
-
 size_t	ft_strlen(const char *s)
 {
 	unsigned long	i;

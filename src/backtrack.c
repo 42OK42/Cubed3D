@@ -40,10 +40,9 @@ int	ns_hit(t_data *data, t_point *ret)
 {
 	if (data->temp->d_curr_x <= data->settings->ray_step_size && \
 	data->temp->d_start_x <= data->temp->d_start_y \
-	&& ((data->temp->start->y > data->temp->sect_with_x->y && \
+	&& ((\
 	north_wall(data, data->temp->sect_with_x->x, \
-	(int)data->temp->sect_with_x->y)) || (data->temp->start->y \
-	< data->temp->sect_with_x->y && south_wall(data, \
+	(int)data->temp->sect_with_x->y)) || (south_wall(data, \
 	data->temp->sect_with_x->x, (int)data->temp->sect_with_x->y))))
 	{
 		ret->x = data->temp->sect_with_x->x;

@@ -72,11 +72,11 @@ long double	distance(t_point *start, t_point *end)
 	return (sqrt(pow(end->x - start->x, 2) + pow(end->y - start->y, 2)));
 }
 
-int	closest_multiple_of_tile(int num, int tile_size)
+int	closest_multiple_of_tile(double num, int tile_size)
 {
 	int	remainder;
 
-	remainder = num % tile_size;
+	remainder = fmod(num, (double)tile_size);
 	if (remainder < tile_size / 2)
 		return (num - remainder);
 	else

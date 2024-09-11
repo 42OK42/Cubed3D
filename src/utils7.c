@@ -40,3 +40,12 @@ void	ground_floor(t_data *data, char **file_content)
 		data->file_info->cc = rgb_to_hex(data->file_info->c_rgb);
 	}
 }
+
+void	free_assets(t_assets *assets)
+{
+	free_two_d_int_array(assets->wall_south);
+	free_two_d_int_array(assets->wall_north);
+	free_two_d_int_array(assets->wall_west);
+	free_two_d_int_array(assets->wall_east);
+	free(assets);
+}
