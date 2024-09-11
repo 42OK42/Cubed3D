@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:16:00 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/25 19:38:40 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/11 15:51:12 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,17 @@ char	***malloc_color_entries(int num_colors)
 	char	***colors;
 	int		i;
 
-	colors = (char ***)malloc(sizeof(char **) * num_colors);
+	colors = (char ***)ft_calloc(sizeof(char **) , (num_colors + 1));
 	if (!colors)
 		return (NULL);
 	i = 0;
 	while (i < num_colors)
 	{
-		colors[i] = (char **)malloc(sizeof(char *) * 2);
+		colors[i] = (char **)ft_calloc(sizeof(char *) , (2 + 1));
 		if (!colors[i])
 			return (free_three_d_array(colors), NULL);
-		colors[i][0] = (char *)malloc(sizeof(char) * 2);
-		colors[i][1] = (char *)malloc(sizeof(char) * 9);
+		colors[i][0] = (char *)ft_calloc(sizeof(char) , (2 + 1));
+		colors[i][1] = (char *)ft_calloc(sizeof(char) , 9);
 		if (!colors[i][0] || !colors[i][1])
 			return (free_three_d_array(colors), NULL);
 		i++;

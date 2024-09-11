@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:39:54 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/25 16:44:06 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/11 15:54:09 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	**case_corner(t_data *data, int hit_x_int, int hit_y_int, int ray_id)
 		if (data->temp->previous_image != NULL)
 			return (data->temp->previous_image);
 	}
-	return (data->assets->wall_sectfail);
+	return (NULL);
 }
 
 int	**get_right_image(t_data *data, int ray_id)
@@ -45,7 +45,7 @@ int	**get_right_image(t_data *data, int ray_id)
 	player_y = data->player->player_position[0][1];
 	player_x = data->player->player_position[0][0];
 	if (case_corner(data, hit_x_int, hit_y_int, ray_id) \
-						!= data->assets->wall_sectfail)
+						!= NULL)
 		return (case_corner(data, hit_x_int, hit_y_int, ray_id));
 	if ((fmod(data->rays[ray_id]->hit_y, \
 	(double)data->settings->tile_size) == 0) \
@@ -59,7 +59,7 @@ int	**get_right_image(t_data *data, int ray_id)
 		return (get_image_for_vertical_hit(data, hit_x_int, player_x));
 	if (data->temp->previous_image != NULL)
 		return (data->temp->previous_image);
-	return (data->assets->wall_sectfail);
+	return (NULL);
 }
 
 int	**get_image_for_vertical_hit(t_data *data, \

@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 14:36:17 by okrahl            #+#    #+#             */
-/*   Updated: 2023/08/16 13:24:47 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/11 15:56:10 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include "get_next_line.h"
-
-void	*ft_calloc(size_t nmemb, size_t size)
-{
-	char	*p;
-	int		i;
-
-	p = malloc((int)nmemb * size);
-	i = 0;
-	if (p == NULL)
-		return (NULL);
-	while (i < (int)(size * nmemb))
-	{
-		p[i] = 0;
-		i++;
-	}
-	return (p);
-}
 
 char	*allocate_memory2(size_t total_length)
 {

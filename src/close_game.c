@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:07:09 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/25 20:35:22 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/11 15:24:38 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,5 @@ void	free_assets(t_assets *assets)
 	free_two_d_int_array(assets->wall_north);
 	free_two_d_int_array(assets->wall_west);
 	free_two_d_int_array(assets->wall_east);
-	free_two_d_int_array(assets->wall_sectfail);
-	free_two_d_int_array(assets->wall_corner);
 	free(assets);
 }

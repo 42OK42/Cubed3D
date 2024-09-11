@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:19:29 by okrahl            #+#    #+#             */
-/*   Updated: 2024/09/02 16:42:54 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/11 15:54:24 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,14 +133,10 @@ typedef struct s_assets
 	char	*wall_north_path;
 	char	*wall_east_path;
 	char	*wall_west_path;
-	char	*wall_corner_path;
-	char	*wall_sectfail_path;
 	int		**wall_south;
 	int		**wall_north;
 	int		**wall_east;
 	int		**wall_west;
-	int		**wall_corner;
-	int		**wall_sectfail;
 }					t_assets;
 
 typedef struct s_rays

@@ -6,10 +6,10 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 11:47:37 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/22 16:54:02 by okrahl           ###   ########.fr       */
-/*   Updated: 2024/07/16 16:22:50 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/11 15:08:33 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../incl/cubed3D.h"
 
@@ -49,7 +49,6 @@ void	ray_loop(t_data *data, t_point *true_sect, int i, int *j)
 		data->rays[i]->hit_x = data->temp->current_x;
 		data->rays[i]->hit_y = data->temp->current_y;
 		free_ray_loop(data);
-		printf("\n");
 		free(true_sect);
 	}
 	(*j)++;

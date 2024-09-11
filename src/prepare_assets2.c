@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:48:53 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/25 19:36:03 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/11 15:42:31 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ char	***get_colors(char **xpm_lines, int num_colors)
 		ft_strncpy(colors[i][1], &xpm_lines[i + 4][5], 8);
 		i++;
 	}
+	colors[i] = NULL;
 	return (colors);
 }
 
