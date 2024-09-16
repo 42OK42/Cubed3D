@@ -16,10 +16,10 @@ long double	**initialize_player_position(t_data *data)
 {
 	long double	**player_position;
 
-	player_position = malloc(sizeof(long double *) * 2);
+	player_position = ft_calloc(sizeof(long double *), 2);
 	if (!player_position)
 		return (0);
-	player_position[0] = malloc(sizeof(long double) * 2);
+	player_position[0] = ft_calloc(sizeof(long double), 2);
 	if (!player_position[0])
 		return (0);
 	find_player_start_position(data, player_position);

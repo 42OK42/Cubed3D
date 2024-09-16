@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 14:28:44 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/25 17:21:17 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/11 15:48:35 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_two_d_array(char **pixel_map)
 	free(pixel_map);
 }
 
-void	free_three_d_array(char ***array)
+/* void	free_three_d_array(char ***array)
 {
 	int	i;
 
@@ -38,6 +38,28 @@ void	free_three_d_array(char ***array)
 			free(array[i][0]);
 		if (array[i][1])
 			free(array[i][1]);
+		free(array[i]);
+		i++;
+	}
+	free(array);
+} */
+
+void	free_three_d_array(char ***array)
+{
+	int	i;
+	int	j;
+
+	if (array == NULL)
+		return ;
+	i = 0;
+	while (array[i])
+	{
+		j = 0;
+		while (array[i][j])
+		{
+			free(array[i][j]);
+			j++;
+		}
 		free(array[i]);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 17:42:03 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/25 17:42:47 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/12 18:33:28 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_mlx	*initialize_mlx(t_data *data)
 {
 	t_mlx	*mlx;
 
-	mlx = (t_mlx *)malloc(sizeof(t_mlx));
+	mlx = (t_mlx *)ft_calloc(sizeof(t_mlx), 1);
 	mlx->needs_redraw = 1;
 	mlx->mlx = NULL;
 	mlx->mlx = mlx_init();
@@ -47,7 +47,7 @@ char	**map_read(t_data *data)
 	i = 0;
 	if (data->map_height < 1)
 		return (ft_printf("Error:\n No Map!\n"), NULL);
-	map_array = (char **)malloc((data->map_height + 1) * sizeof(char *));
+	map_array = (char **)ft_calloc((data->map_height + 1), sizeof(char *));
 	if (!map_array)
 		return (0);
 	while (i <= data->map_height)

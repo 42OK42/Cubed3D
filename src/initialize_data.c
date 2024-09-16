@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:07:19 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/25 20:07:41 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/12 18:33:14 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_player	*initialize_player(t_data *data)
 {
 	t_player	*player;
 
-	player = malloc(sizeof(t_player));
+	player = ft_calloc(sizeof(t_player), 1);
 	if (!player)
 		return (0);
 	player->player_position = initialize_player_position(data);
@@ -29,7 +29,7 @@ t_temp	*initialize_temp(void)
 {
 	t_temp	*temp;
 
-	temp = malloc(sizeof(t_temp));
+	temp = ft_calloc(sizeof(t_temp), 1);
 	if (!temp)
 		return (0);
 	temp->center_x = 0;
@@ -47,6 +47,9 @@ t_temp	*initialize_temp(void)
 	temp->exited = 0;
 	temp = initialize_temp2(temp);
 	temp->previous_image = NULL;
+	temp->sect_with_x = NULL;
+	temp->sect_with_y = NULL;
+	temp->start = NULL;
 	return (temp);
 }
 
@@ -74,20 +77,18 @@ t_rays	**initialize_rays(t_data *data)
 	int		i;
 	t_rays	**rays;
 
-	rays = (t_rays **)malloc(sizeof(t_rays *) * data->settings->num_rays);
+	rays = (t_rays **)ft_calloc(sizeof(t_rays *), data->settings->num_rays);
 	if (!rays)
 	{
-		perror("Failed to allocate memory for rays");
-		exit(EXIT_FAILURE);
+		error_exit("Failed to allocate memory for rays", data);
 	}
 	i = 0;
 	while (i < data->settings->num_rays)
 	{
-		rays[i] = (t_rays *)malloc(sizeof(t_rays));
+		rays[i] = (t_rays *)ft_calloc(sizeof(t_rays), 1);
 		if (!rays[i])
 		{
-			perror("Failed to allocate memory for a ray");
-			exit(EXIT_FAILURE);
+			error_exit("Failed to allocate memory for a ray", data);
 		}
 		rays[i]->length = 0.0;
 		rays[i]->angle = 0;
@@ -98,6 +99,12 @@ t_rays	**initialize_rays(t_data *data)
 
 t_data	*initialize_data(char *filename, t_data *data)
 {
+	t_assets	*assets;
+
+	assets = (t_assets *)ft_calloc(sizeof(t_assets), 1);
+	if (!assets)
+		return (NULL);
+	data->assets = assets;
 	data->filename = filename;
 	data->map_height = find_map_height_before_map(data);
 	data->map_width = find_map_width(data);
@@ -105,7 +112,7 @@ t_data	*initialize_data(char *filename, t_data *data)
 	data->player = initialize_player(data);
 	data->temp = initialize_temp();
 	data->rays = initialize_rays(data);
-	data->assets = initialize_assets();
+	initialize_assets(data);
 	data->color_row = initialize_color_row(data);
 	raycaster(data);
 	data->mlx = initialize_mlx(data);

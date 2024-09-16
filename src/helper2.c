@@ -33,26 +33,16 @@ int	find_map_width(t_data *data)
 
 int	find_map_height_before_map(t_data *data)
 {
-	int		fd;
-	int		map_height;
-	char	*map_line;
+	int	map_height;
+	int	i;
 
-	fd = open(data->filename, O_RDONLY);
-	if (fd == -1)
-		return (0);
-	map_height = 1;
-	map_line = get_next_line(fd);
-	if (!map_line)
-		return (0);
-	while (map_line)
+	i = 0;
+	map_height = 0;
+	while (data->map[i] != NULL)
 	{
-		if (strchr(map_line, '\n') != NULL)
-			map_height++;
-		free(map_line);
-		map_line = get_next_line(fd);
+		map_height++;
+		i++;
 	}
-	free(map_line);
-	close(fd);
 	return (map_height);
 }
 

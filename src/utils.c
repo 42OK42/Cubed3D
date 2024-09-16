@@ -12,14 +12,16 @@
 
 #include "../incl/cubed3D.h"
 
-void	perror_exit(char *msg)
+void	perror_exit(char *msg, t_data *data)
 {
+	free_data(data);
 	perror(msg);
 	exit(EXIT_FAILURE);
 }
 
-void	error_exit(char *msg)
+void	error_exit(char *msg, t_data *data)
 {
+	free_data(data);
 	ft_printf("%s\n", msg);
 	exit(EXIT_FAILURE);
 }
@@ -31,8 +33,47 @@ void	print_string_array(char **str_array)
 	i = 0;
 	while (str_array[i] != NULL)
 	{
-		printf("\nstrArr[%d] #%s#", i, str_array[i]);
+		ft_printf("\nstrArr[%d] #%s#", i, str_array[i]);
 		i++;
 	}
-	printf("\n");
+	ft_printf("\n");
+}
+
+int	no_grey_before_or_after_white(char **strarr, t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (strarr[i] != NULL )
+	{
+		j = 0;
+		while (strarr[i][j] != '\0')
+		{
+			if (strarr[i][j] == '0')
+			{
+				if ((strarr[i][j + 1] != '0' && strarr[i][j + 1] != \
+					'1' && strarr[i][j + 1] != 'N' && strarr[i][j + 1] != \
+					'S' && strarr[i][j + 1] != 'E' && strarr[i][j + 1] != 'W') \
+					|| (strarr[i][j - 1] != '0' && strarr[i][j - 1] != '1' && \
+					strarr[i][j - 1] != 'N' && strarr[i][j - 1] != 'S' && \
+					strarr[i][j - 1] != 'E' && strarr[i][j - 1] != 'W'))
+					error_exit("walkable mapspace not properly enclosed", data);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
+int	ft_arrlen(char **strarr)
+{
+	int	i;
+
+	i = 0;
+	while (strarr[i] != NULL)
+		i++;
+	return (i);
 }

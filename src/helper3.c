@@ -19,7 +19,7 @@ void	draw_color_row(int *color_row)
 	i = 0;
 	while (color_row[i])
 	{
-		printf("color_row[%i]: %i\n", i, color_row[i]);
+		ft_printf("color_row[%i]: %i\n", i, color_row[i]);
 		i++;
 	}
 }

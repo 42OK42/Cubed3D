@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 14:36:17 by okrahl            #+#    #+#             */
-/*   Updated: 2023/08/16 13:24:47 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/11 15:56:10 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include "get_next_line.h"
-
-void	*ft_calloc(size_t nmemb, size_t size)
-{
-	char	*p;
-	int		i;
-
-	p = malloc((int)nmemb * size);
-	i = 0;
-	if (p == NULL)
-		return (NULL);
-	while (i < (int)(size * nmemb))
-	{
-		p[i] = 0;
-		i++;
-	}
-	return (p);
-}
 
 char	*allocate_memory2(size_t total_length)
 {
@@ -70,19 +53,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	}
 	newstr[i + j] = '\0';
 	return (newstr);
-}
-
-char	*ft_strchr(const char *s, int c)
-{
-	while (*s)
-	{
-		if (*s == (char) c)
-			return ((char *)s);
-		s++;
-	}
-	if ((char) c == 0)
-		return ((char *)s);
-	return (0);
 }
 
 size_t	ft_strlen(const char *s)

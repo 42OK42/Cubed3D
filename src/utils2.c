@@ -12,7 +12,7 @@
 
 #include "../incl/cubed3D.h"
 
-int	same_but_reverse(char **strarr, int len)
+int	same_but_reverse(char **strarr, int len, t_data *data)
 {
 	int	i;
 	int	j;
@@ -24,12 +24,12 @@ int	same_but_reverse(char **strarr, int len)
 		j = len;
 		while (strarr[i][j] != '\0')
 		{
-			while (strarr[i][j] == ' ')
+			while (strarr[i][j] == ' ' && strarr[i][j] == '\t')
 				j--;
 			if (strarr[i][j] != '1')
 			{
 				return (0);
-				error_exit("map not enclosed properly");
+				error_exit("map not enclosed properly", data);
 			}
 		}
 		i++;
@@ -37,7 +37,7 @@ int	same_but_reverse(char **strarr, int len)
 	return (1);
 }
 
-int	starts_and_ends_with_wall(char **strarr)
+int	starts_and_ends_with_wall(char **strarr, t_data *data)
 {
 	int	i;
 	int	j;
@@ -49,57 +49,46 @@ int	starts_and_ends_with_wall(char **strarr)
 		j = 0;
 		while (strarr[i][j] != '\0')
 		{
-			while (strarr[i][j] == ' ')
+			while (strarr[i][j] == ' ' && strarr[i][j] == '\t')
 			{
 				j++;
 			}
 			if (strarr[i][j] != '1')
 			{
 				return (0);
-				error_exit("map not enclosed properly");
+				error_exit("map not enclosed properly", data);
 			}
 			j++;
 		}
 		i++;
 	}
-	return (same_but_reverse(strarr, ft_strlen(strarr[0])));
+	return (same_but_reverse(strarr, ft_strlen(strarr[0]), data));
 }
 
-int	no_grey_before_or_after_white(char **strarr)
+long double	distance(t_point *start, t_point *end)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (strarr[i] != NULL )
-	{
-		j = 0;
-		while (strarr[i][j] != '\0')
-		{
-			if (strarr[i][j] == '0')
-			{
-				if ((strarr[i][j + 1] != '0' && strarr[i][j + 1] != \
-					'1' && strarr[i][j + 1] != 'N' && strarr[i][j + 1] != \
-					'S' && strarr[i][j + 1] != 'E' && strarr[i][j + 1] != 'W') \
-					|| (strarr[i][j - 1] != '0' && strarr[i][j - 1] != '1' && \
-					strarr[i][j - 1] != 'N' && strarr[i][j - 1] != 'S' && \
-					strarr[i][j - 1] != 'E' && strarr[i][j - 1] != 'W'))
-					error_exit("walkable mapspace not properly enclosed");
-			}
-			j++;
-		}
-		i++;
-	}
-	return (1);
+	if (start == NULL || end == NULL)
+		return (1000);
+	return (sqrt(pow(end->x - start->x, 2) + pow(end->y - start->y, 2)));
 }
 
-int	ft_arrlen(char **strarr)
+int	closest_multiple_of_tile(double num, int tile_size)
 {
-	int	i;
+	int	remainder;
 
-	i = 0;
-	while (strarr[i] != NULL)
-		i++;
-	return (i);
+	remainder = fmod(num, (double)tile_size);
+	if (remainder < tile_size / 2)
+		return (num - remainder);
+	else
+		return (num + tile_size - remainder);
+}
+
+long double	absolute_difference(long double num1, long double num2)
+{
+	long double	diff;
+
+	diff = num1 - num2;
+	if (diff < 0)
+		diff = -diff;
+	return (diff);
 }

@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:48:53 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/25 19:36:03 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/12 18:34:08 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ int	**convert_to_hex(char ***image_before, t_temp_assets *temp)
 	int	j;
 	int	**image_result;
 
-	image_result = (int **)malloc(sizeof(int *) * (temp->height + 1));
+	image_result = (int **)ft_calloc(sizeof(int *), (temp->height + 1));
 	if (!image_result)
 		return (NULL);
 	i = 0;
 	while (i < 10)
 	{
-		image_result[i] = (int *)malloc(sizeof(int) * (temp->width + 1));
+		image_result[i] = (int *)ft_calloc(sizeof(int), (temp->width + 1));
 		if (!image_result[i])
 			return (NULL);
 		j = 0;
@@ -100,6 +100,7 @@ char	***get_colors(char **xpm_lines, int num_colors)
 		ft_strncpy(colors[i][1], &xpm_lines[i + 4][5], 8);
 		i++;
 	}
+	colors[i] = NULL;
 	return (colors);
 }
 
@@ -107,7 +108,7 @@ t_temp_assets	*parse_header(char **xpm_lines)
 {
 	t_temp_assets	*temp;
 
-	temp = (t_temp_assets *)malloc(sizeof(t_temp_assets));
+	temp = (t_temp_assets *)ft_calloc(sizeof(t_temp_assets), 1);
 	temp->num_colors = ft_atoi(&xpm_lines[3][7]);
 	temp->chars_per_pixel = ft_atoi(&xpm_lines[3][9]);
 	temp->width = (ft_atoi(&xpm_lines[3][1]));

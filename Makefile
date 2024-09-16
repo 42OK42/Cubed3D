@@ -22,7 +22,7 @@ LIBFT_DIR = libraries/libft
 MLX_DIR = libraries/mlx
 
 # EXECUTABLE NAME
-NAME = cubed3D
+NAME = cub3D
 
 # SOURCE FILES
 SRCS = 	main.c \
@@ -30,6 +30,10 @@ SRCS = 	main.c \
 		helper.c \
 		helper2.c \
 		helper3.c \
+		parse_file.c \
+		parse_file2.c \
+		parse_file_helper.c \
+		parse_file_helper2.c \
 		close_game.c \
 		initialize_data.c \
 		initialize_player.c \
@@ -45,6 +49,14 @@ SRCS = 	main.c \
 		cubfile_check.c \
 		utils.c \
 		utils2.c \
+		utils3.c \
+		utils4.c \
+		utils5.c \
+		utils6.c \
+		utils7.c \
+		utils8.c \
+		corner_utils.c \
+		corner_utils2.c \
 		free_assets.c \
 		free_data.c \
 		prepare_assets.c \
@@ -52,9 +64,9 @@ SRCS = 	main.c \
 		prepare_assets3.c \
 		alloc_memory.c \
 		settings.c \
-		ray_utils.c \
 		backtrack.c \
-		wall_checks.c
+		wall_checks.c \
+		wall_checks_small.c
 		
 
 # OBJECT FILES
@@ -64,10 +76,10 @@ OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 CC = gcc
 
 # COMPILATION FLAGS
-CFLAGS = -Wall -Wextra -Werror -I$(INCL_DIR) -Imlx_linux -I$(LIBFT_DIR) -g
+CFLAGS = -Wall -Wextra -Werror -I$(INCL_DIR) -I$(MLX_DIR) -I$(LIBFT_DIR) -g
 
 # LINKER FLAGS
-LDFLAGS = -Lmlx_linux -lmlx -L/usr/lib -lXext -lX11 -lm -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx
+LDFLAGS = -L$(MLX_DIR) -lmlx -L/usr/lib -lXext -lX11 -lm -L$(LIBFT_DIR) -lft
 
 # COMMANDS
 RM = rm -f
@@ -76,6 +88,9 @@ MKDIR = mkdir -p
 # LIBRARIES
 LIBFT = $(LIBFT_DIR)/libft.a
 MLX = $(MLX_DIR)/libmlx.a
+
+# MLX
+MLX_LIB = $(MLX_DIR)/libmlx.a
 
 # RULES
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
@@ -87,13 +102,13 @@ all : $(NAME)
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR)
 
-$(MLX):
-	@if [ ! -f $(MLX) ]; then \
-		echo "Installing libmlx.a..."; \
-		$(MAKE) -C $(MLX_DIR); \
+$(MLX_LIB):
+	@if [ ! -f $(MLX_LIB) ]; then \
+		echo "Installing libmlx..."; \
+		cd $(MLX_DIR) && ./configure && make; \
 	fi
 
-$(NAME) : $(LIBFT) $(MLX) $(OBJS)
+$(NAME) : $(LIBFT) $(MLX_LIB) $(OBJS)
 	@$(CC) $(OBJS) $(LDFLAGS) -o $(NAME)
 	@echo "$(GREEN)./$(NAME) is ready!$(RESET)"
 

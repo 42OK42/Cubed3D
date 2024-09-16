@@ -6,45 +6,48 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:04:27 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/25 18:10:35 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/11 19:37:13 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cubed3D.h"
 
-void	draw_3d_view(t_data *data)
+void	correct_for_fisheye(t_data *data)
 {
 	int		ray_id;
-	int		wall_height;
-	int		screen_x;
-	long double	corrected_distance;
-	int		prev_screen_x;
 
-	draw_background(data);
 	ray_id = 0;
 	while (ray_id < data->settings->num_rays)
 	{
-		corrected_distance = fix_fish_eye(data, ray_id);
-		if(ray_id < 8)
-			printf("corrected distance:%f\n", (double)corrected_distance);
-		wall_height = (int)((data->settings->tile_size / corrected_distance) \
+		data->rays[ray_id]->corrected_length = fix_fish_eye(data, ray_id);
+		ray_id++;
+	}
+}
+
+void	draw_3d_view(t_data *data)
+{
+	int			ray_id;
+	double		wall_height;
+	int			screen_x;
+
+	draw_background(data);
+	correct_for_fisheye(data);
+	ray_id = 0;
+	while (ray_id < data->settings->num_rays)
+	{
+		wall_height = (double)((data->settings->tile_size \
+			/ data->rays[ray_id]->corrected_length) \
 			* data->settings->dist_to_proj_plane);
 		screen_x = (data->settings->window_width * ray_id) / \
 			data->settings->num_rays;
 		data->temp->screen_x = screen_x;
 		draw_wall_slice(data, screen_x, wall_height, ray_id);
-		if (ray_id > 0)
-		{
-			prev_screen_x = (data->settings->window_width * (ray_id - \
-				1)) / data->settings->num_rays;
-			fill_wall_between_rays(data, prev_screen_x, wall_height, ray_id);
-		}
 		ray_id++;
 	}
 }
 
 void	fill_wall_between_rays(t_data *data, int prev_screen_x, \
-	int wall_height, int ray_id)
+	double wall_height, int ray_id)
 {
 	int	sign_x;
 
@@ -59,13 +62,13 @@ void	fill_wall_between_rays(t_data *data, int prev_screen_x, \
 	}
 }
 
-void	draw_wall_slice(t_data *data, int x, int wall_height, int ray_id)
+void	draw_wall_slice(t_data *data, int x, double wall_height, int ray_id)
 {
-	int	start_y;
-	int	end_y;
-	int	y;
-	int	visible_start_y;
-	int	visible_end_y;
+	double	start_y;
+	double	end_y;
+	int		y;
+	double	visible_start_y;
+	double	visible_end_y;
 
 	start_y = (data->settings->window_height / 2) - (wall_height / 2);
 	end_y = (data->settings->window_height / 2) + (wall_height / 2);
@@ -77,7 +80,7 @@ void	draw_wall_slice(t_data *data, int x, int wall_height, int ray_id)
 		visible_end_y = data->settings->window_height - 1;
 	update_color_row(data, ray_id, start_y, end_y);
 	y = visible_start_y;
-	while (y <= visible_end_y)
+	while (y <= visible_end_y && data->temp->exited != 1)
 	{
 		*(unsigned int *)(data->mlx->data_addr + (y * \
 			data->mlx->size_line + x * (data->mlx->bits_per_pixel / \
@@ -91,7 +94,7 @@ void	update_color_row(t_data *data, int ray_id, int start_y, int end_y)
 	int		**right_image;
 	int		image_x;
 	int		image_y;
-	int		wall_height;
+	double	wall_height;
 	int		i;
 
 	wall_height = end_y - start_y;
@@ -113,14 +116,4 @@ void	update_color_row(t_data *data, int ray_id, int start_y, int end_y)
 		data->temp->image_pos += data->temp->step;
 		i++;
 	}
-}
-
-int	calculate_image_x(t_data *data, int ray_id, int image_width)
-{
-	if ((int)data->rays[ray_id]->hit_x % data->settings->tile_size == 0)
-		return (((int)data->rays[ray_id]->hit_y % data->settings->tile_size) \
-			* image_width / data->settings->tile_size);
-	else
-		return (((int)data->rays[ray_id]->hit_x % data->settings->tile_size) \
-			* image_width / data->settings->tile_size);
 }

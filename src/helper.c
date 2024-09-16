@@ -32,7 +32,7 @@ void	print_colors(char ***colors, int num_colors)
 	i = 0;
 	while (i < num_colors)
 	{
-		printf("Character: %s, Color Code: %s\n", colors[i][0], colors[i][1]);
+		ft_printf("Character: %s, Color Code: %s\n", colors[i][0], colors[i][1]);
 		i++;
 	}
 }

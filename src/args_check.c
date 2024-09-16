@@ -12,12 +12,12 @@
 
 #include "../incl/cubed3D.h"
 
-void	extension_check(char *str) //checks the string starting from the right to make sure it matches the extension
+void	extension_check(char *str, t_data *data)
 {
-	int	strlen;
-	int	extlen;
-	int	i;
-	char *extension;
+	int		strlen;
+	int		extlen;
+	int		i;
+	char	*extension;
 
 	extension = ".cub";
 	i = 1;
@@ -32,15 +32,14 @@ void	extension_check(char *str) //checks the string starting from the right to m
 			i++;
 		}
 		else
-			error_exit("wrong extension");
+			error_exit("wrong extension", data);
 	}
 }
 
-int		args_check(int argc, char **argv)
+int	args_check(int argc, char **argv, t_data *data)
 {
 	if (argc != 2)
-		error_exit("Wrong number of arguments");
-	extension_check(argv[1]);
+		error_exit("Wrong number of arguments", data);
+	extension_check(argv[1], data);
 	return (0);
 }
-
