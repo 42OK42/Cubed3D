@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 17:54:21 by okrahl            #+#    #+#             */
-/*   Updated: 2024/07/25 18:09:32 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/09/17 18:38:09 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,22 @@ void	calculate_new_position(t_data *data, char direction, \
 		*new_x = data->player->player_position[0][0] - \
 			(move_step * cos(angle_rad));
 		*new_y = data->player->player_position[0][1] - \
+			(move_step * sin(angle_rad));
+	}
+	else if (direction == 'l')
+	{
+		angle_rad = (data->player->player_direction) * M_PI / 180.0;
+		*new_x = data->player->player_position[0][0] - \
+			(move_step * cos(angle_rad));
+		*new_y = data->player->player_position[0][1] - \
+			(move_step * sin(angle_rad));
+	}
+	else if (direction == 'r')
+	{
+		angle_rad = (data->player->player_direction) * M_PI / 180.0;
+		*new_x = data->player->player_position[0][0] + \
+			(move_step * cos(angle_rad));
+		*new_y = data->player->player_position[0][1] + \
 			(move_step * sin(angle_rad));
 	}
 	else
