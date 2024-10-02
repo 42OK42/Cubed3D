@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:16:50 by okrahl            #+#    #+#             */
-/*   Updated: 2024/09/17 18:57:19 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/10/02 13:24:03 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,13 @@ int	on_press(int keycode, t_data *data)
 		keycode == 65363 || keycode == 65362 || keycode == 65364 ||
 		keycode == 113 || keycode == 101))
 	{
-		if (keycode == 113)
+		if (keycode == 65361)
 			update_player_direction(data, 'l');
-		else if (keycode == 101)
+		else if (keycode == 65363)
 			update_player_direction(data, 'r');
-		if (keycode == 0 || keycode == 97 || keycode == 65361)
+		if (keycode == 0 || keycode == 97)
 			update_player_position(data, 'l');
-		else if (keycode == 2 || keycode == 100 || keycode == 65363)
+		else if (keycode == 2 || keycode == 100)
 			update_player_position(data, 'r');
 		else if (keycode == 1 || keycode == 115 || keycode == 65364)
 			update_player_position(data, 'd');
