@@ -19,28 +19,26 @@ Installation
 
 To install Cub3D, follow these steps:
 
-    Clone the repository:
+Clone the repository:
 
 
 bash
 
-git clone git@github.com:42OK42/Cubed3D.git
+    git clone git@github.com:42OK42/Cubed3D.git
 
-
-    Navigate to the project directory:
-
-
-bash
-
-cd Cub3D
-
-
-    Build the project using make:
+Navigate to the project directory:
 
 
 bash
 
-make
+    cd Cub3D
+
+Build the project using make:
+
+
+bash
+
+    make
 
 
 Getting Started
@@ -49,7 +47,7 @@ To start playing Cub3D, execute the program with a map file (ending in .cub):
 
 bash
 
-./cub3d path/to/your/map.cub
+    ./cub3d path/to/your/map.cub
 
 
 Explore the levels, defeat enemies, and discover hidden secrets in the 3D world.
