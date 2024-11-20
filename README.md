@@ -36,7 +36,7 @@ We have exceeded the basic requirements by incorporating a dynamic minimap for b
 
 Clone the repository:
 ```bash
-git clone https://github.com/Roibos22/cub3d.git
+git clone git@github.com:42OK42/Cubed3D.git
 ```
 
 Navigate to the project directory:
